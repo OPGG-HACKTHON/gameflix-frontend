@@ -1,4 +1,4 @@
-name: Build to Production
+  name: Build to Production
 
   on:
     pull_request:
