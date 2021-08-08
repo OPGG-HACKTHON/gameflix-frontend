@@ -2,7 +2,7 @@ name: CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 env:
   DOCKER_IMAGE: ghcr.io/opgg-hackthon/gameflix_frontend
   VERSION: ${{ github.sha }}
