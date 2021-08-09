@@ -15,7 +15,6 @@ const getRequest = <T>(url: string) => {
 const deleteRequest = (url: string) => {
     try {
         const response = axios.delete(`${END_POINT}/${url}`);
-        console.log(response);
         return response;
     } catch (e) {
         console.error(e);
