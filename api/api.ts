@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { GameInfo, UserInfo, UserGames } from 'types/responseInterface';
 
 const END_POINT = 'http://localhost:8080';
@@ -16,7 +16,7 @@ const deleteRequest = (url: string) => {
     try {
         const response = axios.delete(`${END_POINT}/${url}`);
         console.log(response);
-        // return response;
+        return response;
     } catch (e) {
         console.error(e);
     }
@@ -25,7 +25,6 @@ const deleteRequest = (url: string) => {
 const postRequest = <T>(url: string, body: any) => {
     try {
         const response = axios.post<T>(`${END_POINT}/${url}`, body);
-        console.log(response);
         return response;
     } catch (e) {
         console.error(e);
@@ -56,11 +55,14 @@ export const userAPI = {
         return postResponse;
     },
 
-    deleteUser: async (userId: string): Promise<void> => {
-        await deleteRequest(`/users/${userId}`);
+    deleteUser: async (userId: string): Promise<AxiosResponse<any> | undefined> => {
+        return await deleteRequest(`/users/${userId}`);
     },
 
-    deleteUserGame: async (userId: string, slug: string): Promise<void> => {
-        await deleteRequest(`/users/${userId}/games/${slug}`);
+    deleteUserGame: async (
+        userId: string,
+        slug: string
+    ): Promise<AxiosResponse<any> | undefined> => {
+        return await deleteRequest(`/users/${userId}/games/${slug}`);
     },
 };
