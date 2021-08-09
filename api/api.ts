@@ -1,22 +1,20 @@
 import axios from 'axios';
-import { GameSlug, UserInfo, UserGames } from 'types/responseInterface';
+import { GameInfo, UserInfo, UserGames } from 'types/responseInterface';
 
 const END_POINT = 'http://localhost:8080';
 
-const getRequest = async <T>(url: string): Promise<T | void> => {
+const getRequest = <T>(url: string) => {
     try {
-        const response = (await axios.get(url)) as T;
-        console.log(response);
-        return response;
+        return axios.get<T>(`${END_POINT}/${url}`);
     } catch (e) {
-        console.error(e.response);
-        // return e.response;
+        console.error(e);
+        return e;
     }
 };
 
-const deleteRequest = async (url: string): Promise<void> => {
+const deleteRequest = (url: string) => {
     try {
-        const response = await axios.delete(url);
+        const response = axios.delete(`${END_POINT}/${url}`);
         console.log(response);
         // return response;
     } catch (e) {
@@ -24,9 +22,9 @@ const deleteRequest = async (url: string): Promise<void> => {
     }
 };
 
-const postRequest = async <T>(url: string, body: any): Promise<T> => {
+const postRequest = <T>(url: string, body: any) => {
     try {
-        const response = (await axios.post(url, body)) as T;
+        const response = axios.post<T>(`${END_POINT}/${url}`, body);
         console.log(response);
         return response;
     } catch (e) {
@@ -37,34 +35,32 @@ const postRequest = async <T>(url: string, body: any): Promise<T> => {
 
 export const userAPI = {
     getUserInfo: async (userId: string): Promise<UserInfo> => {
-        const userInfo = (await getRequest<UserInfo>(`${END_POINT}/users/${userId}`)) as UserInfo;
+        const userInfo = await getRequest<UserInfo>(`/users/${userId}`);
         return userInfo;
     },
 
     getUserGamesList: async (userId: string): Promise<UserGames> => {
-        const userGamesList = (await getRequest<UserGames>(
-            `${END_POINT}/users/${userId}/games`
-        )) as UserGames;
+        const userGamesList = (await getRequest<UserGames>(`/users/${userId}/games`)) as UserGames;
         return userGamesList;
     },
 
-    getUserGameSlug: async (userId: string, slug: string): Promise<GameSlug> => {
-        const userGameSlug = (await getRequest<GameSlug>(
-            `${END_POINT}/users/${userId}/games/${slug}`
-        )) as GameSlug;
+    getUserGameSlug: async (userId: string, slug: string): Promise<GameInfo> => {
+        const userGameSlug = (await getRequest<GameInfo>(
+            `/users/${userId}/games/${slug}`
+        )) as GameInfo;
         return userGameSlug;
     },
 
-    postUserGame: async (userId: string, gameObj: { name: string }): Promise<GameSlug> => {
-        const postResponse = await postRequest<GameSlug>(`${END_POINT}/users/${userId}`, gameObj);
+    postUserGame: async (userId: string, gameObj: { name: string }): Promise<GameInfo> => {
+        const postResponse = await postRequest<GameInfo>(`/users/${userId}`, gameObj);
         return postResponse;
     },
 
     deleteUser: async (userId: string): Promise<void> => {
-        await deleteRequest(`${END_POINT}/users/${userId}`);
+        await deleteRequest(`/users/${userId}`);
     },
 
     deleteUserGame: async (userId: string, slug: string): Promise<void> => {
-        await deleteRequest(`${END_POINT}/users/${userId}/games/${slug}`);
+        await deleteRequest(`/users/${userId}/games/${slug}`);
     },
 };

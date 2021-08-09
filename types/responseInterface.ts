@@ -1,4 +1,4 @@
-export interface GameSlug {
+export interface GameInfo {
     slug: string;
     name: string;
     released_at: number;
@@ -13,9 +13,9 @@ export interface GameSlug {
 
 export interface UserInfo {
     email: string;
-    games: GameSlug[];
+    games: GameInfo[];
 }
 
 export interface UserGames {
-    games: GameSlug[];
+    games: GameInfo[];
 }
