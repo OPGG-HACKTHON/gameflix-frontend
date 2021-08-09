@@ -51,5 +51,5 @@ jobs:
           password: ${{ secrets.CR_PAT }}
       - name: Docker run
         run: |
-          docker ps -q --filter "name=gameflix_frontend" | grep -q . && docker stop vonsta && docker rm -fv gameflix_frontend
+          docker ps -q --filter "name=gameflix_frontend" | grep -q . && docker stop gameflix_frontend && docker rm -fv gameflix_frontend
           docker run -itd -v /var/log:/var/log -p 3000:3000 --name gameflix_frontend --restart always ${{ env.DOCKER_IMAGE }}:${{ env.VERSION }}
