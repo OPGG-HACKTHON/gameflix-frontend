@@ -4,7 +4,7 @@ on:
   push:
     branches: [ master ]
 env:
-  DOCKER_IMAGE: ghcr.io/opgg-hackthon/gameflix_frontend
+  DOCKER_IMAGE: ghcr.io/opgg-hackthon/gameflix-frontend
   VERSION: ${{ github.sha }}
 
 jobs:
@@ -51,5 +51,5 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Docker run
         run: |
-          docker ps -q --filter "name=gameflix_frontend" | grep -q . && docker stop gameflix_frontend && docker rm -fv gameflix_frontend
-          docker run -itd -v /var/log:/var/log -p 3000:3000 --name gameflix_frontend --restart always ${{ env.DOCKER_IMAGE }}:${{ env.VERSION }}
+          docker ps -q --filter "name=gameflix-frontend" | grep -q . && docker stop gameflix-frontend && docker rm -fv gameflix-frontend
+          docker run -itd -v /var/log:/var/log -p 3000:3000 --name gameflix-frontend --restart always ${{ env.DOCKER_IMAGE }}:${{ env.VERSION }}
