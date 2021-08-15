@@ -1,3 +1,5 @@
+const TsconfigPathsPlugin  = require('tsconfig-paths-webpack-plugin')
+
 module.exports = {
     'stories': [
         '../**/*.stories.@(js|jsx|ts|tsx)',
@@ -9,4 +11,8 @@ module.exports = {
         '@storybook/addon-essentials',
         'storybook-dark-mode/register',
     ],
+    webpackFinal: async (config) => {
+        config.resolve.plugins.push(new TsconfigPathsPlugin({}));
+        return config;
+    },
 };
