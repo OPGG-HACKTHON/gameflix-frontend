@@ -3,11 +3,12 @@ import styled from '@emotion/styled';
 
 type ButtonProps = {
     children: React.ReactNode;
+    onClick: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 const Button: FunctionComponent<ButtonProps> = (props) => {
-    const { children } = props;
-    return <StyledButton>{children}</StyledButton>;
+    const { children, onClick } = props;
+    return <StyledButton onClick={onClick}>{children}</StyledButton>;
 };
 
 export default Button;
