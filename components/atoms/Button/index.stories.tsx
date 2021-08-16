@@ -2,17 +2,11 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import Button from '../Button';
+import { useTheme } from '@emotion/react';
 
 export default {
     title: 'atoms/Button',
     component: Button,
-    decorators: [
-        (Story) => (
-            <div style={{ background: '#0c0c0c', padding: '3rem' }}>
-                <Story />
-            </div>
-        ),
-    ],
 } as ComponentMeta<typeof Button>;
 
 const Template: ComponentStory<typeof Button> = (args) => (

@@ -1,3 +1,7 @@
+import {useDarkMode} from 'storybook-dark-mode';
+import { ThemeProvider } from 'emotion-theming';
+import {dark, light} from '../themes';
+
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {
@@ -7,3 +11,10 @@ export const parameters = {
     },
   },
 }
+
+export const decorators = [
+  (Story) => {
+    const theme = useDarkMode()?dark: light;
+    return <ThemeProvider theme={theme}><Story /></ThemeProvider>
+  }
+]
