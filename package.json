@@ -10,7 +10,8 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook -s public",
+    "deploy-storybook": "storybook-to-ghpages"
   },
   "repository": {
     "type": "git",
@@ -41,6 +42,7 @@
     "@storybook/addon-essentials": "^6.3.7",
     "@storybook/addon-links": "^6.3.7",
     "@storybook/react": "^6.3.7",
+    "@storybook/storybook-deployer": "^2.8.10",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
     "babel-loader": "^8.2.2",
@@ -51,8 +53,8 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
     "prettier": "^2.3.2",
-    "tsconfig-paths-webpack-plugin": "^3.5.1",
     "storybook-dark-mode": "^1.0.8",
+    "tsconfig-paths-webpack-plugin": "^3.5.1",
     "typescript": "^4.3.5"
   }
 }
