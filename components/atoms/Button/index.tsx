@@ -15,7 +15,7 @@ export default Button;
 
 const StyledButton = styled.button`
     text-align: center;
-    background: ${({ theme }) => theme.bgColors.primary};
+    background: ${({ theme }) => theme.buttonColors.primary};
     border-width: 1px;
     border-style: solid;
     border-color: ${({ theme }) => theme.borderColors.primary};
