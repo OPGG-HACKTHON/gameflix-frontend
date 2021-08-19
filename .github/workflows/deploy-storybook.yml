@@ -26,3 +26,4 @@ jobs:
         
       - name: deploy-storybook
         run: yarn deploy-storybook
+        env: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
