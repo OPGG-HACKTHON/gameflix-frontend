@@ -19,13 +19,6 @@ export default {
         list,
         onClick: (id: string) => action(`clicked-${id}`),
     },
-    decorators: [
-        (Story) => (
-            <div style={{ background: '#0c0c0c', padding: '3rem' }}>
-                <Story />
-            </div>
-        ),
-    ],
 } as ComponentMeta<typeof ImageSlider>;
 
 const Template: ComponentStory<typeof ImageSlider> = (args) => <ImageSlider {...args} />;
