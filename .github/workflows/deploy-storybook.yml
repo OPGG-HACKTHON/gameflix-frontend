@@ -29,4 +29,5 @@ jobs:
 
       - name: deploy-storybook
         run: yarn deploy-storybook -- --ci --source-branch=develop
-        env: OPGG-HACKTHON:${{ secrets.GITHUB_TOKEN }}
+        env:
+          GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
