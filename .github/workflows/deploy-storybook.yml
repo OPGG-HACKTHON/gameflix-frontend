@@ -25,5 +25,5 @@ jobs:
         run: yarn install
         
       - name: deploy-storybook
-        run: yarn deploy-storybook --ci
+        run: yarn deploy-storybook -- --ci --source-branch=develop
         env: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
