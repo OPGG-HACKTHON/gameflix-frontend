@@ -1,8 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import Button from '../Button';
-import { useTheme } from '@emotion/react';
+import Button from './';
 
 export default {
     title: 'atoms/Button',
