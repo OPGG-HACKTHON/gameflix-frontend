@@ -23,7 +23,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Yarn install
         run: yarn install
-        
+
+      - name: build-storybook
+        run: yarn build-storybook
+
       - name: deploy-storybook
         run: yarn deploy-storybook -- --ci --source-branch=develop
         env: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
