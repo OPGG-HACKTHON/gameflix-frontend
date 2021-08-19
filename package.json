@@ -10,7 +10,7 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook -s public",
+    "build-storybook": "build-storybook",
     "deploy-storybook": "storybook-to-ghpages"
   },
   "repository": {
