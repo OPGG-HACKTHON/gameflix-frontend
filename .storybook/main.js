@@ -12,6 +12,10 @@ module.exports = {
         'storybook-dark-mode/register',
     ],
     webpackFinal: async (config) => {
+        config.module.rules.unshift({
+            test: /\.svg$/,
+            use: ['@svgr/webpack'],
+        });
         config.resolve.plugins.push(new TsconfigPathsPlugin({}));
         return config;
     },
