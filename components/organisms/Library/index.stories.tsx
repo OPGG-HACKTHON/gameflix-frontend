@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import ImageSlider from '../ImageSlider';
+import Library from '../Library';
 
 const list = [
     {
@@ -103,20 +103,21 @@ const list = [
 ];
 
 export default {
-    title: 'molecules/ImageSlider',
-    component: ImageSlider,
-    args: {
-        list,
-    },
-} as ComponentMeta<typeof ImageSlider>;
+    title: 'organisms/Library',
+    component: Library,
+} as ComponentMeta<typeof Library>;
 
-const Template: ComponentStory<typeof ImageSlider> = (args) => <ImageSlider {...args} />;
+const Template: ComponentStory<typeof Library> = (args) => <Library {...args} />;
 
 export const LotsOfImages = Template.bind({});
-LotsOfImages.args = {};
+LotsOfImages.args = {
+    label: 'STEAM',
+    list,
+};
 
 export const OneImage = Template.bind({});
 OneImage.args = {
+    label: 'STEAM',
     list: [
         {
             slug: 'league-of-legend',
@@ -132,6 +133,3 @@ OneImage.args = {
         },
     ],
 };
-
-export const EmptyList = Template.bind({});
-EmptyList.args = { list: [] };

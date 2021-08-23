@@ -1,9 +1,20 @@
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import React, { FunctionComponent } from 'react';
+import Library from 'components/organisms/Library';
 
-import ImageSlider from '../ImageSlider';
+const Libraries: FunctionComponent = () => {
+    return (
+        <>
+            <Library label={'STEAM'} list={MOCK_STEAM} />
+            <Library label={'Epic Games Store'} list={MOCK_EPIC} />
+            <Library label={'battle.net '} list={MOCK_BATTLENET} />
+            <Library label={'기타'} list={[]} />
+        </>
+    );
+};
 
-const list = [
+export default Libraries;
+
+const MOCK_STEAM = [
     {
         slug: 'league-of-legend',
         name: 'League of Legend',
@@ -102,36 +113,44 @@ const list = [
     },
 ];
 
-export default {
-    title: 'molecules/ImageSlider',
-    component: ImageSlider,
-    args: {
-        list,
+const MOCK_EPIC = [
+    {
+        slug: 'Grand Theft Auto: San Andreas',
+        name: 'Grand Theft Auto: San Andreas',
+        release_at: 1256605200,
+        updated_at: 1626713554,
+        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co2lb9.jpg',
+        url: 'string',
+        genres: ['moba'],
+        rating_external: 80.35918701514501,
+        rating_external_count: 501,
+        platforms: ['win', 'mac'],
     },
-} as ComponentMeta<typeof ImageSlider>;
+];
 
-const Template: ComponentStory<typeof ImageSlider> = (args) => <ImageSlider {...args} />;
-
-export const LotsOfImages = Template.bind({});
-LotsOfImages.args = {};
-
-export const OneImage = Template.bind({});
-OneImage.args = {
-    list: [
-        {
-            slug: 'league-of-legend',
-            name: 'League of Legend',
-            release_at: 1256605200,
-            updated_at: 1626713554,
-            cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co254s.jpg',
-            url: 'string',
-            genres: ['moba'],
-            rating_external: 80.35918701514501,
-            rating_external_count: 501,
-            platforms: ['win', 'mac'],
-        },
-    ],
-};
-
-export const EmptyList = Template.bind({});
-EmptyList.args = { list: [] };
+const MOCK_BATTLENET = [
+    {
+        slug: 'StarCraft',
+        name: 'StarCraft',
+        release_at: 1256605200,
+        updated_at: 1626713554,
+        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1x7n.jpg',
+        url: 'string',
+        genres: ['moba'],
+        rating_external: 80.35918701514501,
+        rating_external_count: 501,
+        platforms: ['win', 'mac'],
+    },
+    {
+        slug: 'Diablo III',
+        name: 'Diablo III',
+        release_at: 1256605200,
+        updated_at: 1626713554,
+        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co3gbk.jpg',
+        url: 'string',
+        genres: ['moba'],
+        rating_external: 80.35918701514501,
+        rating_external_count: 501,
+        platforms: ['win', 'mac'],
+    },
+];
