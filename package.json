@@ -35,7 +35,8 @@
     "next-images": "^1.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-google-login": "^5.2.2"
+    "react-google-login": "^5.2.2",
+    "react-modal": "^3.14.3"
   },
   "devDependencies": {
     "@babel/core": "^7.14.8",
@@ -45,6 +46,7 @@
     "@storybook/react": "^6.3.7",
     "@storybook/storybook-deployer": "^2.8.10",
     "@svgr/webpack": "^5.5.0",
+    "@types/react-modal": "^3.12.1",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
     "babel-loader": "^8.2.2",
