@@ -14,12 +14,28 @@ type ModalProps = {
 const Modal: FunctionComponent<ModalProps> = (props) => {
     const { children, isOpen, contentType, onClose } = props;
     return (
-        <ModalWrapper isOpen={isOpen} onRequestClose={onClose} closeTimeoutMS={2000}>
-            <Button onClick={onClose}>닫기</Button>
-            <Content className={contentType}>{children}</Content>
-        </ModalWrapper>
+        <StyledModalOverlay>
+            <ModalWrapper isOpen={isOpen} onRequestClose={onClose} closeTimeoutMS={2000}>
+                <Button onClick={onClose}>닫기</Button>
+                <Content className={contentType}>{children}</Content>
+            </ModalWrapper>
+        </StyledModalOverlay>
     );
 };
+
+ReactModal.setAppElement('#modal-root');
+
+const StyledModalOverlay = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.5);
+`;
 
 const ModalWrapper = styled(ReactModal)`
     position: absolute;
