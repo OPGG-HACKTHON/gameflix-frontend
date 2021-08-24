@@ -1,22 +1,24 @@
 import React, { FunctionComponent } from 'react';
 import styled from '@emotion/styled';
 
-type LoginProps = {
+type HomeProps = {
+    header?: React.ReactNode;
     children?: React.ReactNode;
     footer?: React.ReactNode;
 };
 
-const Login: FunctionComponent<LoginProps> = (props) => {
-    const { children, footer } = props;
+const Home: FunctionComponent<HomeProps> = (props) => {
+    const { header, children, footer } = props;
     return (
         <StyledWrapper>
+            {header && <>{header}</>}
             <StyledContent>{children}</StyledContent>
-            {footer && <StyledFooter>{footer}</StyledFooter>}
+            {footer && <>{footer}</>}
         </StyledWrapper>
     );
 };
 
-export default Login;
+export default Home;
 
 const StyledWrapper = styled.div`
     display: flex;
@@ -27,10 +29,6 @@ const StyledWrapper = styled.div`
     width: 100%;
 `;
 
-const StyledContent = styled.main``;
-
-const StyledFooter = styled.footer`
-    position: absolute;
-    bottom: 50px;
-    color: ${({ theme }) => theme.colors.default};
+const StyledContent = styled.main`
+    flex: 1;
 `;
