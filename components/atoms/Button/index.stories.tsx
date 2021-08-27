@@ -14,12 +14,12 @@ const Template: ComponentStory<typeof Button> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-    buttonType: 'primary',
+    category: 'primary',
     children: '가져오기',
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-    buttonType: 'secondary',
+    category: 'secondary',
     children: '로그아웃',
 };

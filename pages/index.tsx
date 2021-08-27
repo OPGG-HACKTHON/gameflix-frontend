@@ -15,7 +15,7 @@ function Home(): React.ReactNode {
         <div>
             <Paragraph>Home page</Paragraph>
             <GoogleLogin clientId={clientId} onSuccess={onSuccess} onFailure={onFailure} />
-            <Button buttonType="secondary">test</Button>
+            <Button category="secondary">test</Button>
         </div>
     );
 }
