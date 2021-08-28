@@ -13,7 +13,7 @@ const Header: FunctionComponent = () => {
                 </Link>
             </StyledHeader>
             {/*Todo 로그아웃 기능 구현*/}
-            <Button>로그아웃</Button>
+            <Button category="secondary">로그아웃</Button>
         </StyledWrapper>
     );
 };

@@ -16,7 +16,9 @@ const Modal: FunctionComponent<ModalProps> = (props) => {
     return (
         <StyledModalOverlay>
             <ModalWrapper isOpen={isOpen} onRequestClose={onClose} closeTimeoutMS={2000}>
-                <Button onClick={onClose}>닫기</Button>
+                <Button category="secondary" onClick={onClose}>
+                    닫기
+                </Button>
                 <Content className={contentType}>{children}</Content>
             </ModalWrapper>
         </StyledModalOverlay>
@@ -41,8 +43,8 @@ const ModalWrapper = styled(ReactModal)`
     position: absolute;
     display: flex;
     flex-direction: column;
-    background-color: ${({ theme }) => theme.buttonColors.primary};
-    color: ${({ theme }) => theme.colors.primary};
+    background-color: ${({ theme }) => theme.buttonColors.secondary};
+    color: ${({ theme }) => theme.colors.secondary};
     margin: 80px 460px;
     width: 1000px;
     min-height: 80px;
