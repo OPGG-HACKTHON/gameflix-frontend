@@ -15,6 +15,8 @@ const list = [
         rating_external: 80.35918701514501,
         rating_external_count: 501,
         platforms: ['win', 'mac'],
+        summary: 'test',
+        involved_companies: ['test'],
     },
     {
         slug: 'factorio',
@@ -27,6 +29,8 @@ const list = [
         rating_external: 80.35918701514501,
         rating_external_count: 501,
         platforms: ['win', 'mac'],
+        summary: 'test',
+        involved_companies: ['test'],
     },
     {
         slug: 'RimWorld',
@@ -39,6 +43,8 @@ const list = [
         rating_external: 80.35918701514501,
         rating_external_count: 501,
         platforms: ['win', 'mac'],
+        summary: 'test',
+        involved_companies: ['test'],
     },
     {
         slug: 'PUBG: BATTLEGROUNDS',
@@ -51,6 +57,8 @@ const list = [
         rating_external: 80.35918701514501,
         rating_external_count: 501,
         platforms: ['win', 'mac'],
+        summary: 'test',
+        involved_companies: ['test'],
     },
     {
         slug: 'Oxygen Not Included',
@@ -63,6 +71,8 @@ const list = [
         rating_external: 80.35918701514501,
         rating_external_count: 501,
         platforms: ['win', 'mac'],
+        summary: 'test',
+        involved_companies: ['test'],
     },
     {
         slug: "Sid Meier's Civilization VI",
@@ -75,6 +85,8 @@ const list = [
         rating_external: 80.35918701514501,
         rating_external_count: 501,
         platforms: ['win', 'mac'],
+        summary: 'test',
+        involved_companies: ['test'],
     },
     {
         slug: 'StarCraft',
@@ -87,6 +99,8 @@ const list = [
         rating_external: 80.35918701514501,
         rating_external_count: 501,
         platforms: ['win', 'mac'],
+        summary: 'test',
+        involved_companies: ['test'],
     },
     {
         slug: 'Diablo III',
@@ -99,6 +113,8 @@ const list = [
         rating_external: 80.35918701514501,
         rating_external_count: 501,
         platforms: ['win', 'mac'],
+        summary: 'test',
+        involved_companies: ['test'],
     },
 ];
 
@@ -129,6 +145,8 @@ OneImage.args = {
             rating_external: 80.35918701514501,
             rating_external_count: 501,
             platforms: ['win', 'mac'],
+            summary: 'test',
+            involved_companies: ['test'],
         },
     ],
 };

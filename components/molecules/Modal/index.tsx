@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useCallback } from 'react';
 import ReactModal from 'react-modal';
 import styled from '@emotion/styled';
 
@@ -14,8 +14,8 @@ const Modal: FunctionComponent<ModalProps> = (props) => {
     const { children, isOpen, onClose } = props;
     return (
         <StyledModalOverlay>
-            <ModalWrapper isOpen={isOpen} onRequestClose={onClose} closeTimeoutMS={2000}>
-                <Button category="secondary" onClick={onClose}>
+            <ModalWrapper isOpen={isOpen} onRequestClose={handleClose} closeTimeoutMS={2000}>
+                <Button category="secondary" onClick={handleClose}>
                     닫기
                 </Button>
                 <Content>{children}</Content>
