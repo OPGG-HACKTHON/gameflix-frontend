@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Search from './index';
 
 export default {
-    title: 'organisms/Search',
+    title: 'Molecules/Search',
     component: Search,
 } as ComponentMeta<typeof Search>;
 

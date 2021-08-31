@@ -3,15 +3,14 @@ import Button from 'components/atoms/Button';
 import styled from '@emotion/styled';
 
 type SearchProps = {
-    onChange: React.ChangeEventHandler<HTMLInputElement>;
     onClick: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 const Search: FunctionComponent<SearchProps> = (props) => {
-    const { onChange, onClick } = props;
+    const { onClick } = props;
     return (
         <SearchInputWrapper>
-            <StyledSearchInput onChange={onChange} placeholder="검색어를 입력하세요" />
+            <StyledSearchInput placeholder="검색어를 입력하세요" />
             <Button onClick={onClick} category="primary">
                 검색
             </Button>
@@ -38,9 +37,9 @@ const StyledSearchInput = styled.input`
     border: none;
     background: transparent;
     font-family: 'Noto Sans KR', sans-serif;
-    color: ${({ theme }) => theme.colors.searchInput};
+    color: ${({ theme }) => theme.components.searchInput};
     ::placeholder {
-        color: ${({ theme }) => theme.colors.searchInput};
+        color: ${({ theme }) => theme.components.searchInput};
     }
     :focus {
         outline: none;

@@ -10,7 +10,6 @@ declare module '@emotion/react' {
             secondary: string;
             secondaryHover: string;
             secondaryActive: string;
-            searchInput: string;
         };
         buttonColors: {
             primary: string;
@@ -31,6 +30,9 @@ declare module '@emotion/react' {
             secondary: string;
             secondaryHover: string;
             secondaryActive: string;
+        };
+        components: {
+            searchInput: string;
         };
     }
 }

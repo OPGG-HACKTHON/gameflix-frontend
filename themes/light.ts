@@ -9,7 +9,6 @@ const light: Theme = {
         secondary: '#000',
         secondaryHover: '#4030FA',
         secondaryActive: '#4030FA',
-        searchInput: '#000',
     },
     buttonColors: {
         primary: '#4030FA',
@@ -30,6 +29,9 @@ const light: Theme = {
         secondary: '#aaa',
         secondaryHover: '#4030FA',
         secondaryActive: '#4030FA',
+    },
+    components: {
+        searchInput: '#000',
     },
 };
 
