@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useCallback } from 'react';
 import ReactModal from 'react-modal';
 import styled from '@emotion/styled';
 
@@ -6,17 +6,23 @@ import Button from 'components/atoms/Button/index';
 
 type ModalProps = {
     children: React.ReactNode;
-    isOpen: boolean;
-    contentType: string;
-    onClose: React.MouseEventHandler<HTMLButtonElement>;
+    isOpen?: boolean;
+    contentType?: string;
+    onClose?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 const Modal: FunctionComponent<ModalProps> = (props) => {
-    const { children, isOpen, contentType, onClose } = props;
+    const { children, isOpen = false, contentType, onClose } = props;
+    const handleClose = useCallback<React.MouseEventHandler<HTMLButtonElement>>(
+        (e) => {
+            onClose?.(e);
+        },
+        [onClose]
+    );
     return (
         <StyledModalOverlay>
-            <ModalWrapper isOpen={isOpen} onRequestClose={onClose} closeTimeoutMS={2000}>
-                <Button category="secondary" onClick={onClose}>
+            <ModalWrapper isOpen={isOpen} onRequestClose={handleClose} closeTimeoutMS={2000}>
+                <Button category="secondary" onClick={handleClose}>
                     닫기
                 </Button>
                 <Content className={contentType}>{children}</Content>
