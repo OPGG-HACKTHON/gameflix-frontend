@@ -4,10 +4,23 @@ import Library from 'components/organisms/Library';
 const Libraries: FunctionComponent = () => {
     return (
         <>
-            <Library label={'STEAM'} list={MOCK_STEAM} />
-            <Library label={'Epic Games Store'} list={MOCK_EPIC} />
-            <Library label={'battle.net '} list={MOCK_BATTLENET} />
-            <Library label={'기타'} list={[]} />
+            <Library label={'STEAM'} list={MOCK_STEAM} onLoad={() => console.log('STEAM')} />
+            <Library
+                label={'Epic Games Store'}
+                list={MOCK_EPIC}
+                onLoad={() => console.log('Epic Games Store')}
+            />
+            <Library
+                label={'battle.net '}
+                list={MOCK_BATTLENET}
+                onLoad={() => console.log('battle.net')}
+            />
+            <Library
+                label={'기타'}
+                list={[]}
+                onLoad={() => console.log('기타')}
+                loadText="추가하기"
+            />
         </>
     );
 };
