@@ -20,6 +20,7 @@ const dark: Theme = {
     },
     bgColors: {
         primary: '#000',
+        switchToggle: 'rgba(128, 128, 128, 0.8)',
     },
     borderColors: {
         primary: '#000',

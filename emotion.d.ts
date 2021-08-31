@@ -21,6 +21,7 @@ declare module '@emotion/react' {
         };
         bgColors: {
             primary: string;
+            switchToggle: string;
         };
         borderColors: {
             primary: string;
