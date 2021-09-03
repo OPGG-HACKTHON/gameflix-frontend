@@ -27,7 +27,7 @@ const SearchInputWrapper = styled.div`
     justify-content: space-between;
     width: 920px;
     height: 64px;
-    border-radius: 10px;
+    border-radius: 18px;
     padding: 0px 10px;
     background-color: ${({ theme }) => theme.bgColors.inputField};
 `;
