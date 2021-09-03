@@ -22,9 +22,9 @@ const dark: Theme = {
         primary: '#000',
     },
     borderColors: {
-        primary: '#000',
-        primaryHover: '#000',
-        primaryActive: '#000',
+        primary: '#4030FA',
+        primaryHover: '#20177A',
+        primaryActive: '#413C7A',
         secondary: '#ccc',
         secondaryHover: '#4030FA',
         secondaryActive: '#4030FA',
