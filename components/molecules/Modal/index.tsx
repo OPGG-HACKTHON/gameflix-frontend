@@ -7,19 +7,18 @@ import Button from 'components/atoms/Button/index';
 type ModalProps = {
     children: React.ReactNode;
     isOpen: boolean;
-    contentType: string;
     onClose: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 const Modal: FunctionComponent<ModalProps> = (props) => {
-    const { children, isOpen, contentType, onClose } = props;
+    const { children, isOpen, onClose } = props;
     return (
         <StyledModalOverlay>
             <ModalWrapper isOpen={isOpen} onRequestClose={onClose} closeTimeoutMS={2000}>
                 <Button category="secondary" onClick={onClose}>
                     닫기
                 </Button>
-                <Content className={contentType}>{children}</Content>
+                <Content>{children}</Content>
             </ModalWrapper>
         </StyledModalOverlay>
     );
@@ -58,7 +57,7 @@ const ModalWrapper = styled(ReactModal)`
         opacity: 0;
     }
     > Button {
-        margin: 16px 20px 22px auto;
+        margin: 16px 16px 22px auto;
     }
 `;
 
@@ -67,7 +66,7 @@ const Content = styled.div`
     justify-contents: center;
     overflow: auto;
     margin-bottom: 1rem;
-    padding: ${(props) => (props.className === 'search' ? '0 40px' : '0 56px')};
+    padding: 0 56px;
 `;
 
 export default Modal;
