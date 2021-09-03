@@ -4,13 +4,14 @@ import styled from '@emotion/styled';
 
 type SearchProps = {
     onClick: React.MouseEventHandler<HTMLButtonElement>;
+    onChange?: React.ChangeEventHandler<HTMLInputElement>;
 };
 
 const Search: FunctionComponent<SearchProps> = (props) => {
-    const { onClick } = props;
+    const { onClick, onChange } = props;
     return (
         <SearchInputWrapper>
-            <StyledSearchInput placeholder="검색어를 입력하세요" />
+            <StyledSearchInput onChange={onChange} placeholder="검색어를 입력하세요" />
             <Button onClick={onClick} category="primary">
                 검색
             </Button>
