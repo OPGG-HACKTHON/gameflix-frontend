@@ -7,17 +7,21 @@ declare module '@emotion/react' {
             primary: string;
             primaryHover: string;
             primaryActive: string;
+            primaryDisabled: string;
             secondary: string;
             secondaryHover: string;
             secondaryActive: string;
+            secondaryDisabled: string;
         };
         buttonColors: {
             primary: string;
             primaryHover: string;
             primaryActive: string;
+            primaryDisabled: string;
             secondary: string;
             secondaryHover: string;
             secondaryActive: string;
+            secondaryDisabled: string;
         };
         bgColors: {
             primary: string;
@@ -26,9 +30,11 @@ declare module '@emotion/react' {
             primary: string;
             primaryHover: string;
             primaryActive: string;
+            primaryDisabled: string;
             secondary: string;
             secondaryHover: string;
             secondaryActive: string;
+            secondaryDisabled: string;
         };
     }
 }

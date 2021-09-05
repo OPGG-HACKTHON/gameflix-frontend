@@ -7,12 +7,18 @@ type ButtonProps = {
     category: ButtonTypes;
     children: React.ReactNode;
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
+    disabledState?: boolean;
 };
 
 const Button: FunctionComponent<ButtonProps> = (props) => {
-    const { category, children, onClick } = props;
+    const { category, children, onClick, disabledState = false } = props;
     return (
-        <StyledButton category={category} onClick={onClick}>
+        <StyledButton
+            disabled={disabledState}
+            disabledState={disabledState}
+            category={category}
+            onClick={onClick}
+        >
             {children}
         </StyledButton>
     );
@@ -20,26 +26,40 @@ const Button: FunctionComponent<ButtonProps> = (props) => {
 
 export default Button;
 
-const StyledButton = styled.button<{ category: string }>`
+const StyledButton = styled.button<{ category: string; disabledState: boolean }>`
     text-align: center;
     background: ${(props) =>
         props.category === 'primary'
-            ? props.theme.buttonColors.primary
+            ? props.disabledState
+                ? props.theme.buttonColors.primaryDisabled
+                : props.theme.buttonColors.primary
+            : props.disabledState
+            ? props.theme.buttonColors.secondaryDisabled
             : props.theme.buttonColors.secondary};
     border-width: 1px;
     border-style: solid;
     border-color: ${(props) =>
         props.category === 'primary'
-            ? props.theme.borderColors.primary
+            ? props.disabledState
+                ? props.theme.borderColors.primaryDisabled
+                : props.theme.borderColors.primary
+            : props.disabledState
+            ? props.theme.borderColors.secondaryDisabled
             : props.theme.borderColors.secondary};
     border-radius: 10px;
     color: ${(props) =>
-        props.category === 'primary' ? props.theme.colors.primary : props.theme.colors.secondary};
+        props.category === 'primary'
+            ? props.disabledState
+                ? props.theme.colors.primaryDisabled
+                : props.theme.colors.primary
+            : props.disabledState
+            ? props.theme.colors.secondaryDisabled
+            : props.theme.colors.secondary};
     padding: 11px 36px;
     size: 14px;
     line-height: 20px;
     cursor: pointer;
-    :hover {
+    :hover:not([disabled]) {
         background: ${(props) =>
             props.category === 'primary'
                 ? props.theme.buttonColors.primaryHover
@@ -53,7 +73,7 @@ const StyledButton = styled.button<{ category: string }>`
                 ? props.theme.colors.primaryHover
                 : props.theme.colors.secondaryHover};
     }
-    :active {
+    :active:not([disabled]) {
         background: ${(props) =>
             props.category === 'primary'
                 ? props.theme.buttonColors.primaryActive
