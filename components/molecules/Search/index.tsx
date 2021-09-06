@@ -1,18 +1,35 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState, useCallback } from 'react';
 import Button from 'components/atoms/Button';
 import styled from '@emotion/styled';
 
 type SearchProps = {
-    onClick: React.MouseEventHandler<HTMLButtonElement>;
-    onChange?: React.ChangeEventHandler<HTMLInputElement>;
+    onClick: (input: string) => React.MouseEventHandler<HTMLButtonElement>;
 };
 
 const Search: FunctionComponent<SearchProps> = (props) => {
-    const { onClick, onChange } = props;
+    const { onClick } = props;
+    const [input, setInput] = useState<string>('');
+
+    const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
+        setInput(e.target.value);
+    }, []);
+
+    const handleClick: React.MouseEventHandler<HTMLButtonElement> = useCallback(
+        (e) => {
+            e.preventDefault();
+            onClick(input);
+        },
+        [input]
+    );
+
     return (
         <SearchInputWrapper>
-            <StyledSearchInput onChange={onChange} placeholder="검색어를 입력하세요" />
-            <Button onClick={onClick} category="primary">
+            <StyledSearchInput
+                value={input}
+                onChange={handleChange}
+                placeholder="검색어를 입력하세요"
+            />
+            <Button onClick={handleClick} category="primary">
                 검색
             </Button>
         </SearchInputWrapper>
@@ -34,6 +51,7 @@ const SearchInputWrapper = styled.div`
 
 const StyledSearchInput = styled.input`
     margin-left: 10px;
+    width: 85%;
     font-size: 32px;
     border: none;
     background: transparent;
