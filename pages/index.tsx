@@ -5,8 +5,12 @@ import Button from 'components/atoms/Button';
 
 function Home(): React.ReactNode {
     const clientId = '5985250658-onoklf8u51h2vnv1t9fvfm12ta2k81l6.apps.googleusercontent.com';
-    const onSuccess = async (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-        console.log(response);
+    const onSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
+        if ('tokenId' in response) {
+            window.localStorage.setItem('token', response.tokenId);
+        } else {
+            window.localStorage.setItem('code', response.code);
+        }
     };
     const onFailure = (error: any) => {
         console.log(error);
