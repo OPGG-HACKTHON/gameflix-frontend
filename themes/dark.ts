@@ -24,6 +24,7 @@ const dark: Theme = {
     },
     bgColors: {
         primary: '#000',
+        inputField: '#666666',
     },
     borderColors: {
         primary: '#4030FA',
@@ -34,6 +35,9 @@ const dark: Theme = {
         secondaryHover: '#4030FA',
         secondaryActive: '#4030FA',
         secondaryDisabled: 'rgba(204,204,204,0.7)',
+    },
+    components: {
+        searchInput: '#fff',
     },
 };
 
