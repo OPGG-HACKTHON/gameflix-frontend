@@ -22,7 +22,7 @@ export const PrimaryDisabled = Template.bind({});
 PrimaryDisabled.args = {
     category: 'primary',
     children: '비활성화',
-    disabledState: true,
+    disabled: true,
 };
 
 export const Secondary = Template.bind({});
@@ -35,5 +35,5 @@ export const SecondaryDisabled = Template.bind({});
 SecondaryDisabled.args = {
     category: 'secondary',
     children: '비활성화',
-    disabledState: true,
+    disabled: true,
 };
