@@ -20,6 +20,7 @@ const light: Theme = {
     },
     bgColors: {
         primary: '#eee',
+        inputField: '#ccc',
     },
     borderColors: {
         primary: '#000',
@@ -28,6 +29,9 @@ const light: Theme = {
         secondary: '#aaa',
         secondaryHover: '#4030FA',
         secondaryActive: '#4030FA',
+    },
+    components: {
+        searchInput: '#000',
     },
 };
 

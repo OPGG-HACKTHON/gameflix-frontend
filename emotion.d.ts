@@ -21,6 +21,7 @@ declare module '@emotion/react' {
         };
         bgColors: {
             primary: string;
+            inputField: string;
         };
         borderColors: {
             primary: string;
@@ -29,6 +30,9 @@ declare module '@emotion/react' {
             secondary: string;
             secondaryHover: string;
             secondaryActive: string;
+        };
+        components: {
+            searchInput: string;
         };
     }
 }
