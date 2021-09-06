@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import styled from '@emotion/styled';
+import { Theme } from '@emotion/react';
 
-type ButtonTypes = 'primary' | 'secondary';
+type ButtonTypes = keyof Theme['buttonColors'];
 
 type ButtonProps = {
     category: ButtonTypes;
@@ -23,64 +24,33 @@ export default Button;
 
 const StyledButton = styled.button<{ category: string; disabled: boolean }>`
     text-align: center;
-    background: ${(props) =>
-        (props.category === 'primary' &&
-            props.disabled &&
-            props.theme.buttonColors.primaryDisabled) ||
-        (props.category === 'primary' && !props.disabled && props.theme.buttonColors.primary) ||
-        (props.category === 'secondary' &&
-            props.disabled &&
-            props.theme.buttonColors.secondaryDisabled) ||
-        (props.category === 'secondary' && !props.disabled && props.theme.buttonColors.secondary)};
+    background: ${({ theme, category, disabled }) =>
+        disabled
+            ? theme.buttonColors[category as ButtonTypes].disabled
+            : theme.buttonColors[category as ButtonTypes].default};
     border-width: 1px;
     border-style: solid;
-    border-color: ${(props) =>
-        (props.category === 'primary' &&
-            props.disabled &&
-            props.theme.borderColors.primaryDisabled) ||
-        (props.category === 'primary' && !props.disabled && props.theme.borderColors.primary) ||
-        (props.category === 'secondary' &&
-            props.disabled &&
-            props.theme.borderColors.secondaryDisabled) ||
-        (props.category === 'secondary' && !props.disabled && props.theme.borderColors.secondary)};
+    border-color: ${({ theme, category, disabled }) =>
+        disabled
+            ? theme.borderColors[category as ButtonTypes].disabled
+            : theme.borderColors[category as ButtonTypes].default};
     border-radius: 10px;
-    color: ${(props) =>
-        (props.category === 'primary' && props.disabled && props.theme.colors.primaryDisabled) ||
-        (props.category === 'primary' && !props.disabled && props.theme.colors.primary) ||
-        (props.category === 'secondary' &&
-            props.disabled &&
-            props.theme.colors.secondaryDisabled) ||
-        (props.category === 'secondary' && !props.disabled && props.theme.colors.secondary)};
+    color: ${({ theme, category, disabled }) =>
+        disabled
+            ? theme.colors[category as ButtonTypes].disabled
+            : theme.colors[category as ButtonTypes].default};
     padding: 11px 36px;
     size: 14px;
     line-height: 20px;
     cursor: pointer;
     &:hover:enabled {
-        background: ${(props) =>
-            props.category === 'primary'
-                ? props.theme.buttonColors.primaryHover
-                : props.theme.buttonColors.secondaryHover};
-        border-color: ${(props) =>
-            props.category === 'primary'
-                ? props.theme.borderColors.primaryHover
-                : props.theme.borderColors.secondaryHover};
-        color: ${(props) =>
-            props.category === 'primary'
-                ? props.theme.colors.primaryHover
-                : props.theme.colors.secondaryHover};
+        background: ${({ theme, category }) => theme.buttonColors[category as ButtonTypes].hover};
+        border-color: ${({ theme, category }) => theme.borderColors[category as ButtonTypes].hover};
+        color: ${({ theme, category }) => theme.colors[category as ButtonTypes].hover};
     }
     &:active:enabled {
-        background: ${(props) =>
-            props.category === 'primary'
-                ? props.theme.buttonColors.primaryActive
-                : props.theme.buttonColors.secondaryActive};
-        border-color: ${(props) =>
-            props.category === 'primary'
-                ? props.theme.borderColors.primaryActive
-                : props.theme.borderColors.secondaryActive};
-        color: ${(props) =>
-            props.category === 'primary'
-                ? props.theme.colors.primaryActive
-                : props.theme.colors.secondaryActive};
+        background: ${({ theme, category }) => theme.buttonColors[category as ButtonTypes].active};
+        border-color: ${({ theme, category }) => theme.borderColors[category as ButtonTypes].hover};
+        color: ${({ theme, category }) => theme.colors[category as ButtonTypes].hover};
     }
 `;
