@@ -29,32 +29,43 @@ export default Button;
 const StyledButton = styled.button<{ category: string; disabledState: boolean }>`
     text-align: center;
     background: ${(props) =>
-        props.category === 'primary'
-            ? props.disabledState
-                ? props.theme.buttonColors.primaryDisabled
-                : props.theme.buttonColors.primary
-            : props.disabledState
-            ? props.theme.buttonColors.secondaryDisabled
-            : props.theme.buttonColors.secondary};
+        (props.category === 'primary' &&
+            props.disabledState &&
+            props.theme.buttonColors.primaryDisabled) ||
+        (props.category === 'primary' &&
+            !props.disabledState &&
+            props.theme.buttonColors.primary) ||
+        (props.category === 'secondary' &&
+            props.disabledState &&
+            props.theme.buttonColors.secondaryDisabled) ||
+        (props.category === 'secondary' &&
+            !props.disabledState &&
+            props.theme.buttonColors.secondary)};
     border-width: 1px;
     border-style: solid;
     border-color: ${(props) =>
-        props.category === 'primary'
-            ? props.disabledState
-                ? props.theme.borderColors.primaryDisabled
-                : props.theme.borderColors.primary
-            : props.disabledState
-            ? props.theme.borderColors.secondaryDisabled
-            : props.theme.borderColors.secondary};
+        (props.category === 'primary' &&
+            props.disabledState &&
+            props.theme.borderColors.primaryDisabled) ||
+        (props.category === 'primary' &&
+            !props.disabledState &&
+            props.theme.borderColors.primary) ||
+        (props.category === 'secondary' &&
+            props.disabledState &&
+            props.theme.borderColors.secondaryDisabled) ||
+        (props.category === 'secondary' &&
+            !props.disabledState &&
+            props.theme.borderColors.secondary)};
     border-radius: 10px;
     color: ${(props) =>
-        props.category === 'primary'
-            ? props.disabledState
-                ? props.theme.colors.primaryDisabled
-                : props.theme.colors.primary
-            : props.disabledState
-            ? props.theme.colors.secondaryDisabled
-            : props.theme.colors.secondary};
+        (props.category === 'primary' &&
+            props.disabledState &&
+            props.theme.colors.primaryDisabled) ||
+        (props.category === 'primary' && !props.disabledState && props.theme.colors.primary) ||
+        (props.category === 'secondary' &&
+            props.disabledState &&
+            props.theme.colors.secondaryDisabled) ||
+        (props.category === 'secondary' && !props.disabledState && props.theme.colors.secondary)};
     padding: 11px 36px;
     size: 14px;
     line-height: 20px;
