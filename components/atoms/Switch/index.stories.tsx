@@ -1,14 +1,18 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import Switch from './index';
+import ThemeSwitch from './index';
+import { action } from '@storybook/addon-actions';
 
 export default {
     title: 'atoms/Switch',
-    component: Switch,
-} as ComponentMeta<typeof Switch>;
+    component: ThemeSwitch,
+    args: {
+        toggleTheme: () => action('toggle Theme.'),
+    },
+} as ComponentMeta<typeof ThemeSwitch>;
 
-const Template: ComponentStory<typeof Switch> = (args) => <Switch {...args} />;
+const Template: ComponentStory<typeof ThemeSwitch> = (args) => <ThemeSwitch {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {};

@@ -1,58 +1,44 @@
-import React, { FunctionComponent } from 'react';
-import styled from '@emotion/styled';
+import React, { FunctionComponent, useState } from 'react';
+import Switch from 'react-switch';
 
-const Switch: FunctionComponent = () => {
+import * as lightSvg from './svgLight';
+import * as darkSvg from './svgDark';
+import { useEffect } from '@storybook/addons';
+
+type SwitchProps = {
+    toggleTheme: () => void;
+};
+
+const ThemeSwitch: FunctionComponent<SwitchProps> = (props) => {
+    const { toggleTheme } = props;
+    const [checked, setChecked] = useState(false);
+
+    const handleChange = () => {
+        setChecked(!checked);
+    };
+
+    useEffect(() => {
+        toggleTheme();
+    }, [checked]);
+
     return (
-        <SwitchWrapper>
-            <Input type="checkbox" />
-            <Slider />
-        </SwitchWrapper>
+        <Switch
+            checked={checked}
+            onChange={handleChange}
+            offColor="#D8D8D8"
+            onColor="#a6a6a6"
+            handleDiameter={42}
+            uncheckedIcon={false}
+            checkedIcon={false}
+            uncheckedHandleIcon={React.createElement(lightSvg['logo'])}
+            checkedHandleIcon={React.createElement(darkSvg['logo'])}
+            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+            height={24}
+            width={72}
+            className="react-switch"
+            id="material-switch"
+        />
     );
 };
 
-export default Switch;
-
-const SwitchWrapper = styled.label`
-    position: relative;
-    display: inline-block;
-    width: 100px;
-    height: 42px;
-`;
-
-const Input = styled.input`
-    opacity: 0;
-    width: 0;
-    height: 0;
-    :checked + ${Slider}:before {
-        transform: translateX(56px);
-    }
-    :checked + Slider {
-        background-color: rgba(128, 128, 128, 0.8);
-        border: 2px solid blue;
-        color: red;
-    }
-`;
-
-const Slider = styled.span`
-    position: absolute;
-    cursor: pointer;
-    background-color: rgba(128, 128, 128, 0.3);
-    border-radius: 21px;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    transition: 0.4s;
-    :before {
-        position: absolute;
-        content: '';
-        width: 32px;
-        height: 32px;
-        top: 5px;
-        bottom: 5px;
-        left: 6px;
-        border-radius: 50%;
-        background-color: white;
-        transition: 0.4s;
-    }
-`;
+export default ThemeSwitch;

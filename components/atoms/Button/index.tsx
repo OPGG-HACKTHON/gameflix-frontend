@@ -21,6 +21,7 @@ const Button: FunctionComponent<ButtonProps> = (props) => {
 export default Button;
 
 const StyledButton = styled.button<{ category: string }>`
+    height: 42px;
     text-align: center;
     background: ${(props) =>
         props.category === 'primary'
