@@ -3,7 +3,6 @@ import Switch from 'react-switch';
 
 import * as lightSvg from './svgLight';
 import * as darkSvg from './svgDark';
-import { useEffect } from '@storybook/addons';
 
 type SwitchProps = {
     toggleTheme: () => void;
@@ -15,11 +14,8 @@ const ThemeSwitch: FunctionComponent<SwitchProps> = (props) => {
 
     const handleChange = () => {
         setChecked(!checked);
-    };
-
-    useEffect(() => {
         toggleTheme();
-    }, [checked]);
+    };
 
     return (
         <Switch
@@ -35,8 +31,6 @@ const ThemeSwitch: FunctionComponent<SwitchProps> = (props) => {
             activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
             height={24}
             width={72}
-            className="react-switch"
-            id="material-switch"
         />
     );
 };
