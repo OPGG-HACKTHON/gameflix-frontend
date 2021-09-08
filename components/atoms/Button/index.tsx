@@ -22,35 +22,29 @@ const Button: FunctionComponent<ButtonProps> = (props) => {
 
 export default Button;
 
-const StyledButton = styled.button<{ category: string; disabled: boolean }>`
+const StyledButton = styled.button<{ category: ButtonTypes; disabled: boolean }>`
     text-align: center;
     background: ${({ theme, category, disabled }) =>
-        disabled
-            ? theme.buttonColors[category as ButtonTypes].disabled
-            : theme.buttonColors[category as ButtonTypes].default};
+        disabled ? theme.buttonColors[category].disabled : theme.buttonColors[category].default};
     border-width: 1px;
     border-style: solid;
     border-color: ${({ theme, category, disabled }) =>
-        disabled
-            ? theme.borderColors[category as ButtonTypes].disabled
-            : theme.borderColors[category as ButtonTypes].default};
+        disabled ? theme.borderColors[category].disabled : theme.borderColors[category].default};
     border-radius: 10px;
     color: ${({ theme, category, disabled }) =>
-        disabled
-            ? theme.colors[category as ButtonTypes].disabled
-            : theme.colors[category as ButtonTypes].default};
+        disabled ? theme.colors[category].disabled : theme.colors[category].default};
     padding: 11px 36px;
     size: 14px;
     line-height: 20px;
     cursor: pointer;
     &:hover:enabled {
-        background: ${({ theme, category }) => theme.buttonColors[category as ButtonTypes].hover};
-        border-color: ${({ theme, category }) => theme.borderColors[category as ButtonTypes].hover};
-        color: ${({ theme, category }) => theme.colors[category as ButtonTypes].hover};
+        background: ${({ theme, category }) => theme.buttonColors[category].hover};
+        border-color: ${({ theme, category }) => theme.borderColors[category].hover};
+        color: ${({ theme, category }) => theme.colors[category].hover};
     }
     &:active:enabled {
-        background: ${({ theme, category }) => theme.buttonColors[category as ButtonTypes].active};
-        border-color: ${({ theme, category }) => theme.borderColors[category as ButtonTypes].hover};
-        color: ${({ theme, category }) => theme.colors[category as ButtonTypes].hover};
+        background: ${({ theme, category }) => theme.buttonColors[category].active};
+        border-color: ${({ theme, category }) => theme.borderColors[category].hover};
+        color: ${({ theme, category }) => theme.colors[category].hover};
     }
 `;
