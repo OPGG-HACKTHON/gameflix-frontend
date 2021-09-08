@@ -18,8 +18,22 @@ Primary.args = {
     children: '가져오기',
 };
 
+export const PrimaryDisabled = Template.bind({});
+PrimaryDisabled.args = {
+    category: 'primary',
+    children: '비활성화',
+    disabled: true,
+};
+
 export const Secondary = Template.bind({});
 Secondary.args = {
     category: 'secondary',
     children: '로그아웃',
+};
+
+export const SecondaryDisabled = Template.bind({});
+SecondaryDisabled.args = {
+    category: 'secondary',
+    children: '비활성화',
+    disabled: true,
 };
