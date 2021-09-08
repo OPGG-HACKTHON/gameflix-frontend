@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Skeletons from './';
 
 export default {
-    title: 'atoms/Skeleton',
+    title: 'molecules/Skeleton',
     component: Skeletons,
 } as ComponentMeta<typeof Skeletons>;
 
