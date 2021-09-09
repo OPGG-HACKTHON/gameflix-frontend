@@ -50,6 +50,7 @@ const light: Theme = {
     },
     components: {
         searchInput: '#000',
+        closeIcon: '#000',
     },
 };
 
