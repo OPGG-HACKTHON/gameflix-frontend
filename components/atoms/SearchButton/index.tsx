@@ -25,4 +25,5 @@ const StyledSearchBtn = styled.button`
     border: none;
     outline: 0;
     background-color: #fff;
+    cursor: pointer;
 `;
