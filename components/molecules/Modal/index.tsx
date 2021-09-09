@@ -7,19 +7,18 @@ import Button from 'components/atoms/Button/index';
 type ModalProps = {
     children: React.ReactNode;
     isOpen: boolean;
-    contentType: string;
     onClose: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 const Modal: FunctionComponent<ModalProps> = (props) => {
-    const { children, isOpen, contentType, onClose } = props;
+    const { children, isOpen, onClose } = props;
     return (
         <StyledModalOverlay>
             <ModalWrapper isOpen={isOpen} onRequestClose={onClose} closeTimeoutMS={2000}>
                 <Button category="secondary" onClick={onClose}>
                     닫기
                 </Button>
-                <Content className={contentType}>{children}</Content>
+                <Content>{children}</Content>
             </ModalWrapper>
         </StyledModalOverlay>
     );
@@ -28,7 +27,7 @@ const Modal: FunctionComponent<ModalProps> = (props) => {
 ReactModal.setAppElement('#modal-root');
 
 const StyledModalOverlay = styled.div`
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
@@ -40,7 +39,7 @@ const StyledModalOverlay = styled.div`
 `;
 
 const ModalWrapper = styled(ReactModal)`
-    position: absolute;
+    position: relative;
     display: flex;
     flex-direction: column;
     background-color: ${({ theme }) => theme.buttonColors.secondary};
@@ -50,6 +49,7 @@ const ModalWrapper = styled(ReactModal)`
     min-height: 80px;
     max-height: 878px;
     outline: none;
+    overflow: auto;
     transition: all 0.3s ease-in-out;
     &[class*='after-open'] {
         opacity: 1;
@@ -58,16 +58,20 @@ const ModalWrapper = styled(ReactModal)`
         opacity: 0;
     }
     > Button {
-        margin: 16px 20px 22px auto;
+        position: fixed;
+        margin: 16px 0px 0px 886px;
+        z-index: 99;
+    }
+    &::-webkit-scrollbar {
+        display: none;
     }
 `;
 
 const Content = styled.div`
     display: flex;
     justify-contents: center;
-    overflow: auto;
     margin-bottom: 1rem;
-    padding: ${(props) => (props.className === 'search' ? '0 40px' : '0 56px')};
+    padding: 80px 56px 0 56px;
 `;
 
 export default Modal;

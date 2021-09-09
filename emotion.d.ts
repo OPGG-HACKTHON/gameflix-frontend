@@ -4,20 +4,32 @@ declare module '@emotion/react' {
     export interface Theme {
         colors: {
             default: string;
-            primary: string;
-            primaryHover: string;
-            primaryActive: string;
-            secondary: string;
-            secondaryHover: string;
-            secondaryActive: string;
+            primary: {
+                default: string;
+                active: string;
+                hover: string;
+                disabled: string;
+            };
+            secondary: {
+                default: string;
+                active: string;
+                hover: string;
+                disabled: string;
+            };
         };
         buttonColors: {
-            primary: string;
-            primaryHover: string;
-            primaryActive: string;
-            secondary: string;
-            secondaryHover: string;
-            secondaryActive: string;
+            primary: {
+                default: string;
+                active: string;
+                hover: string;
+                disabled: string;
+            };
+            secondary: {
+                default: string;
+                active: string;
+                hover: string;
+                disabled: string;
+            };
         };
         bgColors: {
             primary: string;
@@ -25,12 +37,18 @@ declare module '@emotion/react' {
             inputField: string;
         };
         borderColors: {
-            primary: string;
-            primaryHover: string;
-            primaryActive: string;
-            secondary: string;
-            secondaryHover: string;
-            secondaryActive: string;
+            primary: {
+                default: string;
+                active: string;
+                hover: string;
+                disabled: string;
+            };
+            secondary: {
+                default: string;
+                active: string;
+                hover: string;
+                disabled: string;
+            };
         };
         components: {
             searchInput: string;

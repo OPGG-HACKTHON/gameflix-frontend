@@ -1,20 +1,20 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import Switch from 'react-switch';
 
 import * as lightSvg from './svgLight';
 import * as darkSvg from './svgDark';
 
-type SwitchProps = {
-    toggleTheme: () => void;
-};
+import ThemeContext from 'context/theme';
 
-const ThemeSwitch: FunctionComponent<SwitchProps> = (props) => {
-    const { toggleTheme } = props;
+const ThemeSwitch: FunctionComponent = () => {
+    const toogleTheme = useContext(ThemeContext);
     const [checked, setChecked] = useState(false);
 
     const handleChange = () => {
         setChecked(!checked);
-        toggleTheme();
+        if (toogleTheme.toggleTheme) {
+            toogleTheme.toggleTheme();
+        }
     };
 
     return (
