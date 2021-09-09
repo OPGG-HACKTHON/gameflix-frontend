@@ -1,8 +1,17 @@
-import React, { FunctionComponent } from 'react';
-import * as svg from './svg';
+import ThemeContext from 'context/theme';
+import React, { FunctionComponent, useContext } from 'react';
+
+import styled from '@emotion/styled';
+
+import * as lightSvg from './lightsvg';
+import * as darkSvg from './darksvg';
 
 const CloseIcon: FunctionComponent = () => {
-    return React.createElement(svg['logo']);
+    const theme = useContext(ThemeContext);
+
+    return theme.isDark
+        ? React.createElement(darkSvg['logo'])
+        : React.createElement(lightSvg['logo']);
 };
 
 export default CloseIcon;
