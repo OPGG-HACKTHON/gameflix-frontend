@@ -50,6 +50,7 @@ const dark: Theme = {
     },
     components: {
         searchInput: '#fff',
+        checkboxContent: '#fff',
     },
 };
 
