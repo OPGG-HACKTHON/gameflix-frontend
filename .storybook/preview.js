@@ -1,5 +1,5 @@
 import {useDarkMode} from 'storybook-dark-mode';
-import { ThemeProvider } from 'emotion-theming';
+import { ThemeProvider } from '@emotion/react';
 import {dark, light} from '../themes';
 
 export const parameters = {
