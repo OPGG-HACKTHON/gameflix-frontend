@@ -1,8 +1,7 @@
 import React, { FunctionComponent, useContext, useState } from 'react';
 import Switch from 'react-switch';
 
-import * as lightSvg from './svgLight';
-import * as darkSvg from './svgDark';
+import Icon from 'components/atoms/Icon/Icon';
 
 import ThemeContext from 'context/theme';
 
@@ -26,8 +25,8 @@ const ThemeSwitch: FunctionComponent = () => {
             handleDiameter={42}
             uncheckedIcon={false}
             checkedIcon={false}
-            uncheckedHandleIcon={React.createElement(lightSvg['logo'])}
-            checkedHandleIcon={React.createElement(darkSvg['logo'])}
+            uncheckedHandleIcon={<Icon name="Light" style={{ transform: 'translate(7px, 6px)' }} />}
+            checkedHandleIcon={<Icon name="Dark" style={{ transform: 'translate(7px, 6px)' }} />}
             activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
             height={24}
             width={72}
