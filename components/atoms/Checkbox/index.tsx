@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
-import { CheckIcon } from './svg';
-
 import styled from '@emotion/styled';
+
+import Icon from 'components/atoms/Icon/Icon';
 
 type CheckBoxProps = {
     children: React.ReactNode;
@@ -22,7 +22,7 @@ const CheckBox: FunctionComponent<CheckBoxProps> = (props) => {
             {children}
             <Input onClick={handleClick} type="checkbox" checked={checked} />
             <CheckMark checked={checked}>
-                <CheckIcon />
+                <Icon name="Check" />
             </CheckMark>
         </Wrapper>
     );
