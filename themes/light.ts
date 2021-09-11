@@ -52,6 +52,7 @@ const light: Theme = {
         searchInput: '#000',
         checkboxContent: '#000',
     },
+    iconColors: '#000',
 };
 
 export default light;

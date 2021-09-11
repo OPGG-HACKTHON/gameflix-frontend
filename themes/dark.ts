@@ -52,6 +52,7 @@ const dark: Theme = {
         searchInput: '#fff',
         checkboxContent: '#fff',
     },
+    iconColors: '#fff',
 };
 
 export default dark;
