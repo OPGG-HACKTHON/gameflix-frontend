@@ -51,6 +51,7 @@ const dark: Theme = {
     components: {
         searchInput: '#fff',
     },
+    iconColors: '#fff',
 };
 
 export default dark;
