@@ -9,6 +9,7 @@ type IconProps = {
     name: IconTypes;
     color?: string;
     style?: CSSProperties;
+    onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 type attributeType = {

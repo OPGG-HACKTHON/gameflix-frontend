@@ -34,6 +34,7 @@ declare module '@emotion/react' {
         bgColors: {
             primary: string;
             inputField: string;
+            modal: string;
         };
         borderColors: {
             primary: {

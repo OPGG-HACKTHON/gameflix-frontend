@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import ReactModal from 'react-modal';
 import styled from '@emotion/styled';
 
-import Button from 'components/atoms/Button/index';
+import Icon from 'components//atoms/Icon/Icon';
 
 type ModalProps = {
     children: React.ReactNode;
@@ -15,9 +15,11 @@ const Modal: FunctionComponent<ModalProps> = (props) => {
     return (
         <StyledModalOverlay>
             <ModalWrapper isOpen={isOpen} onRequestClose={onClose} closeTimeoutMS={2000}>
-                <Button category="secondary" onClick={onClose}>
-                    닫기
-                </Button>
+                <Icon
+                    name="Close"
+                    style={{ position: 'fixed', margin: '20px 0px 0px 962px', cursor: 'pointer' }}
+                    onClick={onClose}
+                />
                 <Content>{children}</Content>
             </ModalWrapper>
         </StyledModalOverlay>
@@ -35,15 +37,15 @@ const StyledModalOverlay = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.5);
 `;
 
 const ModalWrapper = styled(ReactModal)`
     position: relative;
     display: flex;
     flex-direction: column;
-    background-color: ${({ theme }) => theme.buttonColors.secondary};
-    color: ${({ theme }) => theme.colors.secondary};
+    background-color: ${({ theme }) => theme.bgColors.modal};
+    color: ${({ theme }) => theme.iconColors};
     margin: 80px 460px;
     width: 1000px;
     min-height: 80px;
@@ -56,11 +58,6 @@ const ModalWrapper = styled(ReactModal)`
     }
     &[class*='before-close'] {
         opacity: 0;
-    }
-    > Button {
-        position: fixed;
-        margin: 16px 0px 0px 886px;
-        z-index: 99;
     }
     &::-webkit-scrollbar {
         display: none;
