@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { SearchIcon } from './svg';
 import styled from '@emotion/styled';
+
+import Icon from 'components/atoms/Icon/Icon';
 
 type SearchButtonProps = {
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -11,7 +12,7 @@ const SearchButton: FunctionComponent<SearchButtonProps> = (props) => {
 
     return (
         <StyledSearchBtn onClick={onClick}>
-            <SearchIcon />
+            <Icon name="Magnifier" />
         </StyledSearchBtn>
     );
 };
