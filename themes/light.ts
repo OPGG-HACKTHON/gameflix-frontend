@@ -51,6 +51,7 @@ const light: Theme = {
     components: {
         searchInput: '#000',
     },
+    iconColors: '#000',
 };
 
 export default light;

@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+import { useTheme } from '@emotion/react';
 
 import * as svg from './svg';
 
@@ -15,12 +16,12 @@ type attributeType = {
 
 const Icon: FunctionComponent<IconProps> = (props) => {
     const { name, color } = props;
-    const attribute: attributeType = {};
-    if (color) {
-        attribute.stroke = color;
-    }
+    const theme = useTheme();
+    const attribute: attributeType = {
+        stroke: color ?? theme?.iconColors,
+    };
 
-    return React.createElement(svg[name], { ...attribute });
+    return React.createElement(svg[name], attribute);
 };
 
 export default Icon;
