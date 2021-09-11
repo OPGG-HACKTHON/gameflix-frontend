@@ -33,7 +33,6 @@ declare module '@emotion/react' {
         };
         bgColors: {
             primary: string;
-            switchToggle: string;
             inputField: string;
         };
         borderColors: {

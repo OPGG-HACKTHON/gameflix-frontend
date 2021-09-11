@@ -11,9 +11,7 @@ const ThemeSwitch: FunctionComponent = () => {
 
     const handleChange = () => {
         setChecked(!checked);
-        if (toogleTheme.toggleTheme) {
-            toogleTheme.toggleTheme();
-        }
+        toogleTheme?.toggleTheme?.();
     };
 
     return (
