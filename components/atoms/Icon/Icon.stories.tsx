@@ -32,3 +32,8 @@ export const Magnifier = Template.bind({});
 Magnifier.args = {
     name: 'Magnifier',
 };
+
+export const Check = Template.bind({});
+Check.args = {
+    name: 'Check',
+};

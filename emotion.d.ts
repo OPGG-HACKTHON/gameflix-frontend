@@ -51,6 +51,7 @@ declare module '@emotion/react' {
         };
         components: {
             searchInput: string;
+            checkboxContent: string;
         };
         iconColors: string;
     }
