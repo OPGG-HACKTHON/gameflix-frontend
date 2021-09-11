@@ -32,7 +32,6 @@ const light: Theme = {
     },
     bgColors: {
         primary: '#eee',
-        switchToggle: 'rgba(128, 128, 128, 0.3)',
         inputField: '#ccc',
     },
     borderColors: {
