@@ -33,6 +33,7 @@ const light: Theme = {
     bgColors: {
         primary: '#eee',
         inputField: '#ccc',
+        default: '#e2e2e2',
     },
     borderColors: {
         primary: {

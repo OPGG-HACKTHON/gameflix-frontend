@@ -33,6 +33,7 @@ const dark: Theme = {
     bgColors: {
         primary: '#000',
         inputField: '#666666',
+        default: '#131313',
     },
     borderColors: {
         primary: {
