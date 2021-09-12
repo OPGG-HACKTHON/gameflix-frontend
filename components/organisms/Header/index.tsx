@@ -44,10 +44,5 @@ const StyledPanels = styled.h1`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    Button:first-child {
-        margin-right: 32px;
-    }
-    Button {
-        margin-left: 32px;
-    }
+    gap: 32px;
 `;
