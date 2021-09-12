@@ -1,14 +1,14 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import GameInfo from './';
+import GameDetail from './';
 
 export default {
-    title: 'organisms/GameInfo',
-    component: GameInfo,
-} as ComponentMeta<typeof GameInfo>;
+    title: 'organisms/GameDetail',
+    component: GameDetail,
+} as ComponentMeta<typeof GameDetail>;
 
-const Template: ComponentStory<typeof GameInfo> = (args) => <GameInfo {...args} />;
+const Template: ComponentStory<typeof GameDetail> = (args) => <GameDetail {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
