@@ -39,6 +39,8 @@ const MOCK_STEAM = [
         rating_external: 80.35918701514501,
         rating_external_count: 501,
         platforms: ['win', 'mac'],
+        summary: 'test',
+        involved_companies: ['test'],
     },
     {
         slug: 'factorio',
@@ -51,6 +53,8 @@ const MOCK_STEAM = [
         rating_external: 80.35918701514501,
         rating_external_count: 501,
         platforms: ['win', 'mac'],
+        summary: 'test',
+        involved_companies: ['test'],
     },
     {
         slug: 'RimWorld',
@@ -63,6 +67,8 @@ const MOCK_STEAM = [
         rating_external: 80.35918701514501,
         rating_external_count: 501,
         platforms: ['win', 'mac'],
+        summary: 'test',
+        involved_companies: ['test'],
     },
     {
         slug: 'PUBG: BATTLEGROUNDS',
@@ -75,6 +81,8 @@ const MOCK_STEAM = [
         rating_external: 80.35918701514501,
         rating_external_count: 501,
         platforms: ['win', 'mac'],
+        summary: 'test',
+        involved_companies: ['test'],
     },
     {
         slug: 'Oxygen Not Included',
@@ -87,6 +95,8 @@ const MOCK_STEAM = [
         rating_external: 80.35918701514501,
         rating_external_count: 501,
         platforms: ['win', 'mac'],
+        summary: 'test',
+        involved_companies: ['test'],
     },
     {
         slug: "Sid Meier's Civilization VI",
@@ -99,6 +109,8 @@ const MOCK_STEAM = [
         rating_external: 80.35918701514501,
         rating_external_count: 501,
         platforms: ['win', 'mac'],
+        summary: 'test',
+        involved_companies: ['test'],
     },
     {
         slug: 'StarCraft',
@@ -111,6 +123,8 @@ const MOCK_STEAM = [
         rating_external: 80.35918701514501,
         rating_external_count: 501,
         platforms: ['win', 'mac'],
+        summary: 'test',
+        involved_companies: ['test'],
     },
     {
         slug: 'Diablo III',
@@ -123,6 +137,8 @@ const MOCK_STEAM = [
         rating_external: 80.35918701514501,
         rating_external_count: 501,
         platforms: ['win', 'mac'],
+        summary: 'test',
+        involved_companies: ['test'],
     },
 ];
 
@@ -138,6 +154,8 @@ const MOCK_EPIC = [
         rating_external: 80.35918701514501,
         rating_external_count: 501,
         platforms: ['win', 'mac'],
+        summary: 'test',
+        involved_companies: ['test'],
     },
 ];
 
@@ -153,6 +171,8 @@ const MOCK_BATTLENET = [
         rating_external: 80.35918701514501,
         rating_external_count: 501,
         platforms: ['win', 'mac'],
+        summary: 'test',
+        involved_companies: ['test'],
     },
     {
         slug: 'Diablo III',
@@ -165,5 +185,7 @@ const MOCK_BATTLENET = [
         rating_external: 80.35918701514501,
         rating_external_count: 501,
         platforms: ['win', 'mac'],
+        summary: 'test',
+        involved_companies: ['test'],
     },
 ];

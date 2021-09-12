@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import styled from '@emotion/styled';
-import { Theme } from '@emotion/react';
+import { Theme, css } from '@emotion/react';
 
 type ButtonTypes = keyof Theme['buttonColors'];
 
@@ -9,12 +9,18 @@ type ButtonProps = {
     children: React.ReactNode;
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
     disabled?: boolean;
+    fullWidth?: boolean;
 };
 
 const Button: FunctionComponent<ButtonProps> = (props) => {
-    const { category, children, onClick, disabled = false } = props;
+    const { category, children, onClick, disabled = false, fullWidth = false } = props;
     return (
-        <StyledButton disabled={disabled} category={category} onClick={onClick}>
+        <StyledButton
+            disabled={disabled}
+            category={category}
+            onClick={onClick}
+            fullWidth={fullWidth}
+        >
             {children}
         </StyledButton>
     );
@@ -22,7 +28,11 @@ const Button: FunctionComponent<ButtonProps> = (props) => {
 
 export default Button;
 
-const StyledButton = styled.button<{ category: ButtonTypes; disabled: boolean }>`
+const StyledButton = styled.button<{
+    category: ButtonTypes;
+    disabled: boolean;
+    fullWidth: boolean;
+}>`
     text-align: center;
     background: ${({ theme, category, disabled }) =>
         disabled ? theme.buttonColors[category].disabled : theme.buttonColors[category].default};
@@ -47,4 +57,9 @@ const StyledButton = styled.button<{ category: ButtonTypes; disabled: boolean }>
         border-color: ${({ theme, category }) => theme.borderColors[category].hover};
         color: ${({ theme, category }) => theme.colors[category].hover};
     }
+    ${({ fullWidth }) =>
+        fullWidth &&
+        css`
+            width: 100%;
+        `}
 `;

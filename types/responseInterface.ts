@@ -9,6 +9,8 @@ export interface GameInfo {
     rating_external: number;
     rating_external_count: number;
     platforms: string[];
+    involved_companies: string[];
+    summary: string;
 }
 
 export interface UserInfo {
