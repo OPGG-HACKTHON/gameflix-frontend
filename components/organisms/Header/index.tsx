@@ -1,6 +1,10 @@
 import React, { FunctionComponent } from 'react';
+
 import Logo from 'components/atoms/Logo';
 import Button from 'components/atoms/Button';
+import SearchButton from 'components/atoms/SearchButton';
+import ThemeSwitch from 'components/atoms/ThemeSwitch';
+
 import styled from '@emotion/styled';
 import Link from 'next/link';
 
@@ -13,7 +17,11 @@ const Header: FunctionComponent = () => {
                 </Link>
             </StyledHeader>
             {/*Todo 로그아웃 기능 구현*/}
-            <Button category="secondary">로그아웃</Button>
+            <StyledPanels>
+                <SearchButton />
+                <ThemeSwitch />
+                <Button category="secondary">로그아웃</Button>
+            </StyledPanels>
         </StyledWrapper>
     );
 };
@@ -24,10 +32,17 @@ const StyledWrapper = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 50px 0 80px;
+    padding: 0 80px 0 80px;
     height: 164px;
 `;
 
 const StyledHeader = styled.h1`
     margin: 0;
+`;
+
+const StyledPanels = styled.h1`
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 32px;
 `;
