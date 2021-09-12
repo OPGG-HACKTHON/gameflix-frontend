@@ -37,3 +37,10 @@ SecondaryDisabled.args = {
     children: '비활성화',
     disabled: true,
 };
+
+export const FullWidth = Template.bind({});
+FullWidth.args = {
+    category: 'primary',
+    children: 'Full!!',
+    fullWidth: true,
+};

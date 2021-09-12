@@ -19,6 +19,9 @@ const GameDetail: FunctionComponent<GameInfo> = (props) => {
             <DetailContainer>
                 <CoverWrapper>
                     <img src={cover} alt="game cover" />
+                    <Button category={'primary'} fullWidth>
+                        내 라이브러리에 추가
+                    </Button>
                 </CoverWrapper>
                 <InformationContainer>
                     <GameTitle>{name}</GameTitle>
@@ -73,6 +76,9 @@ const DetailContainer = styled.div`
 const CoverWrapper = styled.div`
     margin-top: -176px;
     margin-right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 `;
 
 const InformationContainer = styled.div`
