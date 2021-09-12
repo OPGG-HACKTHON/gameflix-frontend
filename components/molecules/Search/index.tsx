@@ -1,6 +1,8 @@
 import React, { FunctionComponent, useState, useCallback } from 'react';
-import Button from 'components/atoms/Button';
 import styled from '@emotion/styled';
+
+import Button from 'components/atoms/Button';
+import CheckBox from 'components/atoms/Checkbox';
 
 type SearchProps = {
     onClick: (input: string) => void;
@@ -9,6 +11,7 @@ type SearchProps = {
 const Search: FunctionComponent<SearchProps> = (props) => {
     const { onClick } = props;
     const [input, setInput] = useState<string>('');
+    const [filtered, setFiltered] = useState<boolean>(false);
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
         setInput(e.target.value);
@@ -22,27 +25,44 @@ const Search: FunctionComponent<SearchProps> = (props) => {
         [input]
     );
 
+    const handleCheck = () => {
+        setFiltered(!filtered);
+    };
+
     return (
-        <SearchInputWrapper>
-            <StyledSearchInput
-                value={input}
-                onChange={handleChange}
-                placeholder="검색어를 입력하세요"
-            />
-            <Button onClick={handleClick} category="primary">
-                검색
-            </Button>
-        </SearchInputWrapper>
+        <StyledSearchWrapper>
+            <SearchInputWrapper>
+                <StyledSearchInput
+                    value={input}
+                    onChange={handleChange}
+                    placeholder="검색어를 입력하세요"
+                />
+                <Button onClick={handleClick} category="primary">
+                    검색
+                </Button>
+            </SearchInputWrapper>
+            <CheckBox onClick={handleCheck}>내 라이브러리에서 검색</CheckBox>
+        </StyledSearchWrapper>
     );
 };
 
 export default Search;
 
-const SearchInputWrapper = styled.div`
+const StyledSearchWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    > label {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 16px;
+    }
+`;
+
+const SearchInputWrapper = styled.form`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 920px;
+    width: 888px;
     height: 64px;
     border-radius: 18px;
     padding: 0px 10px;

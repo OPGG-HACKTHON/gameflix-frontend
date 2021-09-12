@@ -1,8 +1,10 @@
-import React, { FunctionComponent, useCallback } from 'react';
+import React, { FunctionComponent, useCallback, useContext } from 'react';
 import ReactModal from 'react-modal';
 import styled from '@emotion/styled';
 
 import Button from 'components/atoms/Button/index';
+
+import ThemeContext from 'context/theme';
 
 type ModalProps = {
     children: React.ReactNode;
@@ -12,41 +14,40 @@ type ModalProps = {
 
 const Modal: FunctionComponent<ModalProps> = (props) => {
     const { children, isOpen, onClose } = props;
+    const theme = useContext(ThemeContext);
+
     return (
-        //<StyledModalOverlay>
-        <ModalWrapper isOpen={isOpen} onRequestClose={onClose} closeTimeoutMS={2000}>
+        <ModalWrapper
+            style={{
+                overlay: {
+                    backgroundColor: `${
+                        theme.isDark ? 'rgba(0,0,0,0.85)' : 'rgba(255,255,255,0.9)'
+                    }`,
+                },
+            }}
+            isOpen={isOpen}
+            onRequestClose={onClose}
+            closeTimeoutMS={200}
+        >
             <Button category="secondary" onClick={onClose}>
                 닫기
             </Button>
             <Content>{children}</Content>
         </ModalWrapper>
-        //</StyledModalOverlay>
     );
 };
 
 ReactModal.setAppElement('#modal-root');
 
-const StyledModalOverlay = styled.div`
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.5);
-`;
-
 const ModalWrapper = styled(ReactModal)`
     position: relative;
     display: flex;
     flex-direction: column;
-    background-color: ${({ theme }) => theme.buttonColors.secondary};
+    background-color: ${({ theme }) => theme.bgColors.default};
     color: ${({ theme }) => theme.colors.secondary};
     margin: 80px 460px;
     width: 1000px;
-    min-height: 80px;
+    min-height: 264px;
     max-height: 878px;
     outline: none;
     overflow: auto;

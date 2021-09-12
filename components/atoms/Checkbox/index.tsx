@@ -41,6 +41,7 @@ const Wrapper = styled.label`
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    margin-left: auto;
     color: ${(props) => props.theme.components.checkboxContent};
 `;
 
