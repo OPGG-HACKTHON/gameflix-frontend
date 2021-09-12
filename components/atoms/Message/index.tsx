@@ -16,4 +16,5 @@ const MessageWrapper = styled.h3`
     line-height: 26px;
     font-size: 18px;
     text-align: center;
+    color: ${(props) => props.theme.components.searchInput};
 `;
