@@ -61,6 +61,7 @@ const GameTitle = styled.h2`
     line-height: 46px;
     font-size: 32px;
     font-weight: bold;
+    color: ${(props) => props.theme.components.searchInput};
 `;
 
 const Contour = styled.div`
