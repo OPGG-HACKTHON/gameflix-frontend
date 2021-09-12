@@ -1,28 +1,41 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 
 import Logo from 'components/atoms/Logo';
 import Button from 'components/atoms/Button';
 import SearchButton from 'components/atoms/SearchButton';
 import ThemeSwitch from 'components/atoms/ThemeSwitch';
+import Modal from 'components/molecules/Modal';
+import Search from 'components/molecules/Search';
 
 import styled from '@emotion/styled';
 import Link from 'next/link';
 
 const Header: FunctionComponent = () => {
+    const [isOpenSearchModal, setIsOpenSearchModal] = useState<boolean>(false);
+
+    const onClick = (input: string) => {
+        console.log(input);
+    };
+
     return (
-        <StyledWrapper>
-            <StyledHeader>
-                <Link href={'/'}>
-                    <Logo />
-                </Link>
-            </StyledHeader>
-            {/*Todo 로그아웃 기능 구현*/}
-            <StyledPanels>
-                <SearchButton />
-                <ThemeSwitch />
-                <Button category="secondary">로그아웃</Button>
-            </StyledPanels>
-        </StyledWrapper>
+        <>
+            <StyledWrapper>
+                <StyledHeader>
+                    <Link href={'/'}>
+                        <Logo />
+                    </Link>
+                </StyledHeader>
+                {/*Todo 로그아웃 기능 구현*/}
+                <StyledPanels>
+                    <SearchButton onClick={() => setIsOpenSearchModal(true)} />
+                    <ThemeSwitch />
+                    <Button category="secondary">로그아웃</Button>
+                </StyledPanels>
+            </StyledWrapper>
+            <Modal isOpen={isOpenSearchModal} onClose={() => setIsOpenSearchModal(false)}>
+                <Search onClick={onClick} />
+            </Modal>
+        </>
     );
 };
 

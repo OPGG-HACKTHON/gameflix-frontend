@@ -3,7 +3,7 @@ import Button from 'components/atoms/Button';
 import styled from '@emotion/styled';
 
 type SearchProps = {
-    onClick: (input: string) => React.MouseEventHandler<HTMLButtonElement>;
+    onClick: (input: string) => void;
 };
 
 const Search: FunctionComponent<SearchProps> = (props) => {

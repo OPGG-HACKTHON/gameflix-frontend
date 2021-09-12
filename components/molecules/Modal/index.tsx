@@ -13,14 +13,14 @@ type ModalProps = {
 const Modal: FunctionComponent<ModalProps> = (props) => {
     const { children, isOpen, onClose } = props;
     return (
-        <StyledModalOverlay>
-            <ModalWrapper isOpen={isOpen} onRequestClose={onClose} closeTimeoutMS={2000}>
-                <Button category="secondary" onClick={onClose}>
-                    닫기
-                </Button>
-                <Content>{children}</Content>
-            </ModalWrapper>
-        </StyledModalOverlay>
+        //<StyledModalOverlay>
+        <ModalWrapper isOpen={isOpen} onRequestClose={onClose} closeTimeoutMS={2000}>
+            <Button category="secondary" onClick={onClose}>
+                닫기
+            </Button>
+            <Content>{children}</Content>
+        </ModalWrapper>
+        //</StyledModalOverlay>
     );
 };
 
