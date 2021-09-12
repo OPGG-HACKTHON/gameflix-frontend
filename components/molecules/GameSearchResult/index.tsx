@@ -25,9 +25,9 @@ const GameSearchResult: FunctionComponent<GameSearchResultProps> = (props) => {
                             </GameImg>
                             <GameInfos>
                                 <GameTitle>{name}</GameTitle>
-                                <Button category="primary" fullWidth>
-                                    내 라이브러리에 추가
-                                </Button>
+                                <div>
+                                    <Button category="primary">내 라이브러리에 추가</Button>
+                                </div>
                             </GameInfos>
                         </GameResultSingularWrapper>
                         <Contour />
@@ -40,11 +40,14 @@ const GameSearchResult: FunctionComponent<GameSearchResultProps> = (props) => {
 
 export default GameSearchResult;
 
-const GameResultContainer = styled.div``;
+const GameResultContainer = styled.div`
+    width: 888px;
+`;
 
 const GameResultSingularWrapper = styled.article`
     display: flex;
     height: 128px;
+    max-width: 645px;
     padding: 45px 0;
 `;
 
