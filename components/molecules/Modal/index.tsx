@@ -14,8 +14,8 @@ const Modal: FunctionComponent<ModalProps> = (props) => {
     const { children, isOpen, onClose } = props;
     return (
         <StyledModalOverlay>
-            <ModalWrapper isOpen={isOpen} onRequestClose={handleClose} closeTimeoutMS={2000}>
-                <Button category="secondary" onClick={handleClose}>
+            <ModalWrapper isOpen={isOpen} onRequestClose={onClose} closeTimeoutMS={2000}>
+                <Button category="secondary" onClick={onClose}>
                     닫기
                 </Button>
                 <Content>{children}</Content>
