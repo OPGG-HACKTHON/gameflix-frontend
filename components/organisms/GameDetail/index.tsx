@@ -5,15 +5,12 @@ import { format } from 'date-fns';
 import Button from 'components/atoms/Button';
 
 const GameDetail: FunctionComponent<GameInfo> = (props) => {
-    const { cover, name, summary, release_at, involved_companies, genres, platforms } = props;
+    const { cover, name, description, release_at, developer, genres, platforms, background } =
+        props;
     return (
         <GameDetailContainer>
             <ScreenShotWrapper>
-                <img
-                    src="https://images.igdb.com/igdb/image/upload/t_original/ocnossdjhjbn2hnyt94i.jpg"
-                    alt="game image"
-                    height="799px"
-                />
+                <img src={background} alt="game image" height="799px" />
                 <Overlay />
             </ScreenShotWrapper>
             <DetailContainer>
@@ -25,7 +22,7 @@ const GameDetail: FunctionComponent<GameInfo> = (props) => {
                 </CoverWrapper>
                 <InformationContainer>
                     <GameTitle>{name}</GameTitle>
-                    <CompaniesInformation>{involved_companies.join(', ')}</CompaniesInformation>
+                    <CompaniesInformation>{developer}</CompaniesInformation>
                     <GameInformation>
                         <InfoLabel>출시: </InfoLabel>
                         {format(new Date(release_at), 'MMM d, yyyy')}
@@ -36,7 +33,7 @@ const GameDetail: FunctionComponent<GameInfo> = (props) => {
                         <InfoLabel>플랫폼: </InfoLabel>
                         {platforms.join(', ')}
                     </GameInformation>
-                    <p>{summary}</p>
+                    <p>{description}</p>
                 </InformationContainer>
             </DetailContainer>
         </GameDetailContainer>

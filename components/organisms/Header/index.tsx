@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext, useEffect } from 'react';
 
 import Logo from 'components/atoms/Logo';
 import Button from 'components/atoms/Button';
@@ -7,8 +7,28 @@ import ThemeSwitch from 'components/atoms/ThemeSwitch';
 
 import styled from '@emotion/styled';
 import Link from 'next/link';
+import { postUser } from 'api/user';
+import { useRouter } from 'next/router';
+import UserContext from 'context/user';
 
 const Header: FunctionComponent = () => {
+    const router = useRouter();
+    const { setUser } = useContext(UserContext);
+    const getCurrentUser = async () => {
+        try {
+            const res = await postUser();
+            if (!res) {
+                router.push('/login');
+                return;
+            }
+            setUser?.(res.data);
+        } catch (e) {
+            router.push('/login');
+        }
+    };
+    useEffect(() => {
+        getCurrentUser();
+    }, [getCurrentUser]);
     return (
         <StyledWrapper>
             <StyledHeader>
