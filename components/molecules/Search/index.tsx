@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useCallback } from 'react';
+import React, { FunctionComponent, useState, useCallback, useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
 
 import Button from 'components/atoms/Button';
@@ -8,36 +8,55 @@ import GameSearchResult from 'components/molecules/GameSearchResult';
 
 import { gameAPI } from 'api/api';
 import { SimpleGameInfo } from 'types/responseInterface';
+import { GAME_GET_SIZE } from 'constant';
+
+import InfiniteScroll from 'react-infinite-scroll-component';
+import Message from 'components/atoms/Message';
+
+import useSearchGame from 'api/game';
 
 const Search: FunctionComponent = () => {
     const [input, setInput] = useState<string>('');
     const [filtered, setFiltered] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [searchResult, setSearchResult] = useState([] as SimpleGameInfo[]);
+    // const [searchResult, setSearchResult] = useState([] as SimpleGameInfo[]);
+    // const [hasMoreData, setHasMoreData] = useState<boolean>(true);
+    // const page = useRef(0);
+    const [btnclicked, setBtnClicked] = useState<boolean>(false);
+
+    const { data, isLoading, isError } = useSearchGame(btnclicked, input, 0, 10);
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
         setInput(e.target.value);
     }, []);
 
     const handleClick: React.MouseEventHandler<HTMLButtonElement> = useCallback(
-        async (e) => {
+        (e) => {
             e.preventDefault();
-            try {
-                setIsLoading(true);
-
-                const response = await gameAPI.getGames(input);
-                const responseData = await response.data;
-
-                console.log(responseData.games);
-                setSearchResult(responseData.games);
-            } catch (e) {
-                console.log(e);
-            } finally {
-                setIsLoading(false);
-            }
+            setBtnClicked(true);
         },
         [input]
     );
+
+    // const fetchMoreData = async () => {
+    //     try {
+    //         console.log('fetching more datas...');
+    //         setLoading(true);
+
+    //         const response = await gameAPI.getGames(Number(page), GAME_GET_SIZE, input);
+    //         const responseData = await response.data;
+
+    //         console.log(responseData.games);
+    //         setSearchResult([...searchResult, ...responseData.games]);
+    //         setHasMoreData(responseData.length === GAME_GET_SIZE);
+    //         console.log('more data loading...', hasMoreData);
+    //     } catch (e) {
+    //         console.log(e);
+    //     } finally {
+    //         setLoading(false);
+    //         page.current += GAME_GET_SIZE;
+    //         console.log('next page will be', page);
+    //     }
+    // };
 
     const handleCheck = () => {
         setFiltered(!filtered);
@@ -58,9 +77,25 @@ const Search: FunctionComponent = () => {
                 </SearchInputWrapper>
                 <CheckBox onClick={handleCheck}>내 라이브러리에서 검색</CheckBox>
                 <SearchResultWrapper>
-                    {isLoading && <Skeletons />}
-                    {searchResult.length > 0 && <GameSearchResult games={searchResult} />}
+                    {btnclicked && isLoading && <Skeletons />}
+                    {data && <GameSearchResult games={data.games} />}
                 </SearchResultWrapper>
+
+                {/* 아래는 인피니트 스크롤 실패. */}
+                {/* {loading && searchResult.length === 0 && <Skeletons />}
+                {searchResult.length > 0 && (
+                    <InfiniteScroll
+                        dataLength={10}
+                        next={() => console.log('next!!')}
+                        hasMore={hasMoreData}
+                        loader={loading && <Skeletons />}
+                        endMessage={
+                            !hasMoreData && <Message message="더 이상 검색 결과가 없습니다." />
+                        }
+                    >
+                        <GameSearchResult games={searchResult} />
+                    </InfiniteScroll>
+                )} */}
             </StyledSearchWrapper>
         </>
     );
