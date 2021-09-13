@@ -22,7 +22,7 @@ Default.args = {
     rating_external: 80.35918701514501,
     rating_external_count: 501,
     platforms: ['win', 'mac'],
-    summary: `StarCraft: Remastered is a reverently crafted modernization of Blizzard
+    description: `StarCraft: Remastered is a reverently crafted modernization of Blizzard
                         Entertainment’s original sci-fi real-time strategy game. StarCraft:
                         Remastered will offer a full graphical overhaul of the original StarCraft
                         and the StarCraft: Brood War expansion, bringing a modern look and feel to
@@ -57,5 +57,6 @@ Default.args = {
                         French, Brazilian Portuguese, Spanish (LatAm), Spanish (European), Polish,
                         Italian, Russian, Korean, Simplified Chinese, Traditional Chinese, and
                         Japanese.`,
-    involved_companies: ['Wube Software LTD'],
+    developer: 'Wube Software LTD',
+    background: 'https://images.igdb.com/igdb/image/upload/t_original/ocnossdjhjbn2hnyt94i.jpg',
 };
