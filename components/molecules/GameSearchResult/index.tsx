@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { GameInfoSingluar } from 'types/responseInterface';
+import { SimpleGameInfo } from 'types/responseInterface';
 
 import Button from 'components/atoms/Button';
 import Message from 'components/atoms/Message';
@@ -7,7 +7,7 @@ import Message from 'components/atoms/Message';
 import styled from '@emotion/styled';
 
 type GameSearchResultProps = {
-    games: GameInfoSingluar[];
+    games: SimpleGameInfo[];
 };
 
 const GameSearchResult: FunctionComponent<GameSearchResultProps> = (props) => {

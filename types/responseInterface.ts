@@ -29,9 +29,3 @@ export interface UserInfo {
 export interface UserGames {
     games: GameInfo[];
 }
-
-export interface GameInfoSingluar {
-    name: string;
-    slug: string;
-    cover: string;
-}
