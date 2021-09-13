@@ -54,6 +54,8 @@ const StyledWrapper = styled.header`
     justify-content: space-between;
     padding: 0 80px 0 80px;
     height: 164px;
+    width: 1920px;
+    box-sizing: border-box;
 `;
 
 const StyledHeader = styled.h1`
