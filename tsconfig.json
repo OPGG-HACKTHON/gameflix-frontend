@@ -22,6 +22,8 @@
       "components/*": ["components/*"],
       "utils/*": ["utils/*"],
       "types/*": ["types/*"],
+      "context/*": ["context/*"],
+      "api/*": ["api/*"],
   },
   },
   

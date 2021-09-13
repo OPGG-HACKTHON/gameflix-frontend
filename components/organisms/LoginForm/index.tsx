@@ -1,16 +1,29 @@
 import React, { FunctionComponent } from 'react';
 import Logo from 'components/atoms/Logo';
 import styled from '@emotion/styled';
-import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import { useRouter } from 'next/router';
 
-const clientId = '5985250658-onoklf8u51h2vnv1t9fvfm12ta2k81l6.apps.googleusercontent.com';
+const clientId = '790559581357-unedu44hsccmr8atn35m3hmktio2tqqp.apps.googleusercontent.com';
 
 const LoginForm: FunctionComponent = () => {
+    const router = useRouter();
+    const onSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
+        if ('tokenId' in response) {
+            window.localStorage.setItem('token', response.tokenId);
+        } else {
+            window.localStorage.setItem('code', response.code);
+        }
+        router.push('/');
+    };
+    const onFailure = (error: any) => {
+        console.log(error);
+    };
     return (
         <StyledContainer>
             <Logo size={'big'} />
             <StyledParagraph>당신의 게임이 한 자리에</StyledParagraph>
-            <StyledGoogleLogin clientId={clientId} />
+            <StyledGoogleLogin clientId={clientId} onSuccess={onSuccess} onFailure={onFailure} />
         </StyledContainer>
     );
 };
