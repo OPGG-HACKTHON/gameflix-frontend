@@ -1,17 +1,35 @@
 import React, { FunctionComponent } from 'react';
 import styled from '@emotion/styled';
 
-import Skeleton from 'react-loading-skeleton';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 const Skeletons: FunctionComponent = () => {
     return (
-        <SkeletonWrapper>
-            <GameImgSkeleton />
-            <SkeletonContents>
-                <GameTitleSkeleton />
-                <GameDescriptionSkeleton />
-            </SkeletonContents>
-        </SkeletonWrapper>
+        <SkeletonTheme color="rgba(196,196,196,0.5)">
+            <SkeletonWrapper>
+                <GameImgSkeleton />
+                <SkeletonContents>
+                    <GameTitleSkeleton />
+                    <GameDescriptionSkeleton />
+                </SkeletonContents>
+            </SkeletonWrapper>
+            <Contour />
+            <SkeletonWrapper>
+                <GameImgSkeleton />
+                <SkeletonContents>
+                    <GameTitleSkeleton />
+                    <GameDescriptionSkeleton />
+                </SkeletonContents>
+            </SkeletonWrapper>
+            <Contour />
+            <SkeletonWrapper>
+                <GameImgSkeleton />
+                <SkeletonContents>
+                    <GameTitleSkeleton />
+                    <GameDescriptionSkeleton />
+                </SkeletonContents>
+            </SkeletonWrapper>
+        </SkeletonTheme>
     );
 };
 
@@ -19,12 +37,12 @@ export default Skeletons;
 
 const SkeletonWrapper = styled.div`
     display: flex;
+    padding: 45px 0;
 `;
 
 const GameImgSkeleton = styled(Skeleton)`
-    width: 96px;
-    height: 128px;
-    border-radius: 0px;
+    min-width: 96px;
+    min-height: 128px;
 `;
 
 const SkeletonContents = styled.div`
@@ -32,16 +50,23 @@ const SkeletonContents = styled.div`
     flex-direction: column;
     margin-left: 21px;
     justify-content: space-between;
+    white-space: nowrap;
 `;
 
 const GameTitleSkeleton = styled(Skeleton)`
-    width: 478px;
-    height: 46px;
+    min-width: 478px;
+    min-height: 46px;
     border-radius: 0px;
 `;
 
 const GameDescriptionSkeleton = styled(Skeleton)`
-    width: 195px;
-    height: 42px;
+    max-width: 195px;
+    min-height: 42px;
     border-radius: 0px;
+`;
+
+const Contour = styled.div`
+    width: 914px;
+    height: 1px;
+    background: #333333;
 `;

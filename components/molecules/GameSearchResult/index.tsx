@@ -12,6 +12,7 @@ type GameSearchResultProps = {
 
 const GameSearchResult: FunctionComponent<GameSearchResultProps> = (props) => {
     const { games } = props;
+
     return (
         <GameResultContainer>
             {games.length === 0 ? (
@@ -64,6 +65,7 @@ const GameTitle = styled.h2`
     line-height: 46px;
     font-size: 32px;
     font-weight: bold;
+    margin-top: 0px;
     color: ${(props) => props.theme.components.searchInput};
 `;
 

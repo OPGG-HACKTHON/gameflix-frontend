@@ -2,14 +2,14 @@ import React, { FunctionComponent, useCallback, useContext } from 'react';
 import ReactModal from 'react-modal';
 import styled from '@emotion/styled';
 
-import Button from 'components/atoms/Button/index';
+import Icon from 'components/atoms/Icon/Icon';
 
 import ThemeContext from 'context/theme';
 
 type ModalProps = {
     children: React.ReactNode;
     isOpen: boolean;
-    onClose: React.MouseEventHandler<HTMLButtonElement>;
+    onClose: React.MouseEventHandler<SVGSVGElement>;
 };
 
 const Modal: FunctionComponent<ModalProps> = (props) => {
@@ -27,11 +27,13 @@ const Modal: FunctionComponent<ModalProps> = (props) => {
             }}
             isOpen={isOpen}
             onRequestClose={onClose}
-            closeTimeoutMS={200}
+            closeTimeoutMS={300}
         >
-            <Button category="secondary" onClick={onClose}>
-                닫기
-            </Button>
+            <Icon
+                name="Close"
+                style={{ position: 'fixed', margin: '20px 0px 0px 962px', cursor: 'pointer' }}
+                onClick={onClose}
+            />
             <Content>{children}</Content>
         </ModalWrapper>
     );
@@ -73,6 +75,7 @@ const Content = styled.div`
     justify-contents: center;
     margin-bottom: 1rem;
     padding: 80px 56px 0 56px;
+    color: ${(props) => props.theme.components.searchInput};
 `;
 
 export default Modal;

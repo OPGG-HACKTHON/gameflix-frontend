@@ -20,7 +20,7 @@ const CheckBox: FunctionComponent<CheckBoxProps> = (props) => {
     return (
         <Wrapper>
             {children}
-            <Input onClick={handleClick} type="checkbox" checked={checked} />
+            <Input onClick={handleClick} type="checkbox" defaultChecked={checked} />
             <CheckMark checked={checked}>
                 <Icon name="Check" />
             </CheckMark>

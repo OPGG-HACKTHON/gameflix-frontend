@@ -1,7 +1,14 @@
 import axios, { AxiosResponse } from 'axios';
-import { GameInfo, UserInfo, UserGames } from 'types/responseInterface';
+import {
+    GameInfo,
+    UserInfo,
+    UserGames,
+    SimpleGameInfo,
+    GameSearchInfos,
+} from 'types/responseInterface';
 
-const END_POINT = 'http://localhost:8080';
+const END_POINT =
+    'http://load-balancer-gameflix-backend-754529149.ap-northeast-2.elb.amazonaws.com';
 
 const getRequest = <T>(url: string) => {
     try {
@@ -29,6 +36,15 @@ const postRequest = <T>(url: string, body: any) => {
         console.error(e);
         return e;
     }
+};
+
+export const gameAPI = {
+    getGames: async (input: string): Promise<GameSearchInfos> => {
+        const gameSearchResult = (await getRequest<GameSearchInfos>(
+            `games?search=${input}`
+        )) as GameSearchInfos;
+        return gameSearchResult;
+    },
 };
 
 export const userAPI = {

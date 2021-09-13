@@ -4,6 +4,10 @@ export interface SimpleGameInfo {
     cover: string;
 }
 
+export interface GameSearchInfos {
+    game: SimpleGameInfo[];
+}
+
 export interface GameInfo {
     slug: string;
     name: string;

@@ -3,24 +3,38 @@ import styled from '@emotion/styled';
 
 import Button from 'components/atoms/Button';
 import CheckBox from 'components/atoms/Checkbox';
+import Skeletons from 'components/molecules/Skeleton';
+import GameSearchResult from 'components/molecules/GameSearchResult';
 
-type SearchProps = {
-    onClick: (input: string) => void;
-};
+import { gameAPI } from 'api/api';
+import { SimpleGameInfo } from 'types/responseInterface';
 
-const Search: FunctionComponent<SearchProps> = (props) => {
-    const { onClick } = props;
+const Search: FunctionComponent = () => {
     const [input, setInput] = useState<string>('');
     const [filtered, setFiltered] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [searchResult, setSearchResult] = useState([] as SimpleGameInfo[]);
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
         setInput(e.target.value);
     }, []);
 
     const handleClick: React.MouseEventHandler<HTMLButtonElement> = useCallback(
-        (e) => {
+        async (e) => {
             e.preventDefault();
-            onClick(input);
+            try {
+                setIsLoading(true);
+
+                const response = await gameAPI.getGames(input);
+                const responseData = await response.data;
+
+                console.log(responseData.games);
+                setSearchResult(responseData.games);
+            } catch (e) {
+                console.log(e);
+            } finally {
+                setIsLoading(false);
+            }
         },
         [input]
     );
@@ -30,19 +44,25 @@ const Search: FunctionComponent<SearchProps> = (props) => {
     };
 
     return (
-        <StyledSearchWrapper>
-            <SearchInputWrapper>
-                <StyledSearchInput
-                    value={input}
-                    onChange={handleChange}
-                    placeholder="검색어를 입력하세요"
-                />
-                <Button onClick={handleClick} category="primary">
-                    검색
-                </Button>
-            </SearchInputWrapper>
-            <CheckBox onClick={handleCheck}>내 라이브러리에서 검색</CheckBox>
-        </StyledSearchWrapper>
+        <>
+            <StyledSearchWrapper>
+                <SearchInputWrapper>
+                    <StyledSearchInput
+                        value={input}
+                        onChange={handleChange}
+                        placeholder="검색어를 입력하세요"
+                    />
+                    <Button onClick={handleClick} category="primary">
+                        검색
+                    </Button>
+                </SearchInputWrapper>
+                <CheckBox onClick={handleCheck}>내 라이브러리에서 검색</CheckBox>
+                <SearchResultWrapper>
+                    {isLoading && <Skeletons />}
+                    {searchResult.length > 0 && <GameSearchResult games={searchResult} />}
+                </SearchResultWrapper>
+            </StyledSearchWrapper>
+        </>
     );
 };
 
@@ -84,3 +104,5 @@ const StyledSearchInput = styled.input`
         outline: none;
     }
 `;
+
+const SearchResultWrapper = styled.div``;

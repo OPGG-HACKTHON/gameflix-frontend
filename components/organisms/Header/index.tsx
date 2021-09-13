@@ -16,12 +16,9 @@ import UserContext from 'context/user';
 const Header: FunctionComponent = () => {
     const [isOpenSearchModal, setIsOpenSearchModal] = useState<boolean>(false);
 
-    const onClick = (input: string) => {
-        console.log(input);
-    };
-
     const router = useRouter();
     const { setUser } = useContext(UserContext);
+
     const getCurrentUser = async () => {
         try {
             const res = await postUser();
@@ -34,9 +31,11 @@ const Header: FunctionComponent = () => {
             router.push('/login');
         }
     };
+
     useEffect(() => {
         getCurrentUser();
     }, [getCurrentUser]);
+
     return (
         <>
             <StyledWrapper>
@@ -53,7 +52,7 @@ const Header: FunctionComponent = () => {
                 </StyledPanels>
             </StyledWrapper>
             <Modal isOpen={isOpenSearchModal} onClose={() => setIsOpenSearchModal(false)}>
-                <Search onClick={onClick} />
+                <Search />
             </Modal>
         </>
     );
