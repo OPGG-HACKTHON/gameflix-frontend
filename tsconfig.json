@@ -16,13 +16,17 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "components/*": ["components/*"],
+      "utils/*": ["utils/*"],
+      "types/*": ["types/*"],
+      "context/*": ["context/*"],
+      "api/*": ["api/*"],
   },
-  "baseUrl": ".",
-  "paths": {
-    "components/*": ["components/*"],
-    "utils/*": ["utils/*"]
   },
+  
   "include": [
     "next-env.d.ts",
     "**/*.ts",
