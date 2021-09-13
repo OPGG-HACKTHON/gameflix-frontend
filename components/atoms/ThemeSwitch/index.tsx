@@ -6,12 +6,12 @@ import Icon from 'components/atoms/Icon/Icon';
 import ThemeContext from 'context/theme';
 
 const ThemeSwitch: FunctionComponent = () => {
-    const toogleTheme = useContext(ThemeContext);
-    const [checked, setChecked] = useState(false);
+    const { isDark, toggleTheme } = useContext(ThemeContext);
+    const [checked, setChecked] = useState(isDark);
 
     const handleChange = () => {
         setChecked(!checked);
-        toogleTheme?.toggleTheme?.();
+        toggleTheme?.();
     };
 
     return (

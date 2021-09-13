@@ -29,7 +29,7 @@ const ThemeProvider: FunctionComponent = (props) => {
                     }
                     #__next {
                         height: 100vh;
-                        width: 100vw;
+                        width: 1920px;
                     }
                 `}
             />
