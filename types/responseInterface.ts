@@ -1,3 +1,9 @@
+export interface SimpleGameInfo {
+    slug: string;
+    name: string;
+    cover: string;
+}
+
 export interface GameInfo {
     slug: string;
     name: string;
@@ -9,13 +15,15 @@ export interface GameInfo {
     rating_external: number;
     rating_external_count: number;
     platforms: string[];
-    involved_companies: string[];
-    summary: string;
+    developer: string;
+    description: string;
+    background: string;
 }
 
 export interface UserInfo {
+    id: string;
     email: string;
-    games: GameInfo[];
+    games: SimpleGameInfo[];
 }
 
 export interface UserGames {
