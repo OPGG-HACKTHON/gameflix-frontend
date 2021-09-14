@@ -5,12 +5,12 @@ import Button from 'components/atoms/Button';
 import CheckBox from 'components/atoms/Checkbox';
 import Skeletons from 'components/molecules/Skeleton';
 import GameSearchResult from 'components/molecules/GameSearchResult';
+import Message from 'components/atoms/Message';
 
 import useSWRInfinite from 'swr/infinite';
 import { GAME_GET_SIZE } from 'constant';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
-import Message from 'components/atoms/Message';
 
 import fetcher from 'utils/fetcher';
 
