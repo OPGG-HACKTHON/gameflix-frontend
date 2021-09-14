@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useCallback, useContext } from 'react';
+import React, { FunctionComponent, useCallback, useContext, useEffect } from 'react';
 import ReactModal from 'react-modal';
 import styled from '@emotion/styled';
 
@@ -16,6 +16,11 @@ const Modal: FunctionComponent<ModalProps> = (props) => {
     const { children, isOpen, onClose } = props;
     const theme = useContext(ThemeContext);
 
+    useEffect(() => {
+        if (isOpen) document.body.style.overflow = 'hidden';
+        else document.body.style.overflow = 'visible';
+    }, [isOpen]);
+
     return (
         <ModalWrapper
             id="scrollableDiv"
@@ -29,6 +34,7 @@ const Modal: FunctionComponent<ModalProps> = (props) => {
             isOpen={isOpen}
             onRequestClose={onClose}
             closeTimeoutMS={300}
+            preventScroll={true}
         >
             <Icon
                 name="Close"
