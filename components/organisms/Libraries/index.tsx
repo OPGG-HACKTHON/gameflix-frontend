@@ -1,7 +1,17 @@
 import React, { FunctionComponent } from 'react';
 import Library from 'components/organisms/Library';
+import axios from 'axios';
+
+const BlizzardClientId = '916b6064383441388fa56d2b3af3779a';
+const BlizzardClientPwd = 'RrKJsOMXTn7AVxhFyscX8ABQiF9Ja9nw';
 
 const Libraries: FunctionComponent = () => {
+    const onRegisterBlizzard = async () => {
+        const response = await axios.post(
+            `https://kr.battle.net/oauth/token?client_id={{CLIENT_ID}}&client_secret={{CLIENT_SECRET}}&grant_type=client_credentials&code=KRMkJgEGlv8OBbkEtT267vCNmKZbfdj0mN&redirect_uri={{REDIRECT_URI}}`
+        );
+    };
+
     return (
         <>
             <Library label={'STEAM'} list={MOCK_STEAM} onLoad={() => console.log('STEAM')} />
