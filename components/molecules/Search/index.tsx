@@ -78,6 +78,9 @@ const Search: FunctionComponent = () => {
                                 <Message message="더 이상 검색 결과가 없습니다." />
                             )
                         }
+                        style={{
+                            overflowX: 'hidden',
+                        }}
                     >
                         {data.length > 0 &&
                             data.map((games) => (

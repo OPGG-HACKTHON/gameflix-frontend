@@ -69,6 +69,7 @@ const ModalWrapper = styled(ReactModal)`
     &::-webkit-scrollbar {
         display: none;
     }
+    overflow-x: hidden;
 `;
 
 const Content = styled.div`
