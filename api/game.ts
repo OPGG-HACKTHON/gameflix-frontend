@@ -1,12 +1,10 @@
 import useSWR from 'swr';
 
-import { END_POINT } from 'constant';
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
+import fetcher from 'utils/fetcher';
 
 const useSearchGame = (btnclicked: boolean, input: string, page?: number, size?: number) => {
     const { data, error } = useSWR(
-        btnclicked ? `${END_POINT}/games?page=${page}&size=${size}&search=${input}` : null,
+        btnclicked ? `/games?page=${page}&size=${size}&search=${input}` : null,
         fetcher
     );
 

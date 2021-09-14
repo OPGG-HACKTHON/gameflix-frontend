@@ -25,7 +25,9 @@ const GameSearchResult: FunctionComponent<GameSearchResultProps> = (props) => {
                                 <img src={cover} alt="game image" height="128px" />
                             </GameImg>
                             <GameInfos>
-                                <GameTitle>{name}</GameTitle>
+                                <GameTitle>
+                                    {name.length > 40 ? `${name.slice(0, 40)}...` : name}
+                                </GameTitle>
                                 <div>
                                     <Button category="primary">내 라이브러리에 추가</Button>
                                 </div>
@@ -66,11 +68,12 @@ const GameTitle = styled.h2`
     font-size: 32px;
     font-weight: bold;
     margin-top: 0px;
+    white-space: nowrap;
     color: ${(props) => props.theme.components.searchInput};
 `;
 
 const Contour = styled.div`
-    width: 914px;
+    width: 912px;
     height: 1px;
     background: #333333;
 `;

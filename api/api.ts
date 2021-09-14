@@ -39,7 +39,7 @@ const postRequest = <T>(url: string, body: any) => {
 };
 
 export const gameAPI = {
-    getGames: async (page?: number, size?: number, input: string): Promise<GameSearchInfos> => {
+    getGames: async (page: number, size: number, input: string): Promise<GameSearchInfos> => {
         const gameSearchResult = (await getRequest<GameSearchInfos>(
             `games?page=${page}&size=${size}&search=${input}`
         )) as GameSearchInfos;

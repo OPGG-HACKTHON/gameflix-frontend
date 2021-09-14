@@ -18,6 +18,7 @@ const Modal: FunctionComponent<ModalProps> = (props) => {
 
     return (
         <ModalWrapper
+            id="scrollableDiv"
             style={{
                 overlay: {
                     backgroundColor: `${

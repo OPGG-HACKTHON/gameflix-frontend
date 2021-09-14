@@ -3,32 +3,49 @@ import styled from '@emotion/styled';
 
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
-const Skeletons: FunctionComponent = () => {
+type SkeletonsProps = {
+    multiple?: boolean;
+};
+
+const Skeletons: FunctionComponent<SkeletonsProps> = (props) => {
+    const { multiple } = props;
     return (
         <SkeletonTheme color="rgba(196,196,196,0.5)">
-            <SkeletonWrapper>
-                <GameImgSkeleton />
-                <SkeletonContents>
-                    <GameTitleSkeleton />
-                    <GameDescriptionSkeleton />
-                </SkeletonContents>
-            </SkeletonWrapper>
-            <Contour />
-            <SkeletonWrapper>
-                <GameImgSkeleton />
-                <SkeletonContents>
-                    <GameTitleSkeleton />
-                    <GameDescriptionSkeleton />
-                </SkeletonContents>
-            </SkeletonWrapper>
-            <Contour />
-            <SkeletonWrapper>
-                <GameImgSkeleton />
-                <SkeletonContents>
-                    <GameTitleSkeleton />
-                    <GameDescriptionSkeleton />
-                </SkeletonContents>
-            </SkeletonWrapper>
+            {multiple ? (
+                <>
+                    <SkeletonWrapper>
+                        <GameImgSkeleton />
+                        <SkeletonContents>
+                            <GameTitleSkeleton />
+                            <GameDescriptionSkeleton />
+                        </SkeletonContents>
+                    </SkeletonWrapper>
+                    <Contour />
+                    <SkeletonWrapper>
+                        <GameImgSkeleton />
+                        <SkeletonContents>
+                            <GameTitleSkeleton />
+                            <GameDescriptionSkeleton />
+                        </SkeletonContents>
+                    </SkeletonWrapper>
+                    <Contour />
+                    <SkeletonWrapper>
+                        <GameImgSkeleton />
+                        <SkeletonContents>
+                            <GameTitleSkeleton />
+                            <GameDescriptionSkeleton />
+                        </SkeletonContents>
+                    </SkeletonWrapper>
+                </>
+            ) : (
+                <SkeletonWrapper>
+                    <GameImgSkeleton />
+                    <SkeletonContents>
+                        <GameTitleSkeleton />
+                        <GameDescriptionSkeleton />
+                    </SkeletonContents>
+                </SkeletonWrapper>
+            )}
         </SkeletonTheme>
     );
 };
