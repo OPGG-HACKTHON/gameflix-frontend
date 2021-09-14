@@ -5,7 +5,16 @@ export interface SimpleGameInfo {
 }
 
 export interface GameSearchInfos {
-    game: SimpleGameInfo[];
+    games: SimpleGameInfo[];
+    number: number;
+    size: number;
+    numberOfElements: number;
+    isFirst: boolean;
+    isLast: boolean;
+    hasNext: boolean;
+    hasPrevious: boolean;
+    totalPage: number;
+    totalElements: number;
 }
 
 export interface GameInfo {
