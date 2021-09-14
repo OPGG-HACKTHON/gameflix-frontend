@@ -9,6 +9,7 @@ import Message from 'components/atoms/Message';
 
 import useSWRInfinite from 'swr/infinite';
 import { GAME_GET_SIZE } from 'constant';
+import { GameSearchInfos } from 'types/responseInterface';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -17,10 +18,10 @@ import fetcher from 'utils/fetcher';
 const Search: FunctionComponent = () => {
     const [input, setInput] = useState<string>('');
     const [filtered, setFiltered] = useState<boolean>(false);
-    const [btnclicked, setBtnClicked] = useState<boolean>(false);
+    const [searchStart, setSearchStart] = useState<boolean>(false);
 
-    const { data, size, setSize } = useSWRInfinite(
-        btnclicked
+    const { data, size, setSize } = useSWRInfinite<GameSearchInfos>(
+        searchStart
             ? (pageIndex) => `/games?page=${pageIndex}&size=${GAME_GET_SIZE}&search=${input}`
             : null,
         fetcher
@@ -33,14 +34,14 @@ const Search: FunctionComponent = () => {
     const isEndofData = (data && !data[data.length - 1].isLast) || true;
     const isReacingEnd = data && data[data.length - 1].numberOfElements < 10;
 
-    const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
+    const handleChange = useCallback<React.ChangeEventHandler<HTMLInputElement>>((e) => {
         setInput(e.target.value);
     }, []);
 
-    const handleClick: React.MouseEventHandler<HTMLButtonElement> = useCallback(
+    const handleClick = useCallback<React.MouseEventHandler<HTMLButtonElement>>(
         (e) => {
             e.preventDefault();
-            setBtnClicked(true);
+            setSearchStart(true);
         },
         [input]
     );
@@ -63,7 +64,7 @@ const Search: FunctionComponent = () => {
                     </Button>
                 </SearchInputWrapper>
                 <CheckBox onClick={handleCheck}>내 라이브러리에서 검색</CheckBox>
-                {btnclicked && !data && <Skeletons multiple />}
+                {searchStart && !data && <Skeletons multiple />}
                 {data && (
                     <InfiniteScroll
                         scrollableTarget="scrollableDiv"
