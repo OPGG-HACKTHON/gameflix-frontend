@@ -1,52 +1,62 @@
-import React, { FunctionComponent, useCallback } from 'react';
+import React, { FunctionComponent, useCallback, useContext, useEffect } from 'react';
 import ReactModal from 'react-modal';
 import styled from '@emotion/styled';
 
-import Button from 'components/atoms/Button/index';
+import Icon from 'components/atoms/Icon/Icon';
+
+import ThemeContext from 'context/theme';
 
 type ModalProps = {
     children: React.ReactNode;
     isOpen: boolean;
-    onClose: React.MouseEventHandler<HTMLButtonElement>;
+    onClose: React.MouseEventHandler<SVGSVGElement>;
 };
 
 const Modal: FunctionComponent<ModalProps> = (props) => {
     const { children, isOpen, onClose } = props;
+    const theme = useContext(ThemeContext);
+
+    useEffect(() => {
+        if (isOpen) document.body.style.overflow = 'hidden';
+        else document.body.style.overflow = 'visible';
+    }, [isOpen]);
+
     return (
-        <StyledModalOverlay>
-            <ModalWrapper isOpen={isOpen} onRequestClose={onClose} closeTimeoutMS={2000}>
-                <Button category="secondary" onClick={onClose}>
-                    닫기
-                </Button>
-                <Content>{children}</Content>
-            </ModalWrapper>
-        </StyledModalOverlay>
+        <ModalWrapper
+            id="scrollableDiv"
+            style={{
+                overlay: {
+                    backgroundColor: `${
+                        theme.isDark ? 'rgba(0,0,0,0.85)' : 'rgba(255,255,255,0.9)'
+                    }`,
+                },
+            }}
+            isOpen={isOpen}
+            onRequestClose={onClose}
+            closeTimeoutMS={300}
+            preventScroll={true}
+        >
+            <Icon
+                name="Close"
+                style={{ position: 'fixed', margin: '20px 0px 0px 962px', cursor: 'pointer' }}
+                onClick={onClose}
+            />
+            <Content>{children}</Content>
+        </ModalWrapper>
     );
 };
 
 ReactModal.setAppElement('#modal-root');
 
-const StyledModalOverlay = styled.div`
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.5);
-`;
-
 const ModalWrapper = styled(ReactModal)`
     position: relative;
     display: flex;
     flex-direction: column;
-    background-color: ${({ theme }) => theme.buttonColors.secondary};
+    background-color: ${({ theme }) => theme.bgColors.default};
     color: ${({ theme }) => theme.colors.secondary};
     margin: 80px 460px;
     width: 1000px;
-    min-height: 80px;
+    min-height: 264px;
     max-height: 878px;
     outline: none;
     overflow: auto;
@@ -65,6 +75,7 @@ const ModalWrapper = styled(ReactModal)`
     &::-webkit-scrollbar {
         display: none;
     }
+    overflow-x: hidden;
 `;
 
 const Content = styled.div`
@@ -72,6 +83,7 @@ const Content = styled.div`
     justify-contents: center;
     margin-bottom: 1rem;
     padding: 80px 56px 0 56px;
+    color: ${(props) => props.theme.components.searchInput};
 `;
 
 export default Modal;

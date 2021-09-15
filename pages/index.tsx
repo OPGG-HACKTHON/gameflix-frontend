@@ -1,19 +1,17 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import Button from 'components/atoms/Button';
+import React, { FunctionComponent } from 'react';
+
+import HomeTemplate from 'components/templates/Home';
 import Header from 'components/organisms/Header';
+import Libraries from 'components/organisms/Libraries';
 
-function Home(): React.ReactNode {
+const home: FunctionComponent = () => {
     return (
-        <div>
-            <Header />
-            <Paragraph>Home page</Paragraph>
-            <Button category="secondary">test</Button>
-        </div>
+        <>
+            <HomeTemplate header={<Header />}>
+                <Libraries />
+            </HomeTemplate>
+        </>
     );
-}
-export default Home;
+};
 
-const Paragraph = styled.p`
-    background: aqua;
-`;
+export default home;

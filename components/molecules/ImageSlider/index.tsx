@@ -56,7 +56,7 @@ const EmptyList = styled.li`
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid ${({ theme }) => theme.borderColors.primary};
+    border: 2px solid ${({ theme }) => theme.borderColors.secondary.default};
     border-radius: 10px;
     box-sizing: border-box;
     span {

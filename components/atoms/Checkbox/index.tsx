@@ -20,7 +20,7 @@ const CheckBox: FunctionComponent<CheckBoxProps> = (props) => {
     return (
         <Wrapper>
             {children}
-            <Input onClick={handleClick} type="checkbox" checked={checked} />
+            <Input onClick={handleClick} type="checkbox" defaultChecked={checked} />
             <CheckMark checked={checked}>
                 <Icon name="Check" />
             </CheckMark>
@@ -41,6 +41,7 @@ const Wrapper = styled.label`
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    margin-left: auto;
     color: ${(props) => props.theme.components.checkboxContent};
 `;
 
