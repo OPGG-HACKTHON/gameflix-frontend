@@ -4,12 +4,14 @@ import axios from 'axios';
 
 const BlizzardClientId = '916b6064383441388fa56d2b3af3779a';
 const BlizzardClientPwd = 'RrKJsOMXTn7AVxhFyscX8ABQiF9Ja9nw';
+const REDIRECT_URI = 'http://localhost/';
 
 const Libraries: FunctionComponent = () => {
     const onRegisterBlizzard = async () => {
         const response = await axios.post(
-            `https://kr.battle.net/oauth/token?client_id={{CLIENT_ID}}&client_secret={{CLIENT_SECRET}}&grant_type=client_credentials&code=KRMkJgEGlv8OBbkEtT267vCNmKZbfdj0mN&redirect_uri={{REDIRECT_URI}}`
+            `https://kr.battle.net/oauth/token?client_id=${BlizzardClientId}&client_secret=${BlizzardClientPwd}&grant_type=client_credentials&code=KRMkJgEGlv8OBbkEtT267vCNmKZbfdj0mN&redirect_uri=${REDIRECT_URI}`
         );
+        console.log(response);
     };
 
     return (
@@ -20,11 +22,7 @@ const Libraries: FunctionComponent = () => {
                 list={MOCK_EPIC}
                 onLoad={() => console.log('Epic Games Store')}
             />
-            <Library
-                label={'battle.net '}
-                list={MOCK_BATTLENET}
-                onLoad={() => console.log('battle.net')}
-            />
+            <Library label={'battle.net '} list={MOCK_BATTLENET} onLoad={onRegisterBlizzard} />
             <Library
                 label={'기타'}
                 list={[]}
