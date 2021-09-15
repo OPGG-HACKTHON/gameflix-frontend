@@ -2,6 +2,9 @@ export interface SimpleGameInfo {
     slug: string;
     name: string;
     cover: string;
+    release_at: number;
+    store: string;
+    developer: string;
 }
 
 export interface GameSearchInfos {
