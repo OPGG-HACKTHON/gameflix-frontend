@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useContext, useEffect } from 'react';
+import React, { FunctionComponent, useCallback, useContext, useEffect } from 'react';
 
 import Logo from 'components/atoms/Logo';
 import Button from 'components/atoms/Button';
@@ -18,20 +18,18 @@ const Header: FunctionComponent = () => {
 
     const router = useRouter();
     const { setUser } = useContext(UserContext);
-
-    const getCurrentUser = async () => {
+    const getCurrentUser = useCallback(async () => {
         try {
             const res = await postUser();
             if (!res) {
                 router.push('/login');
                 return;
             }
-            setUser?.(res.data);
+            setUser?.(res);
         } catch (e) {
             router.push('/login');
         }
-    };
-
+    }, []);
     useEffect(() => {
         getCurrentUser();
     }, [getCurrentUser]);

@@ -1,21 +1,14 @@
 import React, { FunctionComponent, useCallback } from 'react';
 import GameImage from 'components/atoms/GameImage';
 import styled from '@emotion/styled';
-import { GameInfo } from 'types/responseInterface';
+import { SimpleGameInfo } from 'types/responseInterface';
 export type ImageSliderProps = {
-    list: GameInfo[];
+    list: SimpleGameInfo[];
     onClick?: (id: string) => React.MouseEventHandler<HTMLAnchorElement>;
 };
 
 const ImageSlider: FunctionComponent<ImageSliderProps> = (props) => {
     const { list, onClick } = props;
-    const handleClick = useCallback(
-        (slug: string): React.MouseEventHandler<HTMLAnchorElement> =>
-            () => {
-                onClick?.(slug);
-            },
-        [onClick]
-    );
     return (
         <ImageContainer>
             {list.length === 0 ? (
@@ -23,9 +16,9 @@ const ImageSlider: FunctionComponent<ImageSliderProps> = (props) => {
                     <span>라이브러리가 비어 있습니다.</span>
                 </EmptyList>
             ) : (
-                list.map(({ slug, cover }) => (
-                    <li key={slug}>
-                        <GameImage src={cover} onClick={handleClick(slug)} />
+                list.map((gameInfo) => (
+                    <li key={gameInfo.slug}>
+                        <GameImage game={gameInfo} />
                     </li>
                 ))
             )}
@@ -42,7 +35,6 @@ const ImageContainer = styled.ul`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    overflow: scroll;
     gap: 20px;
     &::-webkit-scrollbar {
         display: none;

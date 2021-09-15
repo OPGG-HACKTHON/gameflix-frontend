@@ -1,3 +1,15 @@
+export interface Pagination {
+    number: 0;
+    size: number;
+    numberOfElements: number;
+    isFirst: boolean;
+    isLast: boolean;
+    hasNext: boolean;
+    hasPrevious: boolean;
+    totalPages: number;
+    totalElements: number;
+}
+
 export interface SimpleGameInfo {
     slug: string;
     name: string;

@@ -24,6 +24,7 @@
       "types/*": ["types/*"],
       "context/*": ["context/*"],
       "api/*": ["api/*"],
+      "lib/*": ["lib/*"]
   },
   },
   
