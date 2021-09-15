@@ -1,11 +1,13 @@
-import React, { FunctionComponent } from 'react';
-
+import React, { FunctionComponent, useState } from 'react';
 import Library from 'components/organisms/Library';
+
+import { SimpleGameInfo } from 'types/responseInterface';
 
 import { useBlizzardLogin } from 'hooks';
 
 const Libraries: FunctionComponent = () => {
-    const handleLogin = useBlizzardLogin();
+    const [myBlizzard, setMyBlizzard] = useState<SimpleGameInfo[]>([]);
+    const handleLogin = useBlizzardLogin(setMyBlizzard);
 
     return (
         <>
@@ -15,7 +17,7 @@ const Libraries: FunctionComponent = () => {
                 list={MOCK_EPIC}
                 onLoad={() => console.log('Epic Games Store')}
             />
-            <Library label={'battle.net '} list={MOCK_BATTLENET} onLoad={handleLogin} />
+            <Library label={'battle.net '} list={myBlizzard} onLoad={handleLogin} />
             <Library
                 label={'기타'}
                 list={[]}

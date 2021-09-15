@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
-import { GameInfo } from 'types/responseInterface';
+import { SimpleGameInfo } from 'types/responseInterface';
 import styled from '@emotion/styled';
 import ImageSlider from 'components/molecules/ImageSlider';
 import Button from 'components/atoms/Button';
 
 type LibraryProps = {
     label: string;
-    list: GameInfo[];
+    list: SimpleGameInfo[];
     onLoad: React.MouseEventHandler<HTMLButtonElement>;
     loadText?: string;
 };

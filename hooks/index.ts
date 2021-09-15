@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import UserContext from 'context/user';
 import { useSWRConfig } from 'swr';
 import axios from 'axios';
+import { SimpleGameInfo } from 'types/responseInterface';
 import { END_POINT } from '../constant';
 
 export const useSteamLogin = () => {
@@ -85,9 +86,11 @@ export const useGOGLogin = () => {
     return handleLogin;
 };
 
-export const useBlizzardLogin = () => {
-    const { user } = useContext(UserContext);
+export const useBlizzardLogin = (
+    onSetMyBlizzard: React.Dispatch<React.SetStateAction<SimpleGameInfo[]>>
+) => {
     const { mutate } = useSWRConfig();
+
     const handleLogin = () => {
         window.open(
             'https://kr.battle.net/login/en/?ref=https://kr.battle.net/oauth/authorize?client_id%3Dbdd7aad97d4e4e768f45a2af2830dfd5%26response_type%3Dcode%26redirect_uri%3Dhttp://localhost:3000/auth/blizzard/%26scope%3Dwow.profile%2520sc2.profile%2520d3.profile&app=oauth',
@@ -97,21 +100,17 @@ export const useBlizzardLogin = () => {
     };
 
     useEffect(() => {
-        if (!user) {
-            console.log(`user 없다. ${user}`);
-            return;
-        }
         const listener = async (event: MessageEvent) => {
-            const { accessToken } = event.data;
-            console.log(`받아온 accessToken 값은 ${accessToken}이다.`);
+            const { accessToken, user } = event.data;
             const token = window.localStorage.getItem('token');
-            if (!accessToken) {
+            if (!accessToken || !user) {
                 return;
             }
+
             const res = await axios.post(
-                `${END_POINT}/users/${user.id}/stores`,
+                `${END_POINT}/users/${user}/stores`,
                 {
-                    slug: 'blizzard ',
+                    slug: 'blizzard',
                     authentication: accessToken,
                 },
                 {
@@ -121,7 +120,8 @@ export const useBlizzardLogin = () => {
                 }
             );
             console.log(res.data);
-            mutate(`/users/${user.id}/stores/blizzard`);
+            onSetMyBlizzard(res.data.games);
+            mutate(`/users/${user}/stores/blizzard/games`);
         };
 
         window.addEventListener('message', listener);
@@ -129,7 +129,7 @@ export const useBlizzardLogin = () => {
         return () => {
             window.removeEventListener('message', listener);
         };
-    }, [user]);
+    }, []);
 
     return handleLogin;
 };
