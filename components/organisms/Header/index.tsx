@@ -1,9 +1,11 @@
-import React, { FunctionComponent, useContext, useEffect } from 'react';
+import React, { FunctionComponent, useState, useContext, useEffect } from 'react';
 
 import Logo from 'components/atoms/Logo';
 import Button from 'components/atoms/Button';
 import SearchButton from 'components/atoms/SearchButton';
 import ThemeSwitch from 'components/atoms/ThemeSwitch';
+import Modal from 'components/molecules/Modal';
+import Search from 'components/molecules/Search';
 
 import styled from '@emotion/styled';
 import Link from 'next/link';
@@ -12,8 +14,11 @@ import { useRouter } from 'next/router';
 import UserContext from 'context/user';
 
 const Header: FunctionComponent = () => {
+    const [isOpenSearchModal, setIsOpenSearchModal] = useState<boolean>(false);
+
     const router = useRouter();
     const { setUser } = useContext(UserContext);
+
     const getCurrentUser = async () => {
         try {
             const res = await postUser();
@@ -26,23 +31,30 @@ const Header: FunctionComponent = () => {
             router.push('/login');
         }
     };
+
     useEffect(() => {
         getCurrentUser();
     }, [getCurrentUser]);
+
     return (
-        <StyledWrapper>
-            <StyledHeader>
-                <Link href={'/'}>
-                    <Logo />
-                </Link>
-            </StyledHeader>
-            {/*Todo 로그아웃 기능 구현*/}
-            <StyledPanels>
-                <SearchButton />
-                <ThemeSwitch />
-                <Button category="secondary">로그아웃</Button>
-            </StyledPanels>
-        </StyledWrapper>
+        <>
+            <StyledWrapper>
+                <StyledHeader>
+                    <Link href={'/'}>
+                        <Logo />
+                    </Link>
+                </StyledHeader>
+                {/*Todo 로그아웃 기능 구현*/}
+                <StyledPanels>
+                    <SearchButton onClick={() => setIsOpenSearchModal(true)} />
+                    <ThemeSwitch />
+                    <Button category="secondary">로그아웃</Button>
+                </StyledPanels>
+            </StyledWrapper>
+            <Modal isOpen={isOpenSearchModal} onClose={() => setIsOpenSearchModal(false)}>
+                <Search />
+            </Modal>
+        </>
     );
 };
 

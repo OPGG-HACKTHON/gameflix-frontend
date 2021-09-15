@@ -1,48 +1,115 @@
 import React, { FunctionComponent, useState, useCallback } from 'react';
-import Button from 'components/atoms/Button';
 import styled from '@emotion/styled';
 
-type SearchProps = {
-    onClick: (input: string) => React.MouseEventHandler<HTMLButtonElement>;
-};
+import Button from 'components/atoms/Button';
+import CheckBox from 'components/atoms/Checkbox';
+import Skeletons from 'components/molecules/Skeleton';
+import GameSearchResult from 'components/molecules/GameSearchResult';
+import Message from 'components/atoms/Message';
 
-const Search: FunctionComponent<SearchProps> = (props) => {
-    const { onClick } = props;
+import useSWRInfinite from 'swr/infinite';
+import { GAME_GET_SIZE } from 'constant';
+import { GameSearchInfos } from 'types/responseInterface';
+
+import InfiniteScroll from 'react-infinite-scroll-component';
+
+import fetcher from 'utils/fetcher';
+
+const Search: FunctionComponent = () => {
     const [input, setInput] = useState<string>('');
+    const [filtered, setFiltered] = useState<boolean>(false);
+    const [searchStart, setSearchStart] = useState<boolean>(false);
 
-    const handleChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
+    const { data, size, setSize } = useSWRInfinite<GameSearchInfos>(
+        searchStart
+            ? (pageIndex) => `/games?page=${pageIndex}&size=${GAME_GET_SIZE}&search=${input}`
+            : null,
+        fetcher
+    );
+
+    const fetchData = () => {
+        setSize(size + 1);
+    };
+
+    const isEndofData = (data && !data[data.length - 1].isLast) || true;
+    const isReacingEnd = data && data[data.length - 1].numberOfElements < 10;
+
+    const handleChange = useCallback<React.ChangeEventHandler<HTMLInputElement>>((e) => {
         setInput(e.target.value);
     }, []);
 
-    const handleClick: React.MouseEventHandler<HTMLButtonElement> = useCallback(
+    const handleClick = useCallback<React.MouseEventHandler<HTMLButtonElement>>(
         (e) => {
             e.preventDefault();
-            onClick(input);
+            setSearchStart(true);
         },
         [input]
     );
 
+    const handleCheck = () => {
+        setFiltered(!filtered);
+    };
+
     return (
-        <SearchInputWrapper>
-            <StyledSearchInput
-                value={input}
-                onChange={handleChange}
-                placeholder="검색어를 입력하세요"
-            />
-            <Button onClick={handleClick} category="primary">
-                검색
-            </Button>
-        </SearchInputWrapper>
+        <>
+            <StyledSearchWrapper>
+                <SearchInputWrapper>
+                    <StyledSearchInput
+                        value={input}
+                        onChange={handleChange}
+                        placeholder="검색어를 입력하세요"
+                    />
+                    <Button onClick={handleClick} category="primary">
+                        검색
+                    </Button>
+                </SearchInputWrapper>
+                <CheckBox onClick={handleCheck}>내 라이브러리에서 검색</CheckBox>
+                {searchStart && !data && <Skeletons multiple />}
+                {data && (
+                    <InfiniteScroll
+                        scrollableTarget="scrollableDiv"
+                        dataLength={data.length}
+                        next={fetchData}
+                        hasMore={!isReacingEnd || !isEndofData}
+                        loader={<Skeletons />}
+                        scrollThreshold={0.9}
+                        endMessage={
+                            data[0].size !== 0 && (
+                                <Message message="더 이상 검색 결과가 없습니다." />
+                            )
+                        }
+                        style={{
+                            overflowX: 'hidden',
+                        }}
+                    >
+                        {data.length > 0 &&
+                            data.map((games) => (
+                                <GameSearchResult key={games.games[0]?.slug} games={games.games} />
+                            ))}
+                    </InfiniteScroll>
+                )}
+            </StyledSearchWrapper>
+        </>
     );
 };
 
 export default Search;
 
-const SearchInputWrapper = styled.div`
+const StyledSearchWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    > label {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 16px;
+    }
+`;
+
+const SearchInputWrapper = styled.form`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 920px;
+    width: 888px;
     height: 64px;
     border-radius: 18px;
     padding: 0px 10px;

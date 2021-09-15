@@ -9,6 +9,7 @@ type IconProps = {
     name: IconTypes;
     color?: string;
     style?: CSSProperties;
+    onClick?: React.MouseEventHandler<SVGSVGElement>;
 };
 
 type attributeType = {
@@ -16,13 +17,13 @@ type attributeType = {
 };
 
 const Icon: FunctionComponent<IconProps> = (props) => {
-    const { name, color, style } = props;
+    const { name, color, style, onClick } = props;
     const theme = useTheme();
     const attribute: attributeType = {
         stroke: color ?? theme?.iconColors,
     };
 
-    return React.createElement(svg[name], { ...attribute, style });
+    return React.createElement(svg[name], { ...attribute, style, onClick });
 };
 
 export default Icon;

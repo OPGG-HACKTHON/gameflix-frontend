@@ -20,15 +20,6 @@ const Home: FunctionComponent<HomeProps> = (props) => {
 
 export default Home;
 
-const StyledWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-`;
+const StyledWrapper = styled.div``;
 
-const StyledContent = styled.main`
-    flex: 1;
-`;
+const StyledContent = styled.main``;

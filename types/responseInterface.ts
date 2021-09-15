@@ -4,6 +4,19 @@ export interface SimpleGameInfo {
     cover: string;
 }
 
+export interface GameSearchInfos {
+    games: SimpleGameInfo[];
+    number: number;
+    size: number;
+    numberOfElements: number;
+    isFirst: boolean;
+    isLast: boolean;
+    hasNext: boolean;
+    hasPrevious: boolean;
+    totalPage: number;
+    totalElements: number;
+}
+
 export interface GameInfo {
     slug: string;
     name: string;

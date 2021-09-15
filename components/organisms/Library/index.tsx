@@ -15,10 +15,12 @@ const Library: FunctionComponent<LibraryProps> = (props) => {
     const { label, list, loadText = '가져오기', onLoad } = props;
     return (
         <LibraryContainer>
-            <LibraryTitle>{`당신의 ${label} 게임 라이브러리`}</LibraryTitle>
-            <Button category={'primary'} onClick={onLoad}>
-                {loadText}
-            </Button>
+            <LibraryHeader>
+                <LibraryTitle>{`당신의 ${label} 게임 라이브러리`}</LibraryTitle>
+                <Button category={'primary'} onClick={onLoad}>
+                    {loadText}
+                </Button>
+            </LibraryHeader>
             <ImageSlider list={list} />
         </LibraryContainer>
     );
@@ -27,15 +29,21 @@ const Library: FunctionComponent<LibraryProps> = (props) => {
 export default Library;
 
 const LibraryContainer = styled.section`
-    padding: 80px;
+    padding: 80px 0 0 80px;
     width: 100vw;
     margin: 0;
+    white-space: nowrap;
 `;
+
+const LibraryHeader = styled.h2`
+    display: flex;
+    align-items: center;
+    margin-bottom: 29px;
+`;
+
 const LibraryTitle = styled.h2`
     color: ${({ theme }) => theme.colors.default};
-    margin-right: 19px;
-    margin-bottom: 29px;
-    height: 46px;
+    margin-right: 16px;
     font-size: 32px;
-    line-height: 46px;
+    // line-height: 0px;
 `;

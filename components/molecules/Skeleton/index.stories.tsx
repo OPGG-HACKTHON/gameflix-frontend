@@ -12,5 +12,10 @@ const Template: ComponentStory<typeof Skeletons> = (args) => (
     <Skeletons {...args}>{args.children}</Skeletons>
 );
 
-export const Primary = Template.bind({});
-Primary.args = {};
+export const Multiple = Template.bind({});
+Multiple.args = {
+    multiple: true,
+};
+
+export const Singular = Template.bind({});
+Singular.args = {};
