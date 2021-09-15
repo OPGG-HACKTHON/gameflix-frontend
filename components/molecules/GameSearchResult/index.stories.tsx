@@ -22,6 +22,9 @@ Singluar.args = {
             name: 'League of Legends',
             slug: 'league-of-legends',
             cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co254s.jpg',
+            release_at: 1256605200,
+            store: '',
+            developer: 'Riot Games',
         },
     ],
 };
@@ -33,11 +36,17 @@ Plural.args = {
             name: 'League of Legends',
             slug: 'league-of-legends',
             cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co254s.jpg',
+            release_at: 1256605200,
+            store: '',
+            developer: 'Riot Games',
         },
         {
             name: 'Quantum League',
             slug: 'quantum-league',
             cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co200y.jpg',
+            release_at: 1256605200,
+            store: '',
+            developer: 'Samsung Ele.',
         },
     ],
 };

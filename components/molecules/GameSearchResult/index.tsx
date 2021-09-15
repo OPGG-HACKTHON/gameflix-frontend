@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { SimpleGameInfo } from 'types/responseInterface';
+import { format } from 'date-fns';
 
 import Button from 'components/atoms/Button';
 import Message from 'components/atoms/Message';
@@ -18,7 +19,7 @@ const GameSearchResult: FunctionComponent<GameSearchResultProps> = (props) => {
             {games.length === 0 ? (
                 <Message message="검색결과가 없습니다." />
             ) : (
-                games.map(({ name, slug, cover }) => (
+                games.map(({ name, slug, cover, release_at, developer }) => (
                     <>
                         <GameResultSingularWrapper key={slug}>
                             <GameImg>
@@ -28,6 +29,9 @@ const GameSearchResult: FunctionComponent<GameSearchResultProps> = (props) => {
                                 <GameTitle>
                                     {name.length > 40 ? `${name.slice(0, 40)}...` : name}
                                 </GameTitle>
+                                <GameDescription>
+                                    {new Date(release_at * 1000).getFullYear()} | {developer}
+                                </GameDescription>
                                 <div>
                                     <Button category="primary">내 라이브러리에 추가</Button>
                                 </div>
@@ -68,7 +72,15 @@ const GameTitle = styled.h2`
     font-size: 32px;
     font-weight: bold;
     margin-top: 0px;
+    margin-bottom: -10px;
     white-space: nowrap;
+    color: ${(props) => props.theme.components.searchInput};
+`;
+
+const GameDescription = styled.h2`
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 0;
     color: ${(props) => props.theme.components.searchInput};
 `;
 
