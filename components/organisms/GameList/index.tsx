@@ -7,7 +7,7 @@ import Paginations from 'components/molecules/pagination';
 import useSWR, { useSWRConfig } from 'swr';
 import UserContext from 'context/user';
 import fetcher from 'utils/fetcher';
-import { useSteamLogin, useBlizzardLogin } from 'hooks/';
+import { useBlizzardLogin, useSteamLogin } from '../../../hooks';
 import { useRouter } from 'next/router';
 import { GameResponse } from 'types/responseInterface';
 import Modal from 'components/molecules/Modal';
@@ -30,8 +30,8 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
     const handleBlizzardLogin = useBlizzardLogin();
 
     const { id: userId } = user || {};
-    const { mutate } = useSWRConfig();
-
+    const router = useRouter();
+    const { page = 1 } = router.query;
     const url = useMemo(() => {
         if (store === 'all') {
             return `/games?page=${pageIndex - 1}&size=${PAGE_SIZE}`;
@@ -39,9 +39,17 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
             return `/users/${userId}/stores/${store}/games?page=${pageIndex - 1}&size=${PAGE_SIZE}`;
         }
         return null;
-    }, [userId, store, pageIndex]);
-    const { data, error } = useSWR<GameResponse>(url, fetcher);
-
+    }, [userId, store, page]);
+    const { data, error, mutate } = useSWR<GameResponse>(url, fetcher);
+    const callback = useCallback(async () => {
+        if (!url) {
+            return;
+        }
+        await mutate(fetcher(url));
+    }, [url, mutate]);
+    const handleSteamLogin = useSteamLogin(callback);
+    const handleBlizzardLogin = useBlizzardLogin(callback);
+    const [isOpenSearchModal, setIsOpenSearchModal] = useState<boolean>(false);
     const handleLoadClick = useMemo(() => {
         switch (store) {
             case 'steam':
@@ -55,13 +63,8 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
 
     const handleClose = useCallback(async () => {
         setIsOpenSearchModal(false);
-        if (store === 'etc') {
-            await mutate(
-                `/users/${user?.id}/stores/etc/games?page=${pageIndex - 1}&size=${PAGE_SIZE}`,
-                fetcher(
-                    `/users/${user?.id}/stores/etc/games?page=${pageIndex - 1}&size=${PAGE_SIZE}`
-                )
-            );
+        if (store === 'etc' && url) {
+            await mutate(fetcher(url));
         }
     }, [user]);
 
