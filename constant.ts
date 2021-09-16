@@ -1,5 +1,4 @@
-export const END_POINT =
-    'https://www.gameflix-backend.com';
+export const END_POINT = 'https://www.gameflix-backend.com';
 
 export const GAME_GET_SIZE = 10;
 
