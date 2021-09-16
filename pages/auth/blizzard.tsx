@@ -7,7 +7,6 @@ import { UserInfo } from 'types/responseInterface';
 
 const BlizzardClientId = '916b6064383441388fa56d2b3af3779a';
 const BlizzardClientPwd = 'RrKJsOMXTn7AVxhFyscX8ABQiF9Ja9nw';
-const REDIRECT_URI = 'http://localhost:3000/auth/';
 
 const Auth: FunctionComponent = () => {
     const [accessToken, setAccessToken] = useState<string>('');
@@ -18,7 +17,7 @@ const Auth: FunctionComponent = () => {
     const getAccessToken = useCallback(
         async (code: string) => {
             const res = await axios.post(
-                `https://kr.battle.net/oauth/token?client_id=${BlizzardClientId}&client_secret=${BlizzardClientPwd}&grant_type=client_credentials&code=${code}&redirect_uri=${REDIRECT_URI}`
+                `https://kr.battle.net/oauth/token?client_id=${BlizzardClientId}&client_secret=${BlizzardClientPwd}&grant_type=client_credentials&code=${code}&redirect_uri=${window.location.origin}/auth/`
             );
             setAccessToken(() => res.data.access_token);
         },
@@ -35,7 +34,7 @@ const Auth: FunctionComponent = () => {
                 accessToken,
                 store: 'blizzard',
             },
-            'http://localhost:3000/'
+            window.location.origin
         );
         window.close();
     }, [code, accessToken]);

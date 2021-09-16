@@ -7,13 +7,13 @@ import React, {
     useMemo,
     useState,
 } from 'react';
-import { STORE_NAME } from '../../../constant';
+import { PAGE_SIZE, STORE_NAME } from '../../../constant';
 import styled from '@emotion/styled';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import Button from 'components/atoms/Button';
 import GameImage from 'components/atoms/GameImage';
 import Paginations from 'components/molecules/pagination';
-import useSWR from 'swr';
+import useSWR, { useSWRConfig } from 'swr';
 import UserContext from 'context/user';
 import fetcher from 'utils/fetcher';
 import { useSteamLogin, useBlizzardLogin } from 'hooks/';
@@ -26,8 +26,6 @@ type GameListProps = {
     store: keyof typeof STORE_NAME;
 };
 
-const DEFAULT_SIZE = 24;
-
 const GameList: FunctionComponent<GameListProps> = (props) => {
     const { store } = props;
 
@@ -39,16 +37,17 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
     const handleBlizzardLogin = useBlizzardLogin();
 
     const { id: userId } = user || {};
+    const { mutate } = useSWRConfig();
 
-    const { data, error } = useSWR<GameResponse>(
-        () =>
-            userId && store && pageIndex
-                ? `/users/${userId}/stores/${store}/games?page=${
-                      pageIndex - 1
-                  }&size=${DEFAULT_SIZE}`
-                : null,
-        fetcher
-    );
+    const url = useMemo(() => {
+        if (store === 'all') {
+            return `/games?page=${pageIndex}&size=${PAGE_SIZE}`;
+        } else if (userId && store && pageIndex) {
+            return `/users/${userId}/stores/${store}/games?page=${pageIndex - 1}&size=${PAGE_SIZE}`;
+        }
+        return null;
+    }, [userId, store, pageIndex]);
+    const { data, error } = useSWR<GameResponse>(url, fetcher);
 
     const handleLoadClick = useMemo(() => {
         switch (store) {
@@ -60,6 +59,18 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
                 return () => setIsOpenSearchModal(true);
         }
     }, [store, handleSteamLogin, setIsOpenSearchModal]);
+
+    const handleClose = useCallback(async () => {
+        setIsOpenSearchModal(false);
+        if (store === 'etc') {
+            await mutate(
+                `/users/${user?.id}/stores/etc/games?page=${pageIndex - 1}&size=${PAGE_SIZE}`,
+                fetcher(
+                    `/users/${user?.id}/stores/etc/games?page=${pageIndex - 1}&size=${PAGE_SIZE}`
+                )
+            );
+        }
+    }, [user]);
 
     if (error) {
         router.push('/login');
@@ -87,7 +98,8 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
         <>
             <ListContainer>
                 <ListTitle>
-                    당신의 {STORE_NAME[store]}게임 라이브러리
+                    {store !== 'all' && '당신의 '}
+                    {STORE_NAME[store]}게임 라이브러리
                     <Button category={'primary'} onClick={handleLoadClick}>
                         {store !== 'etc' ? '가져오기' : '추가하기'}
                     </Button>
@@ -109,10 +121,10 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
             <Paginations
                 currentPage={pageIndex}
                 totalCount={data.totalElements}
-                pageSize={DEFAULT_SIZE}
+                pageSize={PAGE_SIZE}
                 onPageChange={setPageIndex}
             />
-            <Modal isOpen={isOpenSearchModal} onClose={() => setIsOpenSearchModal(false)}>
+            <Modal isOpen={isOpenSearchModal} onClose={handleClose}>
                 <Search />
             </Modal>
         </>
@@ -143,7 +155,7 @@ const GameContainer = styled.ul`
     display: flex;
     flex-wrap: wrap;
     gap: 21px;
-    width: 1734px;
+    width: 1750px;
     list-style: none;
     padding: 0;
     margin: auto;

@@ -11,6 +11,7 @@ const list = [
         store: 'steam',
         developer: 'not found',
         release_at: 1256605200,
+        collected: false,
     },
     {
         slug: 'factorio',
@@ -19,6 +20,7 @@ const list = [
         store: 'steam',
         developer: 'not found',
         release_at: 1256605200,
+        collected: false,
     },
     {
         slug: 'RimWorld',
@@ -27,6 +29,7 @@ const list = [
         store: 'steam',
         developer: 'not found',
         release_at: 1256605200,
+        collected: false,
     },
     {
         slug: 'PUBG: BATTLEGROUNDS',
@@ -35,6 +38,7 @@ const list = [
         store: 'steam',
         developer: 'not found',
         release_at: 1256605200,
+        collected: false,
     },
     {
         slug: 'Oxygen Not Included',
@@ -43,6 +47,7 @@ const list = [
         store: 'steam',
         developer: 'not found',
         release_at: 1256605200,
+        collected: false,
     },
     {
         slug: "Sid Meier's Civilization VI",
@@ -51,6 +56,7 @@ const list = [
         store: 'steam',
         developer: 'not found',
         release_at: 1256605200,
+        collected: false,
     },
     {
         slug: 'StarCraft',
@@ -59,6 +65,7 @@ const list = [
         store: 'steam',
         developer: 'not found',
         release_at: 1256605200,
+        collected: false,
     },
     {
         slug: 'Diablo III',
@@ -67,6 +74,7 @@ const list = [
         store: 'steam',
         developer: 'not found',
         release_at: 1256605200,
+        collected: false,
     },
 ];
 
@@ -94,6 +102,7 @@ OneImage.args = {
             cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co254s.jpg',
             developer: 'not found',
             release_at: 1256605200,
+            collected: false,
         },
     ],
 };

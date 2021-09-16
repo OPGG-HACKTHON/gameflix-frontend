@@ -12,12 +12,14 @@ import Link from 'next/link';
 import { postUser } from 'api/user';
 import { useRouter } from 'next/router';
 import UserContext from 'context/user';
+import fetcher from 'utils/fetcher';
+import { useSWRConfig } from 'swr';
 
 const Header: FunctionComponent = () => {
     const [isOpenSearchModal, setIsOpenSearchModal] = useState<boolean>(false);
-
+    const { mutate } = useSWRConfig();
     const router = useRouter();
-    const { setUser } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const getCurrentUser = useCallback(async () => {
         try {
             const res = await postUser();
@@ -31,13 +33,27 @@ const Header: FunctionComponent = () => {
         }
     }, []);
     const handleClickLogout = useCallback(() => {
-        setUser?.();
         window.localStorage.removeItem('token');
         router.push('/login');
     }, []);
     useEffect(() => {
         getCurrentUser();
     }, [getCurrentUser]);
+    const handleClose = useCallback(async () => {
+        setIsOpenSearchModal(false);
+        if (router.pathname === '/') {
+            await mutate(
+                `/users/${user?.id}/stores/etc/games?size=6`,
+                fetcher(`/users/${user?.id}/stores/etc/games?size=6`)
+            );
+        } else if (router.pathname === '/[store]' && router.query.store === 'etc') {
+            const page = router.query.page;
+            await mutate(
+                `/users/${user?.id}/stores/etc/games?page=${page}`,
+                fetcher(`/users/${user?.id}/stores/etc/games?page=${page}`)
+            );
+        }
+    }, [user, router]);
 
     return (
         <>
@@ -57,7 +73,7 @@ const Header: FunctionComponent = () => {
                     </Button>
                 </StyledPanels>
             </StyledWrapper>
-            <Modal isOpen={isOpenSearchModal} onClose={() => setIsOpenSearchModal(false)}>
+            <Modal isOpen={isOpenSearchModal} onClose={handleClose}>
                 <Search />
             </Modal>
         </>

@@ -19,6 +19,7 @@ Image.args = {
         store: 'steam',
         developer: 'not found',
         release_at: 1256605200,
+        collected: false,
     },
 };
 
@@ -31,6 +32,7 @@ ImageWithName.args = {
         store: 'steam',
         developer: 'not found',
         release_at: 1256605200,
+        collected: false,
     },
     showName: true,
 };

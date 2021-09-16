@@ -7,11 +7,9 @@ import Footer from 'components/organisms/Footer';
 
 const home: FunctionComponent = () => {
     return (
-        <>
-            <HomeTemplate header={<Header />} footer={<Footer />}>
-                <Libraries />
-            </HomeTemplate>
-        </>
+        <HomeTemplate header={<Header />} footer={<Footer />}>
+            <Libraries />
+        </HomeTemplate>
     );
 };
 

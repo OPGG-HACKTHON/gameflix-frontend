@@ -1,5 +1,5 @@
-import React, { FunctionComponent, useCallback, useContext } from 'react';
-import { SimpleGameInfo } from 'types/responseInterface';
+import React, { FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
+import { SimpleGameInfo, UserInfo } from 'types/responseInterface';
 import Link from 'next/link';
 
 import Button from 'components/atoms/Button';
@@ -17,13 +17,17 @@ type GameSearchResultProps = {
 const GameSearchResult: FunctionComponent<GameSearchResultProps> = (props) => {
     const { games } = props;
     const { user } = useContext(UserContext);
+    const [list, setList] = useState(games);
+    useEffect(() => {
+        setList(games);
+    }, [games]);
     const handleClick = useCallback<(slug: string) => React.ReactEventHandler<HTMLButtonElement>>(
         (slug) => async () => {
             if (!user) {
                 return;
             }
             const token = window.localStorage.getItem('token');
-            const res = await axios.post(
+            await axios.post(
                 `${END_POINT}/users/${user.id}/games`,
                 {
                     slug,
@@ -34,16 +38,18 @@ const GameSearchResult: FunctionComponent<GameSearchResultProps> = (props) => {
                     },
                 }
             );
-            console.log(res);
+            setList((prevList) =>
+                prevList.map((game) => (game.slug === slug ? { ...game, collected: true } : game))
+            );
         },
-        []
+        [user]
     );
     return (
         <GameResultContainer>
-            {games.length === 0 ? (
+            {list.length === 0 ? (
                 <Message message="검색결과가 없습니다." />
             ) : (
-                games.map(({ name, slug, cover, release_at, developer }) => (
+                list.map(({ name, slug, cover, release_at, developer, collected }) => (
                     <>
                         <GameResultSingularWrapper key={slug}>
                             <Link href="/games/[slug]" as={`/games/${slug}`}>
@@ -61,9 +67,11 @@ const GameSearchResult: FunctionComponent<GameSearchResultProps> = (props) => {
                                     {new Date(release_at * 1000).getFullYear()} | {developer}
                                 </GameDescription>
                                 <div>
-                                    <Button category="primary" onClick={handleClick(slug)}>
-                                        내 라이브러리에 추가
-                                    </Button>
+                                    {!collected && (
+                                        <Button category="primary" onClick={handleClick(slug)}>
+                                            내 라이브러리에 추가
+                                        </Button>
+                                    )}
                                 </div>
                             </GameInfos>
                         </GameResultSingularWrapper>

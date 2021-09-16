@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useCallback } from 'react';
+import React, { FunctionComponent, useState, useCallback, useContext } from 'react';
 import styled from '@emotion/styled';
 
 import Button from 'components/atoms/Button';
@@ -14,15 +14,19 @@ import { GameSearchInfos } from 'types/responseInterface';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import fetcher from 'utils/fetcher';
+import UserContext from 'context/user';
 
 const Search: FunctionComponent = () => {
     const [input, setInput] = useState<string>('');
     const [filtered, setFiltered] = useState<boolean>(false);
     const [searchStart, setSearchStart] = useState<boolean>(false);
-
+    const { user } = useContext(UserContext);
     const { data, size, setSize } = useSWRInfinite<GameSearchInfos>(
-        searchStart
-            ? (pageIndex) => `/games?page=${pageIndex}&size=${GAME_GET_SIZE}&search=${input}`
+        searchStart && user
+            ? (pageIndex) =>
+                  `${
+                      filtered ? `/users/${user.id}/games` : `/games`
+                  }?page=${pageIndex}&size=${GAME_GET_SIZE}&search=${input}`
             : null,
         fetcher
     );

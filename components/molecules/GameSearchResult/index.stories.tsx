@@ -25,6 +25,7 @@ Singluar.args = {
             release_at: 1256605200,
             store: 'etc',
             developer: 'Riot Games',
+            collected: false,
         },
     ],
 };
@@ -39,6 +40,7 @@ Plural.args = {
             release_at: 1256605200,
             store: 'etc',
             developer: 'Riot Games',
+            collected: false,
         },
         {
             name: 'Quantum League',
@@ -47,6 +49,7 @@ Plural.args = {
             release_at: 1256605200,
             store: 'etc',
             developer: 'Samsung Ele.',
+            collected: false,
         },
     ],
 };

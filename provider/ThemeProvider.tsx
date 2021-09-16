@@ -26,6 +26,8 @@ const ThemeProvider: FunctionComponent = (props) => {
                     }
                     body {
                         margin: 0;
+                        width: 1920px;
+                        margin: auto;
                     }
                     #__next {
                         height: 100vh;
