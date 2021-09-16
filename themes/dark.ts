@@ -15,6 +15,12 @@ const dark: Theme = {
             hover: '#867BFB',
             disabled: 'rgba(255,255,255,0.3)',
         },
+        danger: {
+            default: '#fff',
+            active: '#fff',
+            hover: '#fff',
+            disabled: '#fff',
+        },
     },
     buttonColors: {
         primary: {
@@ -28,6 +34,12 @@ const dark: Theme = {
             active: 'rgba(119,119,119,0.8)',
             hover: 'rgba(0,0,0,0.8)',
             disabled: 'rgba(0,0,0,0.8)',
+        },
+        danger: {
+            default: '#BE3B3B',
+            active: '#BE3B3B',
+            hover: '#BE3B3B',
+            disabled: '#BE3B3B',
         },
     },
     bgColors: {
@@ -47,6 +59,12 @@ const dark: Theme = {
             active: '#4030FA',
             hover: '#4030FA',
             disabled: 'rgba(204,204,204,0.7)',
+        },
+        danger: {
+            default: '#BE3B3B',
+            active: '#BE3B3B',
+            hover: '#BE3B3B',
+            disabled: '#BE3B3B',
         },
     },
     components: {

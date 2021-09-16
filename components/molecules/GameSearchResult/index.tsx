@@ -23,7 +23,7 @@ const GameSearchResult: FunctionComponent<GameSearchResultProps> = (props) => {
                 return;
             }
             const token = window.localStorage.getItem('token');
-            const res = await axios.post(
+            await axios.post(
                 `${END_POINT}/users/${user.id}/games`,
                 {
                     slug,
@@ -34,7 +34,6 @@ const GameSearchResult: FunctionComponent<GameSearchResultProps> = (props) => {
                     },
                 }
             );
-            console.log(res);
         },
         []
     );
@@ -61,9 +60,11 @@ const GameSearchResult: FunctionComponent<GameSearchResultProps> = (props) => {
                                     {new Date(release_at * 1000).getFullYear()} | {developer}
                                 </GameDescription>
                                 <div>
-                                    <Button category="primary" onClick={handleClick(slug)}>
-                                        내 라이브러리에 추가
-                                    </Button>
+                                    {user?.games.every((game) => game.slug !== slug) && (
+                                        <Button category="primary" onClick={handleClick(slug)}>
+                                            내 라이브러리에 추가
+                                        </Button>
+                                    )}
                                 </div>
                             </GameInfos>
                         </GameResultSingularWrapper>

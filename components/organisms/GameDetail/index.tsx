@@ -1,15 +1,47 @@
-import React, { FunctionComponent, useContext, useMemo } from 'react';
+import React, { FunctionComponent, useCallback, useContext, useMemo } from 'react';
 import styled from '@emotion/styled';
 import { GameInfo } from 'types/responseInterface';
 import { format } from 'date-fns';
 import Button from 'components/atoms/Button';
 import UserContext from 'context/user';
+import axios from 'axios';
+import { END_POINT } from '../../../constant';
 
 const GameDetail: FunctionComponent<GameInfo> = (props) => {
     const { slug, cover, name, description, release_at, developer, genres, platforms, background } =
         props;
-    const { user } = useContext(UserContext);
-    const hasGame = useMemo(() => user?.games.some((game) => game.slug === slug), [user, slug]);
+    const { user, setUser } = useContext(UserContext);
+    const myGame = useMemo(() => user?.games.find((game) => game.slug === slug), [user, slug]);
+    const removeGame = useCallback(() => {
+        const token = window.localStorage.getItem('token');
+        if (!user || !token) {
+            return;
+        }
+        axios.delete(`${END_POINT}/users/${user.id}/games/${slug}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        setUser?.({ ...user, games: user.games.filter((game) => game.slug !== slug) });
+    }, [user, slug, setUser]);
+    const addGame = useCallback<React.ReactEventHandler<HTMLButtonElement>>(async () => {
+        if (!user) {
+            return;
+        }
+        const token = window.localStorage.getItem('token');
+        const res = await axios.post(
+            `${END_POINT}/users/${user.id}/games`,
+            {
+                slug,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        setUser?.({ ...user, games: [...user.games, res.data] });
+    }, [user, slug, setUser]);
     return (
         <GameDetailContainer>
             <ScreenShotWrapper>
@@ -19,9 +51,22 @@ const GameDetail: FunctionComponent<GameInfo> = (props) => {
             <DetailContainer>
                 <CoverWrapper>
                     <img src={cover} alt="game cover" />
-                    <Button category={'primary'} fullWidth>
-                        내 라이브러리에 추가
-                    </Button>
+                    {myGame ? (
+                        <>
+                            <Button category={'danger'} fullWidth onClick={removeGame}>
+                                내 라이브러리에서 삭제
+                            </Button>
+                            <p>
+                                <InfoLabel>추가된 스토어:</InfoLabel>
+                                <br />
+                                <span>{myGame.store}</span>
+                            </p>
+                        </>
+                    ) : (
+                        <Button category={'primary'} fullWidth onClick={addGame}>
+                            내 라이브러리에 추가
+                        </Button>
+                    )}
                 </CoverWrapper>
                 <InformationContainer>
                     <GameTitle>{name}</GameTitle>
