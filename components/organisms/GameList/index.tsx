@@ -63,7 +63,7 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
 
     const handleClose = useCallback(async () => {
         setIsOpenSearchModal(false);
-        if (store === 'etc' && !url) {
+        if (store === 'etc' && url) {
             await mutate(fetcher(url));
         }
     }, [user]);
