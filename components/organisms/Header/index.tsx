@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useContext, useEffect } from 'react';
+import React, { FunctionComponent, useCallback, useContext, useEffect, useState } from 'react';
 
 import Logo from 'components/atoms/Logo';
 import Button from 'components/atoms/Button';
@@ -18,20 +18,23 @@ const Header: FunctionComponent = () => {
 
     const router = useRouter();
     const { setUser } = useContext(UserContext);
-
-    const getCurrentUser = async () => {
+    const getCurrentUser = useCallback(async () => {
         try {
             const res = await postUser();
             if (!res) {
                 router.push('/login');
                 return;
             }
-            setUser?.(res.data);
+            setUser?.(res);
         } catch (e) {
             router.push('/login');
         }
-    };
-
+    }, []);
+    const handleClickLogout = useCallback(() => {
+        setUser?.();
+        window.localStorage.removeItem('token');
+        router.push('/login');
+    }, []);
     useEffect(() => {
         getCurrentUser();
     }, [getCurrentUser]);
@@ -40,15 +43,18 @@ const Header: FunctionComponent = () => {
         <>
             <StyledWrapper>
                 <StyledHeader>
-                    <Link href={'/'} as={`/`}>
-                        <Logo />
+                    <Link href={'/'}>
+                        <a>
+                            <Logo />
+                        </a>
                     </Link>
                 </StyledHeader>
-                {/*Todo 로그아웃 기능 구현*/}
                 <StyledPanels>
                     <SearchButton onClick={() => setIsOpenSearchModal(true)} />
                     <ThemeSwitch />
-                    <Button category="secondary">로그아웃</Button>
+                    <Button category="secondary" onClick={handleClickLogout}>
+                        로그아웃
+                    </Button>
                 </StyledPanels>
             </StyledWrapper>
             <Modal isOpen={isOpenSearchModal} onClose={() => setIsOpenSearchModal(false)}>

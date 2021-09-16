@@ -2,7 +2,7 @@ import { END_POINT } from '../constant';
 import axios, { AxiosResponse } from 'axios';
 import { UserInfo } from 'types/responseInterface';
 
-export const postUser = async (): Promise<AxiosResponse<UserInfo> | undefined> => {
+export const postUser = async (): Promise<UserInfo | undefined> => {
     const token = window.localStorage.getItem('token');
     if (!token) {
         return;

@@ -9,7 +9,6 @@ import Footer from 'components/organisms/Footer';
 import GameDetail from 'components/organisms/GameDetail';
 import GameDetailSkeleton from 'components/organisms/GameDetailSkeleton';
 import { GameInfo } from 'types/responseInterface';
-import Footer from 'components/organisms/Footer';
 
 const Game: FunctionComponent = () => {
     const router = useRouter();
