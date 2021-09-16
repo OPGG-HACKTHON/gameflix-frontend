@@ -9,12 +9,13 @@ import React, {
 } from 'react';
 import { STORE_NAME } from '../../../constant';
 import styled from '@emotion/styled';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import Button from 'components/atoms/Button';
 import GameImage from 'components/atoms/GameImage';
 import useSWR from 'swr';
 import UserContext from 'context/user';
 import fetcher from 'utils/fetcher';
-import { useSteamLogin } from '../../../hooks';
+import { useSteamLogin, useBlizzardLogin } from 'hooks/';
 import { useRouter } from 'next/router';
 import { GameResponse, Pagination, SimpleGameInfo } from 'types/responseInterface';
 import Modal from 'components/molecules/Modal';
@@ -28,10 +29,16 @@ const DEFAULT_SIZE = 24;
 
 const GameList: FunctionComponent<GameListProps> = (props) => {
     const { store } = props;
+
     const { user } = useContext(UserContext);
-    const { id: userId } = user || {};
+    const [isOpenSearchModal, setIsOpenSearchModal] = useState<boolean>(false);
     const router = useRouter();
+    const handleSteamLogin = useSteamLogin();
+    const handleBlizzardLogin = useBlizzardLogin();
+
+    const { id: userId } = user || {};
     const { page = 1 } = router.query;
+
     const { data, error } = useSWR<GameResponse>(
         () =>
             userId && store && page
@@ -39,22 +46,32 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
                 : null,
         fetcher
     );
-    const handleSteamLogin = useSteamLogin();
-    const [isOpenSearchModal, setIsOpenSearchModal] = useState<boolean>(false);
+
     const handleLoadClick = useMemo(() => {
         switch (store) {
             case 'steam':
                 return handleSteamLogin;
+            case 'blizzard':
+                return handleBlizzardLogin;
             case 'etc':
                 return () => setIsOpenSearchModal(true);
         }
     }, [store, handleSteamLogin, setIsOpenSearchModal]);
+
     if (error) {
         router.push('/login');
     }
+
     if (!data || error) {
-        return <div>loading...</div>;
+        return (
+            <SkeletonTheme color="rgba(196,196,196,0.5)">
+                <ImageSkeleton />
+                <ImageSkeleton />
+                <ImageSkeleton />
+            </SkeletonTheme>
+        );
     }
+
     return (
         <>
             <ListContainer>
@@ -134,53 +151,7 @@ const EmptyList = styled.li`
     }
 `;
 
-const list = [
-    {
-        slug: 'league-of-legends',
-        name: 'League of Legends',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co254s.jpg',
-        store: 'steam',
-    },
-    {
-        slug: 'factorio',
-        name: 'Factorio',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1tfy.jpg',
-        store: 'steam',
-    },
-    {
-        slug: 'RimWorld',
-        name: 'RimWorld',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1j6x.jpg',
-        store: 'steam',
-    },
-    {
-        slug: 'PUBG: BATTLEGROUNDS',
-        name: 'PUBG: BATTLEGROUNDS',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co3j3h.jpg',
-        store: 'steam',
-    },
-    {
-        slug: 'Oxygen Not Included',
-        name: 'Oxygen Not Included',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1rq7.jpg',
-        store: 'steam',
-    },
-    {
-        slug: "Sid Meier's Civilization VI",
-        name: "Sid Meier's Civilization VI",
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co28j8.jpg',
-        store: 'steam',
-    },
-    {
-        slug: 'StarCraft',
-        name: 'StarCraft',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1x7n.jpg',
-        store: 'steam',
-    },
-    {
-        slug: 'Diablo III',
-        name: 'Diablo III',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co3gbk.jpg',
-        store: 'steam',
-    },
-];
+const ImageSkeleton = styled(Skeleton)`
+    min-width: 276px;
+    min-height: 368px;
+`;
