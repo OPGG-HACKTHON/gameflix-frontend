@@ -77,9 +77,11 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
                 <ListTitle>
                     {store !== 'all' && '당신의 '}
                     {STORE_NAME[store]}게임 라이브러리
-                    <Button category={'primary'} onClick={handleLoadClick}>
-                        {store !== 'etc' ? '가져오기' : '추가하기'}
-                    </Button>
+                    {store !== 'all' && (
+                        <Button category={'primary'} onClick={handleLoadClick}>
+                            {store !== 'etc' ? '가져오기' : '추가하기'}
+                        </Button>
+                    )}
                 </ListTitle>
                 <SkeletonTheme color="rgba(196,196,196,0.5)">
                     <GameContainer>
