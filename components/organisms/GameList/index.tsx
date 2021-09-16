@@ -11,7 +11,7 @@ import { STORE_NAME } from '../../../constant';
 import styled from '@emotion/styled';
 import Button from 'components/atoms/Button';
 import GameImage from 'components/atoms/GameImage';
-import useSWR from 'swr';
+import useSWR, { useSWRConfig } from 'swr';
 import UserContext from 'context/user';
 import fetcher from 'utils/fetcher';
 import { useSteamLogin } from '../../../hooks';
@@ -24,19 +24,16 @@ type GameListProps = {
     store: keyof typeof STORE_NAME;
 };
 
-const DEFAULT_SIZE = 24;
-
 const GameList: FunctionComponent<GameListProps> = (props) => {
     const { store } = props;
     const { user } = useContext(UserContext);
     const { id: userId } = user || {};
     const router = useRouter();
     const { page = 1 } = router.query;
+    const { mutate } = useSWRConfig();
     const { data, error } = useSWR<GameResponse>(
         () =>
-            userId && store && page
-                ? `/users/${userId}/stores/${store}/games?page=${page}&size=${DEFAULT_SIZE}`
-                : null,
+            userId && store && page ? `/users/${userId}/stores/${store}/games?page=${page}` : null,
         fetcher
     );
     const handleSteamLogin = useSteamLogin();
@@ -49,6 +46,13 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
                 return () => setIsOpenSearchModal(true);
         }
     }, [store, handleSteamLogin, setIsOpenSearchModal]);
+    const handleClose = useCallback(() => {
+        setIsOpenSearchModal(false);
+        mutate(
+            `/users/${user?.id}/stores/etc/games?page=${page}`,
+            fetcher(`/users/${user?.id}/stores/etc/games?page=${page}`)
+        );
+    }, [user]);
     if (error) {
         router.push('/login');
     }
@@ -78,7 +82,7 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
                     )}
                 </GameContainer>
             </ListContainer>
-            <Modal isOpen={isOpenSearchModal} onClose={() => setIsOpenSearchModal(false)}>
+            <Modal isOpen={isOpenSearchModal} onClose={handleClose}>
                 <Search />
             </Modal>
         </>
