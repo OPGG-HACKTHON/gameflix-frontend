@@ -11,7 +11,6 @@ const REDIRECT_URI = 'http://localhost:3000/auth/';
 
 const Auth: FunctionComponent = () => {
     const [accessToken, setAccessToken] = useState<string>('');
-    const [userId, setUserId] = useState<string>();
 
     const router = useRouter();
     const { code } = router.query;
@@ -26,18 +25,6 @@ const Auth: FunctionComponent = () => {
         [code]
     );
 
-    const getCurrentUser = async () => {
-        try {
-            const res = await postUser();
-            if (!res) {
-                return;
-            }
-            setUserId(() => res.id);
-        } catch (e) {
-            console.log(e);
-        }
-    };
-
     useEffect(() => {
         if (!accessToken || !window.opener) {
             return;
@@ -46,7 +33,7 @@ const Auth: FunctionComponent = () => {
         window.opener.postMessage(
             {
                 accessToken,
-                userId,
+                store: 'blizzard',
             },
             'http://localhost:3000/'
         );
@@ -58,7 +45,6 @@ const Auth: FunctionComponent = () => {
             return;
         }
         getAccessToken(code as string);
-        getCurrentUser();
     }, [code]);
 
     return <div>{code}</div>;

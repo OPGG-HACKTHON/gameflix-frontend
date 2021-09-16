@@ -7,32 +7,31 @@ import { GameResponse } from 'types/responseInterface';
 import { useSteamLogin } from '../../../hooks';
 import Modal from 'components/molecules/Modal';
 import Search from 'components/molecules/Search';
-import axios from 'axios';
-
-import { SimpleGameInfo } from 'types/responseInterface';
 
 import { useBlizzardLogin } from 'hooks';
 
 const Libraries: FunctionComponent = () => {
     const { user } = useContext(UserContext);
     const [isOpenSearchModal, setIsOpenSearchModal] = useState<boolean>(false);
-    const [myBlizzard, setMyBlizzard] = useState<SimpleGameInfo[]>([]);
-  
+
     const { data: steamData, mutate: steamMutate } = useSWR<GameResponse>(
         () => (user ? `/users/${user.id}/stores/steam/games?size=6` : null),
         fetcher
     );
     const steamCallback = useCallback(() => {
         steamMutate(fetcher(`/users/${user?.id}/stores/steam/games?size=6`));
-    }, []);
+    }, [user]);
     const handleSteamLoad = useSteamLogin(steamCallback);
-  
-    const { data: battleNetData } = useSWR<GameResponse>(
-        () => (user ? `/users/${user.id}/stores/battlenet/games?size=6` : null),
+
+    const { data: battleNetData, mutate: battleNetMutate } = useSWR<GameResponse>(
+        () => (user ? `/users/${user.id}/stores/blizzard/games?size=6` : null),
         fetcher
     );
-    const handleBlizzardLogin = useBlizzardLogin(setMyBlizzard);
-  
+    const battlenetCallback = useCallback(() => {
+        battleNetMutate(fetcher(`/users/${user?.id}/stores/blizzard/games?size=6`));
+    }, [user]);
+    const handleBlizzardLogin = useBlizzardLogin(battlenetCallback);
+
     const { data: etcData, mutate: etcMutate } = useSWR<GameResponse>(
         () => (user ? `/users/${user.id}/stores/etc/games?size=6` : null),
         fetcher
@@ -52,8 +51,8 @@ const Libraries: FunctionComponent = () => {
                 loading={!steamData}
             />
             <Library
-                store={'battlenet'}
-                list={myBlizzard}
+                store={'blizzard'}
+                list={battleNetData?.games}
                 onLoad={handleBlizzardLogin}
                 numberOfElements={battleNetData?.numberOfElements}
                 loading={!battleNetData}

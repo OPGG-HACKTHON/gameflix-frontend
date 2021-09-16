@@ -19,20 +19,9 @@ export default Store;
 
 export async function getStaticPaths() {
     return {
-        paths: [
-            {
-                params: { store: 'steam' },
-            },
-            {
-                params: { store: 'gog' },
-            },
-            {
-                params: { store: 'battlenet' },
-            },
-            {
-                params: { store: 'etc' },
-            },
-        ],
+        paths: Object.keys(STORE_NAME).map((name) => ({
+            params: { store: name },
+        })),
         fallback: false,
     };
 }

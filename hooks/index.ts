@@ -13,12 +13,12 @@ export const useSteamLogin = (callback?: () => void) => {
             return;
         }
         const listener = async (event: MessageEvent) => {
-            const { userId } = event.data;
+            const { userId, store } = event.data;
             const token = window.localStorage.getItem('token');
-            if (!userId) {
+            if (!userId || store !== 'steam') {
                 return;
             }
-            const res = await axios.post(
+            await axios.post(
                 `${END_POINT}/users/${user.id}/stores`,
                 {
                     slug: 'steam',
@@ -40,11 +40,8 @@ export const useSteamLogin = (callback?: () => void) => {
     return handleLogin;
 };
 
-export const useBlizzardLogin = (
-    onSetMyBlizzard: React.Dispatch<React.SetStateAction<SimpleGameInfo[]>>
-) => {
-    const { mutate } = useSWRConfig();
-
+export const useBlizzardLogin = (callback?: () => void) => {
+    const { user } = useContext(UserContext);
     const handleLogin = () => {
         window.open(
             'https://kr.battle.net/login/en/?ref=https://kr.battle.net/oauth/authorize?client_id%3Dbdd7aad97d4e4e768f45a2af2830dfd5%26response_type%3Dcode%26redirect_uri%3Dhttp://localhost:3000/auth/blizzard/%26scope%3Dwow.profile%2520sc2.profile%2520d3.profile&app=oauth',
@@ -54,15 +51,18 @@ export const useBlizzardLogin = (
     };
 
     useEffect(() => {
+        if (!user) {
+            return;
+        }
         const listener = async (event: MessageEvent) => {
-            const { accessToken, userId } = event.data;
+            const { accessToken, store } = event.data;
             const token = window.localStorage.getItem('token');
-            if (!accessToken || !userId) {
+            if (!accessToken || store !== 'blizzard') {
                 return;
             }
 
-            const res = await axios.post(
-                `${END_POINT}/users/${userId}/stores`,
+            await axios.post(
+                `${END_POINT}/users/${user.id}/stores`,
                 {
                     slug: 'blizzard',
                     authentication: accessToken,
@@ -73,9 +73,7 @@ export const useBlizzardLogin = (
                     },
                 }
             );
-            console.log(res.data);
-            onSetMyBlizzard(res.data.games);
-            mutate(`/users/${userId}/stores/blizzard/games`);
+            callback?.();
         };
 
         window.addEventListener('message', listener);
@@ -83,7 +81,7 @@ export const useBlizzardLogin = (
         return () => {
             window.removeEventListener('message', listener);
         };
-    }, []);
+    }, [user, callback]);
 
     return handleLogin;
 };
