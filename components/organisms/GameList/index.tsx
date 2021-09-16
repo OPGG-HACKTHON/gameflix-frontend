@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useCallback, useContext, useMemo, useState } from 'react';
 import { PAGE_SIZE, STORE_NAME } from '../../../constant';
 import styled from '@emotion/styled';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import Button from 'components/atoms/Button';
 import GameImage from 'components/atoms/GameImage';
 import Paginations from 'components/molecules/pagination';
@@ -86,10 +85,10 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
                 </ListContainer>
             </>
         );
+    }
 
     if (error) {
         return <Error statusCode={404} />;
-
     }
 
     return (
@@ -190,4 +189,3 @@ const ImageSkeleton = styled(Skeleton)`
     min-height: 368px;
     margin: 0 8px;
 `;
-
