@@ -1,12 +1,4 @@
-import React, {
-    FunctionComponent,
-    ReactEventHandler,
-    useCallback,
-    useContext,
-    useEffect,
-    useMemo,
-    useState,
-} from 'react';
+import React, { FunctionComponent, useCallback, useContext, useMemo, useState } from 'react';
 import { PAGE_SIZE, STORE_NAME } from '../../../constant';
 import styled from '@emotion/styled';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
@@ -21,6 +13,8 @@ import { useRouter } from 'next/router';
 import { GameResponse } from 'types/responseInterface';
 import Modal from 'components/molecules/Modal';
 import Search from 'components/molecules/Search';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import Error from 'next/error';
 
 type GameListProps = {
     store: keyof typeof STORE_NAME;
@@ -92,6 +86,10 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
                 </ListContainer>
             </>
         );
+
+    if (error) {
+        return <Error statusCode={404} />;
+
     }
 
     return (
@@ -104,19 +102,25 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
                         {store !== 'etc' ? '가져오기' : '추가하기'}
                     </Button>
                 </ListTitle>
-                <GameContainer>
-                    {data.games.length === 0 ? (
-                        <EmptyList>
-                            <span>라이브러리가 비어 있습니다.</span>
-                        </EmptyList>
-                    ) : (
-                        data.games.map((game) => (
-                            <GameWrapper key={game.slug}>
-                                <GameImage game={game} showName />
-                            </GameWrapper>
-                        ))
-                    )}
-                </GameContainer>
+                <SkeletonTheme color="rgba(196,196,196,0.5)">
+                    <GameContainer>
+                        {!data ? (
+                            <li>
+                                <ImageSkeleton />
+                            </li>
+                        ) : data.games.length === 0 ? (
+                            <EmptyList>
+                                <span>라이브러리가 비어 있습니다.</span>
+                            </EmptyList>
+                        ) : (
+                            data.games.map((game) => (
+                                <GameWrapper key={game.slug}>
+                                    <GameImage game={game} showName />
+                                </GameWrapper>
+                            ))
+                        )}
+                    </GameContainer>
+                </SkeletonTheme>
             </ListContainer>
             <Paginations
                 currentPage={pageIndex}
@@ -186,3 +190,4 @@ const ImageSkeleton = styled(Skeleton)`
     min-height: 368px;
     margin: 0 8px;
 `;
+
