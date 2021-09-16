@@ -1,7 +1,8 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import Pagination from '.';
+import Pagination from './';
+import { action } from '@storybook/addon-actions';
 
 export default {
     title: 'molecules/Pagination',
@@ -15,5 +16,9 @@ const Template: ComponentStory<typeof Pagination> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-    totalPages: 4,
+    totalCount: 200,
+    siblingCount: 1,
+    currentPage: 1,
+    pageSize: 24,
+    onPageChange: action('clicked!'),
 };

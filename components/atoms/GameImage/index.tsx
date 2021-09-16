@@ -17,7 +17,9 @@ const GameImage: FunctionComponent<GameImageProps> = (props) => {
         <Link href={`/games/${slug}`}>
             <GameLink>
                 <StyledImg src={cover} />
-                {showName && <GameName>{name}</GameName>}
+                {showName && (
+                    <GameName>{name.length > 27 ? `${name.slice(0, 27)}...` : name}</GameName>
+                )}
             </GameLink>
         </Link>
     );

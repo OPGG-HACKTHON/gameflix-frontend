@@ -1,68 +1,148 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 
 import styled from '@emotion/styled';
+import { usePagination } from 'utils/usePagination';
+import Icon from 'components/atoms/Icon/Icon';
+import { DOTS } from 'constant';
+
+import ThemeContext from 'context/theme';
 
 type PaginationProps = {
-    isFirst: boolean;
-    isLast: boolean;
-    totalPages: number;
+    onPageChange: (page: number) => void;
+    totalCount: number;
+    siblingCount?: number;
+    currentPage: number;
+    pageSize: number;
 };
 
-const Pagination: FunctionComponent<PaginationProps> = (props) => {
-    const { totalPages } = props;
+const Paginations: FunctionComponent<PaginationProps> = (props) => {
+    const { onPageChange, totalCount, siblingCount = 1, currentPage, pageSize } = props;
+    const theme = useContext(ThemeContext);
+    const paginationRange = usePagination({ currentPage, totalCount, siblingCount, pageSize }) as (
+        | string
+        | number
+    )[];
 
-    const [selectedPage, setSelectedPage] = useState<number>(1);
+    const onNext = () => {
+        onPageChange(currentPage + 1);
+    };
 
-    const pageNumbers = [];
-    for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push(i);
-    }
+    const onPrevious = () => {
+        onPageChange(currentPage - 1);
+    };
+
+    const lastPage = paginationRange[paginationRange.length - 1];
 
     return (
         <PaginationWrapper>
-            {pageNumbers.map((pageNum) => {
-                return (
-                    <PageLi key={pageNum}>
-                        {pageNum === selectedPage ? (
-                            <PageSpan onClick={() => setSelectedPage(pageNum)}>{pageNum}</PageSpan>
-                        ) : (
-                            <span onClick={() => setSelectedPage(pageNum)}>{pageNum}</span>
-                        )}
-                    </PageLi>
+            {currentPage === 1 ? (
+                <Icon
+                    name="LeftArrow"
+                    style={{
+                        marginTop: '4px',
+                        stroke: `${theme.isDark ? 'rgba(204,204,204,0.3)' : 'rgba(0,0,0,0.3)'}`,
+                        fill: `${theme.isDark ? 'rgba(204,204,204,0.3)' : 'rgba(0,0,0,0.3)'}`,
+                        cursor: 'pointer',
+                    }}
+                />
+            ) : (
+                <Icon
+                    name="LeftArrow"
+                    style={{
+                        marginTop: '4px',
+                        stroke: `${theme.isDark ? 'rgba(204,204,204, 1.0)' : 'rgba(0,0,0,1.0)'}`,
+                        fill: `${theme.isDark ? 'rgba(204,204,204, 1.0)' : 'rgba(0,0,0,1.0)'}`,
+                        cursor: 'pointer',
+                    }}
+                    onClick={onPrevious}
+                />
+            )}
+            {paginationRange.map((pageNumber) => {
+                if (pageNumber === DOTS) {
+                    return <PageDots>&#8230;</PageDots>;
+                }
+                return pageNumber === currentPage ? (
+                    <PageLiSelected>{pageNumber}</PageLiSelected>
+                ) : (
+                    <PageLi onClick={() => onPageChange(pageNumber as number)}>{pageNumber}</PageLi>
                 );
             })}
+
+            {currentPage === lastPage ? (
+                <Icon
+                    name="RightArrow"
+                    style={{
+                        marginTop: '4px',
+                        stroke: `${theme.isDark ? 'rgba(204,204,204,0.3)' : 'rgba(0,0,0,0.3)'}`,
+                        fill: `${theme.isDark ? 'rgba(204,204,204,0.3)' : 'rgba(0,0,0,0.3)'}`,
+                        cursor: 'pointer',
+                    }}
+                />
+            ) : (
+                <Icon
+                    name="RightArrow"
+                    style={{
+                        marginTop: '4px',
+                        stroke: `${theme.isDark ? 'rgba(204,204,204, 1.0)' : 'rgba(0,0,0,1.0)'}`,
+                        fill: `${theme.isDark ? 'rgba(204,204,204, 1.0)' : 'rgba(0,0,0,1.0)'}`,
+                        cursor: 'pointer',
+                    }}
+                    onClick={onNext}
+                />
+            )}
         </PaginationWrapper>
     );
 };
 
-export default Pagination;
+export default Paginations;
 
 const PaginationWrapper = styled.ul`
     list-style: none;
     text-align: center;
     color: ${(props) => props.theme.colors.default};
     padding: 9px 0px 11px 0px;
+    display: flex;
+    align-item: center;
+    justify-content: center;
+    margin: 80px 0px;
 `;
 
+const PageDots = styled.span``;
+
 const PageLi = styled.li`
-    display: inline-block;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0px 8px;
     font-size: 17px;
+    padding: 0px;
     font-height: 28px;
     font-weight: 600;
-    padding: 5px;
     border-radius: 5px;
-    width: 25px;
+    width: 28px;
+    height: 28px;
     &:hover {
         cursor: pointer;
     }
 `;
 
-const PageSpan = styled.p`
-    margin: 0;
-    padding-top: 3px;
+const PageLiSelected = styled.li`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0px 8px;
+    padding: 0px;
+    font-size: 17px;
+    font-height: 28px;
+    font-weight: 600;
+    border-radius: 10px;
     width: 28px;
     height: 28px;
-    border-radius: 10px;
     background-color: #4030fa;
     color: white;
+    &:hover {
+        cursor: pointer;
+    }
 `;

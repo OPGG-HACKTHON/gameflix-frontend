@@ -3,6 +3,8 @@ export const END_POINT =
 
 export const GAME_GET_SIZE = 10;
 
+export const DOTS = '...';
+
 export const STORE_NAME = {
     steam: 'STEAM',
     blizzard: 'BLIZZARD',
