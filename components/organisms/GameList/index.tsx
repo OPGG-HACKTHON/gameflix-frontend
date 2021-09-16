@@ -1,12 +1,4 @@
-import React, {
-    FunctionComponent,
-    ReactEventHandler,
-    useCallback,
-    useContext,
-    useEffect,
-    useMemo,
-    useState,
-} from 'react';
+import React, { FunctionComponent, useCallback, useContext, useMemo, useState } from 'react';
 import { PAGE_SIZE, STORE_NAME } from '../../../constant';
 import styled from '@emotion/styled';
 import Button from 'components/atoms/Button';
@@ -16,9 +8,11 @@ import UserContext from 'context/user';
 import fetcher from 'utils/fetcher';
 import { useSteamLogin } from '../../../hooks';
 import { useRouter } from 'next/router';
-import { GameResponse, Pagination, SimpleGameInfo } from 'types/responseInterface';
+import { GameResponse } from 'types/responseInterface';
 import Modal from 'components/molecules/Modal';
 import Search from 'components/molecules/Search';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import Error from 'next/error';
 
 type GameListProps = {
     store: keyof typeof STORE_NAME;
@@ -62,8 +56,8 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
     if (error) {
         router.push('/login');
     }
-    if (!data || error) {
-        return <div>loading...</div>;
+    if (error) {
+        return <Error statusCode={404} />;
     }
     return (
         <>
@@ -75,19 +69,25 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
                         {store !== 'etc' ? '가져오기' : '추가하기'}
                     </Button>
                 </ListTitle>
-                <GameContainer>
-                    {data.games.length === 0 ? (
-                        <EmptyList>
-                            <span>라이브러리가 비어 있습니다.</span>
-                        </EmptyList>
-                    ) : (
-                        data.games.map((game) => (
-                            <GameWrapper key={game.slug}>
-                                <GameImage game={game} showName />
-                            </GameWrapper>
-                        ))
-                    )}
-                </GameContainer>
+                <SkeletonTheme color="rgba(196,196,196,0.5)">
+                    <GameContainer>
+                        {!data ? (
+                            <li>
+                                <ImageSkeleton />
+                            </li>
+                        ) : data.games.length === 0 ? (
+                            <EmptyList>
+                                <span>라이브러리가 비어 있습니다.</span>
+                            </EmptyList>
+                        ) : (
+                            data.games.map((game) => (
+                                <GameWrapper key={game.slug}>
+                                    <GameImage game={game} showName />
+                                </GameWrapper>
+                            ))
+                        )}
+                    </GameContainer>
+                </SkeletonTheme>
             </ListContainer>
             <Modal isOpen={isOpenSearchModal} onClose={handleClose}>
                 <Search />
@@ -145,53 +145,7 @@ const EmptyList = styled.li`
     }
 `;
 
-const list = [
-    {
-        slug: 'league-of-legends',
-        name: 'League of Legends',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co254s.jpg',
-        store: 'steam',
-    },
-    {
-        slug: 'factorio',
-        name: 'Factorio',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1tfy.jpg',
-        store: 'steam',
-    },
-    {
-        slug: 'RimWorld',
-        name: 'RimWorld',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1j6x.jpg',
-        store: 'steam',
-    },
-    {
-        slug: 'PUBG: BATTLEGROUNDS',
-        name: 'PUBG: BATTLEGROUNDS',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co3j3h.jpg',
-        store: 'steam',
-    },
-    {
-        slug: 'Oxygen Not Included',
-        name: 'Oxygen Not Included',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1rq7.jpg',
-        store: 'steam',
-    },
-    {
-        slug: "Sid Meier's Civilization VI",
-        name: "Sid Meier's Civilization VI",
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co28j8.jpg',
-        store: 'steam',
-    },
-    {
-        slug: 'StarCraft',
-        name: 'StarCraft',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1x7n.jpg',
-        store: 'steam',
-    },
-    {
-        slug: 'Diablo III',
-        name: 'Diablo III',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co3gbk.jpg',
-        store: 'steam',
-    },
-];
+const ImageSkeleton = styled(Skeleton)`
+    min-width: 264px;
+    min-height: 352px;
+`;
