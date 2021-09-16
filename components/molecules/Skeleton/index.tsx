@@ -60,6 +60,7 @@ const SkeletonWrapper = styled.div`
 const GameImgSkeleton = styled(Skeleton)`
     min-width: 96px;
     min-height: 128px;
+    border-radius: 0px;
 `;
 
 const SkeletonContents = styled.div`
