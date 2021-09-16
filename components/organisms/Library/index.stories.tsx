@@ -63,13 +63,13 @@ const Template: ComponentStory<typeof Library> = (args) => <Library {...args} />
 
 export const LotsOfImages = Template.bind({});
 LotsOfImages.args = {
-    label: 'STEAM',
+    store: 'steam',
     list,
 };
 
 export const OneImage = Template.bind({});
 OneImage.args = {
-    label: 'STEAM',
+    store: 'etc',
     list: [
         {
             slug: 'league-of-legend',

@@ -1,4 +1,12 @@
-import React, { FunctionComponent, ReactEventHandler, useContext, useEffect } from 'react';
+import React, {
+    FunctionComponent,
+    ReactEventHandler,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react';
 import { STORE_NAME } from '../../../constant';
 import styled from '@emotion/styled';
 import Button from 'components/atoms/Button';
@@ -6,17 +14,15 @@ import GameImage from 'components/atoms/GameImage';
 import useSWR from 'swr';
 import UserContext from 'context/user';
 import fetcher from 'utils/fetcher';
-import { useGOGLogin, useSteamLogin } from '../../../hooks';
+import { useSteamLogin } from '../../../hooks';
 import { useRouter } from 'next/router';
-import { Pagination, SimpleGameInfo } from 'types/responseInterface';
+import { GameResponse, Pagination, SimpleGameInfo } from 'types/responseInterface';
+import Modal from 'components/molecules/Modal';
+import Search from 'components/molecules/Search';
 
 type GameListProps = {
     store: keyof typeof STORE_NAME;
 };
-
-interface GameResponse extends Pagination {
-    games: SimpleGameInfo[];
-}
 
 const DEFAULT_SIZE = 24;
 
@@ -33,34 +39,49 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
                 : null,
         fetcher
     );
-    const handleLogin = useSteamLogin();
-    const handleLogin2 = useGOGLogin();
-    console.log(data);
+    const handleSteamLogin = useSteamLogin();
+    const [isOpenSearchModal, setIsOpenSearchModal] = useState<boolean>(false);
+    const handleLoadClick = useMemo(() => {
+        switch (store) {
+            case 'steam':
+                return handleSteamLogin;
+            case 'etc':
+                return () => setIsOpenSearchModal(true);
+        }
+    }, [store, handleSteamLogin, setIsOpenSearchModal]);
+    if (error) {
+        router.push('/login');
+    }
     if (!data || error) {
         return <div>loading...</div>;
     }
     return (
-        <ListContainer>
-            <ListTitle>
-                당신의 {STORE_NAME[store]}게임 라이브러리
-                <Button category={'primary'} onClick={handleLogin}>
-                    {store !== 'etc' ? '가져오기' : '추가하기'}
-                </Button>
-            </ListTitle>
-            <GameContainer>
-                {data.games.length === 0 ? (
-                    <EmptyList>
-                        <span>라이브러리가 비어 있습니다.</span>
-                    </EmptyList>
-                ) : (
-                    data.games.map((game) => (
-                        <GameWrapper key={game.slug}>
-                            <GameImage game={game} showName />
-                        </GameWrapper>
-                    ))
-                )}
-            </GameContainer>
-        </ListContainer>
+        <>
+            <ListContainer>
+                <ListTitle>
+                    당신의 {STORE_NAME[store]}게임 라이브러리
+                    <Button category={'primary'} onClick={handleLoadClick}>
+                        {store !== 'etc' ? '가져오기' : '추가하기'}
+                    </Button>
+                </ListTitle>
+                <GameContainer>
+                    {data.games.length === 0 ? (
+                        <EmptyList>
+                            <span>라이브러리가 비어 있습니다.</span>
+                        </EmptyList>
+                    ) : (
+                        data.games.map((game) => (
+                            <GameWrapper key={game.slug}>
+                                <GameImage game={game} showName />
+                            </GameWrapper>
+                        ))
+                    )}
+                </GameContainer>
+            </ListContainer>
+            <Modal isOpen={isOpenSearchModal} onClose={() => setIsOpenSearchModal(false)}>
+                <Search />
+            </Modal>
+        </>
     );
 };
 

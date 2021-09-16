@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useCallback, useContext } from 'react';
 import { SimpleGameInfo } from 'types/responseInterface';
 import Link from 'next/link';
 
@@ -6,6 +6,9 @@ import Button from 'components/atoms/Button';
 import Message from 'components/atoms/Message';
 
 import styled from '@emotion/styled';
+import axios from 'axios';
+import { END_POINT } from '../../../constant';
+import UserContext from 'context/user';
 
 type GameSearchResultProps = {
     games: SimpleGameInfo[];
@@ -13,7 +16,28 @@ type GameSearchResultProps = {
 
 const GameSearchResult: FunctionComponent<GameSearchResultProps> = (props) => {
     const { games } = props;
-
+    const { user } = useContext(UserContext);
+    const handleClick = useCallback<(slug: string) => React.ReactEventHandler<HTMLButtonElement>>(
+        (slug) => async () => {
+            if (!user) {
+                return;
+            }
+            const token = window.localStorage.getItem('token');
+            const res = await axios.post(
+                `${END_POINT}/users/${user.id}/games`,
+                {
+                    slug,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            console.log(res);
+        },
+        []
+    );
     return (
         <GameResultContainer>
             {games.length === 0 ? (
@@ -37,7 +61,9 @@ const GameSearchResult: FunctionComponent<GameSearchResultProps> = (props) => {
                                     {new Date(release_at * 1000).getFullYear()} | {developer}
                                 </GameDescription>
                                 <div>
-                                    <Button category="primary">내 라이브러리에 추가</Button>
+                                    <Button category="primary" onClick={handleClick(slug)}>
+                                        내 라이브러리에 추가
+                                    </Button>
                                 </div>
                             </GameInfos>
                         </GameResultSingularWrapper>

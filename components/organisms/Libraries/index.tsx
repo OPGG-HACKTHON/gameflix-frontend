@@ -1,82 +1,66 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useCallback, useContext, useState } from 'react';
 import Library from 'components/organisms/Library';
+import useSWR from 'swr';
+import fetcher from 'utils/fetcher';
+import UserContext from 'context/user';
+import { GameResponse } from 'types/responseInterface';
+import { useSteamLogin } from '../../../hooks';
+import Modal from 'components/molecules/Modal';
+import Search from 'components/molecules/Search';
+import axios from 'axios';
 
 const Libraries: FunctionComponent = () => {
+    const { user } = useContext(UserContext);
+    const [isOpenSearchModal, setIsOpenSearchModal] = useState<boolean>(false);
+    const { data: steamData, mutate: steamMutate } = useSWR<GameResponse>(
+        () => (user ? `/users/${user.id}/stores/steam/games?size=6` : null),
+        fetcher
+    );
+    const steamCallback = useCallback(() => {
+        steamMutate(fetcher(`/users/${user?.id}/stores/steam/games?size=6`));
+    }, []);
+    const handleSteamLoad = useSteamLogin(steamCallback);
+    const { data: battleNetData } = useSWR<GameResponse>(
+        () => (user ? `/users/${user.id}/stores/battlenet/games?size=6` : null),
+        fetcher
+    );
+    const { data: etcData, mutate: etcMutate } = useSWR<GameResponse>(
+        () => (user ? `/users/${user.id}/stores/etc/games?size=6` : null),
+        fetcher
+    );
+    const handleClose = useCallback(() => {
+        setIsOpenSearchModal(false);
+        etcMutate(fetcher(`/users/${user?.id}/stores/etc/games?size=6`));
+    }, [user, etcMutate]);
+
     return (
         <>
-            <Library label={'STEAM'} list={MOCK_STEAM} onLoad={() => console.log('STEAM')} />
-            <Library label={'GOG'} list={MOCK_GOG} onLoad={() => console.log('Epic Games Store')} />
             <Library
-                label={'battle.net '}
-                list={MOCK_BATTLENET}
+                store={'steam'}
+                list={steamData?.games}
+                onLoad={handleSteamLoad}
+                numberOfElements={steamData?.numberOfElements}
+                loading={!steamData}
+            />
+            <Library
+                store={'battlenet'}
+                list={battleNetData?.games}
                 onLoad={() => console.log('battle.net')}
+                numberOfElements={battleNetData?.numberOfElements}
+                loading={!battleNetData}
             />
             <Library
-                label={'기타'}
-                list={[]}
-                onLoad={() => console.log('기타')}
-                loadText="추가하기"
+                store={'etc'}
+                list={etcData?.games}
+                onLoad={() => setIsOpenSearchModal(true)}
+                numberOfElements={etcData?.numberOfElements}
+                loading={!etcData}
             />
+            <Modal isOpen={isOpenSearchModal} onClose={handleClose}>
+                <Search />
+            </Modal>
         </>
     );
 };
 
 export default Libraries;
-
-const MOCK_STEAM = [
-    {
-        slug: 'league-of-legend',
-        name: 'League of Legend',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co254s.jpg',
-        store: 'steam',
-    },
-    {
-        slug: 'factorio',
-        name: 'Factorio',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1tfy.jpg',
-        store: 'steam',
-    },
-    {
-        slug: 'RimWorld',
-        name: 'RimWorld',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1j6x.jpg',
-        store: 'steam',
-    },
-    {
-        slug: 'PUBG: BATTLEGROUNDS',
-        name: 'PUBG: BATTLEGROUNDS',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co3j3h.jpg',
-        url: 'string',
-        store: 'steam',
-    },
-    {
-        slug: 'Oxygen Not Included',
-        name: 'Oxygen Not Included',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1rq7.jpg',
-        store: 'steam',
-    },
-];
-
-const MOCK_GOG = [
-    {
-        slug: 'Grand Theft Auto: San Andreas',
-        name: 'Grand Theft Auto: San Andreas',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co2lb9.jpg',
-        store: 'gog',
-    },
-];
-
-const MOCK_BATTLENET = [
-    {
-        slug: 'StarCraft',
-        name: 'StarCraft',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1x7n.jpg',
-        store: 'battlenet',
-    },
-    {
-        slug: 'Diablo III',
-        name: 'Diablo III',
-        cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co3gbk.jpg',
-        store: 'battlenet',
-    },
-];

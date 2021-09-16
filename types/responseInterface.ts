@@ -57,3 +57,7 @@ export interface UserInfo {
 export interface UserGames {
     games: GameInfo[];
 }
+
+export interface GameResponse extends Pagination {
+    games: SimpleGameInfo[];
+}

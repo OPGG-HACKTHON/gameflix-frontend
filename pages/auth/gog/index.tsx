@@ -1,22 +1,22 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-const Auth: FunctionComponent = () => {
+const GOGAuth: FunctionComponent = () => {
     const router = useRouter();
-    const { userId } = router.query;
+    const { code } = router.query;
     useEffect(() => {
-        if (!userId || !window.opener) {
+        if (!code || !window.opener) {
             return;
         }
         window.opener.postMessage(
             {
-                userId,
+                code,
             },
             'http://localhost:3000'
         );
         window.close();
-    }, [userId]);
-    return <div>{userId}</div>;
+    }, [code]);
+    return <div>{code}</div>;
 };
 
-export default Auth;
+export default GOGAuth;
