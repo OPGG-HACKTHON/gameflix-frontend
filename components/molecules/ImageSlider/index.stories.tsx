@@ -9,18 +9,24 @@ const list = [
         name: 'League of Legends',
         cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co254s.jpg',
         store: 'steam',
+        developer: 'not found',
+        release_at: 1256605200,
     },
     {
         slug: 'factorio',
         name: 'Factorio',
         cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1tfy.jpg',
         store: 'steam',
+        developer: 'not found',
+        release_at: 1256605200,
     },
     {
         slug: 'RimWorld',
         name: 'RimWorld',
         cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1j6x.jpg',
         store: 'steam',
+        developer: 'not found',
+        release_at: 1256605200,
     },
     {
         slug: 'PUBG: BATTLEGROUNDS',
@@ -57,6 +63,8 @@ OneImage.args = {
             name: 'League of Legend',
             cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co254s.jpg',
             store: 'steam',
+            developer: 'not found',
+            release_at: 1256605200,
         },
     ],
 };
