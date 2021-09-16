@@ -41,7 +41,7 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
 
     const url = useMemo(() => {
         if (store === 'all') {
-            return `/games?page=${pageIndex}&size=${PAGE_SIZE}`;
+            return `/games?page=${pageIndex - 1}&size=${PAGE_SIZE}`;
         } else if (userId && store && pageIndex) {
             return `/users/${userId}/stores/${store}/games?page=${pageIndex - 1}&size=${PAGE_SIZE}`;
         }
@@ -123,6 +123,7 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
                 totalCount={data.totalElements}
                 pageSize={PAGE_SIZE}
                 onPageChange={setPageIndex}
+                siblingCount={2}
             />
             <Modal isOpen={isOpenSearchModal} onClose={handleClose}>
                 <Search />

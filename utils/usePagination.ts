@@ -16,7 +16,7 @@ type usePagniationProps = {
 export const usePagination = ({
     totalCount,
     pageSize,
-    siblingCount = 1,
+    siblingCount,
     currentPage,
 }: usePagniationProps) => {
     const paginationRange = useMemo(() => {
@@ -37,7 +37,7 @@ export const usePagination = ({
         const lastPageIndex = totalPageCount;
 
         if (!shouldShowLeftDots && shouldShowRightDots) {
-            const leftItemCount = 3 + 2 * siblingCount;
+            const leftItemCount = 1 + 2 * siblingCount;
             const leftRange = range(1, leftItemCount);
 
             return [...leftRange, DOTS, totalPageCount];

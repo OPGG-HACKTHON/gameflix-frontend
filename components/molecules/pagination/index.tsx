@@ -10,18 +10,19 @@ import ThemeContext from 'context/theme';
 type PaginationProps = {
     onPageChange: (page: number) => void;
     totalCount: number;
-    siblingCount?: number;
+    siblingCount: number;
     currentPage: number;
     pageSize: number;
 };
 
 const Paginations: FunctionComponent<PaginationProps> = (props) => {
-    const { onPageChange, totalCount, siblingCount = 1, currentPage, pageSize } = props;
+    const { onPageChange, totalCount, siblingCount, currentPage, pageSize } = props;
     const theme = useContext(ThemeContext);
     const paginationRange = usePagination({ currentPage, totalCount, siblingCount, pageSize }) as (
         | string
         | number
     )[];
+    console.log(paginationRange);
 
     const onNext = () => {
         onPageChange(currentPage + 1);
@@ -107,7 +108,9 @@ const PaginationWrapper = styled.ul`
     margin: 80px 0px;
 `;
 
-const PageDots = styled.span``;
+const PageDots = styled.span`
+    margin: 0px 16px 0px 8px;
+`;
 
 const PageLi = styled.li`
     display: flex;

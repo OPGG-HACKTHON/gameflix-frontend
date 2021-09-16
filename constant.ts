@@ -3,11 +3,8 @@ export const END_POINT =
 
 export const GAME_GET_SIZE = 10;
 
-<<<<<<< HEAD
 export const DOTS = '...';
-=======
 export const PAGE_SIZE = 24;
->>>>>>> 6bfd3658b2df4600d57a5cad3094ee6042881b10
 
 export const STORE_NAME = {
     steam: 'STEAM',
