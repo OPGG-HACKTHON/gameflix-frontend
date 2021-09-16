@@ -13,7 +13,7 @@ const Auth: FunctionComponent = () => {
                 userId,
                 store: 'steam',
             },
-            'http://localhost:3000'
+            window.location.origin
         );
         window.close();
     }, [userId]);
