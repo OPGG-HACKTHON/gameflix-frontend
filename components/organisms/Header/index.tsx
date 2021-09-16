@@ -40,7 +40,7 @@ const Header: FunctionComponent = () => {
         <>
             <StyledWrapper>
                 <StyledHeader>
-                    <Link href={'/'}>
+                    <Link href={'/'} as={`/`}>
                         <Logo />
                     </Link>
                 </StyledHeader>
