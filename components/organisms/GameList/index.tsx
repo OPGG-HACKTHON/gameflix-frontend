@@ -7,7 +7,7 @@ import React, {
     useMemo,
     useState,
 } from 'react';
-import { STORE_NAME } from '../../../constant';
+import { PAGE_SIZE, STORE_NAME } from '../../../constant';
 import styled from '@emotion/styled';
 import Button from 'components/atoms/Button';
 import GameImage from 'components/atoms/GameImage';
@@ -31,11 +31,15 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
     const router = useRouter();
     const { page = 1 } = router.query;
     const { mutate } = useSWRConfig();
-    const { data, error } = useSWR<GameResponse>(
-        () =>
-            userId && store && page ? `/users/${userId}/stores/${store}/games?page=${page}` : null,
-        fetcher
-    );
+    const url = useMemo(() => {
+        if (store === 'all') {
+            return `/games?page=${page}&size=${PAGE_SIZE}`;
+        } else if (userId && store && page) {
+            return `/users/${userId}/stores/${store}/games?page=${page}&size=${PAGE_SIZE}`;
+        }
+        return null;
+    }, [userId, store, page]);
+    const { data, error } = useSWR<GameResponse>(url, fetcher);
     const handleSteamLogin = useSteamLogin();
     const [isOpenSearchModal, setIsOpenSearchModal] = useState<boolean>(false);
     const handleLoadClick = useMemo(() => {
@@ -46,12 +50,14 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
                 return () => setIsOpenSearchModal(true);
         }
     }, [store, handleSteamLogin, setIsOpenSearchModal]);
-    const handleClose = useCallback(() => {
+    const handleClose = useCallback(async () => {
         setIsOpenSearchModal(false);
-        mutate(
-            `/users/${user?.id}/stores/etc/games?page=${page}`,
-            fetcher(`/users/${user?.id}/stores/etc/games?page=${page}`)
-        );
+        if (store === 'etc') {
+            await mutate(
+                `/users/${user?.id}/stores/etc/games?page=${page}&size=${PAGE_SIZE}`,
+                fetcher(`/users/${user?.id}/stores/etc/games?page=${page}&size=${PAGE_SIZE}`)
+            );
+        }
     }, [user]);
     if (error) {
         router.push('/login');
@@ -63,7 +69,8 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
         <>
             <ListContainer>
                 <ListTitle>
-                    당신의 {STORE_NAME[store]}게임 라이브러리
+                    {store !== 'all' && '당신의 '}
+                    {STORE_NAME[store]}게임 라이브러리
                     <Button category={'primary'} onClick={handleLoadClick}>
                         {store !== 'etc' ? '가져오기' : '추가하기'}
                     </Button>
@@ -113,7 +120,7 @@ const GameContainer = styled.ul`
     display: flex;
     flex-wrap: wrap;
     gap: 21px;
-    width: 1734px;
+    width: 1750px;
     list-style: none;
     padding: 0;
     margin: auto;

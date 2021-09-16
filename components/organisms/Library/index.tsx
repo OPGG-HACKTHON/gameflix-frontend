@@ -10,7 +10,7 @@ type LibraryProps = {
     store: keyof typeof STORE_NAME;
     list?: SimpleGameInfo[];
     numberOfElements?: number;
-    onLoad: React.MouseEventHandler<HTMLButtonElement>;
+    onLoad?: React.MouseEventHandler<HTMLButtonElement>;
     loading?: boolean;
 };
 
@@ -20,11 +20,15 @@ const Library: FunctionComponent<LibraryProps> = (props) => {
         <LibraryContainer>
             <LibraryHeader>
                 <Link href={`/${store}`}>
-                    <LibraryTitle>{`당신의 ${STORE_NAME[store]} 게임 라이브러리`}</LibraryTitle>
+                    <LibraryTitle>{`${store !== 'all' ? '당신의 ' : ''}${
+                        STORE_NAME[store]
+                    } 게임 라이브러리`}</LibraryTitle>
                 </Link>
-                <Button category={'primary'} onClick={onLoad}>
-                    {store === 'etc' ? '추가하기' : '가져오기'}
-                </Button>
+                {onLoad && (
+                    <Button category={'primary'} onClick={onLoad}>
+                        {store === 'etc' ? '추가하기' : '가져오기'}
+                    </Button>
+                )}
                 {numberOfElements !== 0 && (
                     <LabelWrapper>
                         <Link href={`/${store}`}>

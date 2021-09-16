@@ -3,8 +3,11 @@ export const END_POINT =
 
 export const GAME_GET_SIZE = 10;
 
+export const PAGE_SIZE = 24;
+
 export const STORE_NAME = {
     steam: 'STEAM',
     blizzard: 'BLIZZARD',
     etc: '기타',
+    all: '전체',
 };

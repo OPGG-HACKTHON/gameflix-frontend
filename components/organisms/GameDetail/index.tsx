@@ -76,7 +76,7 @@ const GameDetail: FunctionComponent<GameInfo> = (props) => {
                     <CompaniesInformation>{developer}</CompaniesInformation>
                     <GameInformation>
                         <InfoLabel>출시: </InfoLabel>
-                        {format(new Date(release_at), 'MMM d, yyyy')}
+                        {format(new Date(release_at * 1000), 'MMM d, yyyy')}
                         <br />
                         <InfoLabel>장르: </InfoLabel>
                         {genres}
