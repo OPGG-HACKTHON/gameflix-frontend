@@ -37,3 +37,8 @@ export const Check = Template.bind({});
 Check.args = {
     name: 'Check',
 };
+
+export const InitialLogo = Template.bind({});
+InitialLogo.args = {
+    name: 'InitialLogo',
+};

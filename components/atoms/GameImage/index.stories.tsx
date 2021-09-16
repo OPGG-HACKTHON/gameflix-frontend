@@ -17,8 +17,8 @@ Image.args = {
         name: 'League of Legend',
         cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co254s.jpg',
         store: 'steam',
+        developer: 'not found',
         release_at: 1256605200,
-        developer: 'riot-games',
     },
 };
 
@@ -29,8 +29,8 @@ ImageWithName.args = {
         name: 'League of Legend',
         cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co254s.jpg',
         store: 'steam',
+        developer: 'not found',
         release_at: 1256605200,
-        developer: 'riot-games',
     },
     showName: true,
 };
