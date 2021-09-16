@@ -5,6 +5,7 @@ import fetcher from 'utils/fetcher';
 import Error from 'next/error';
 import HomeTemplate from 'components/templates/Home';
 import Header from 'components/organisms/Header';
+import Footer from 'components/organisms/Footer';
 import GameDetail from 'components/organisms/GameDetail';
 import { GameInfo } from 'types/responseInterface';
 
@@ -19,7 +20,7 @@ const Game: FunctionComponent = () => {
         return <div>Loading...</div>;
     }
     return (
-        <HomeTemplate header={<Header />}>
+        <HomeTemplate header={<Header />} footer={<Footer />}>
             <GameDetail {...data} />
         </HomeTemplate>
     );

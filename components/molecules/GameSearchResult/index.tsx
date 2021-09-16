@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { SimpleGameInfo } from 'types/responseInterface';
-import { format } from 'date-fns';
+import Link from 'next/link';
 
 import Button from 'components/atoms/Button';
 import Message from 'components/atoms/Message';
@@ -22,13 +22,17 @@ const GameSearchResult: FunctionComponent<GameSearchResultProps> = (props) => {
                 games.map(({ name, slug, cover, release_at, developer }) => (
                     <>
                         <GameResultSingularWrapper key={slug}>
-                            <GameImg>
-                                <img src={cover} alt="game image" height="128px" />
-                            </GameImg>
+                            <Link href="/games/[slug]" as={`/games/${slug}`}>
+                                <GameImg>
+                                    <img src={cover} alt="game image" height="128px" />
+                                </GameImg>
+                            </Link>
                             <GameInfos>
-                                <GameTitle>
-                                    {name.length > 40 ? `${name.slice(0, 40)}...` : name}
-                                </GameTitle>
+                                <Link href="/games/[slug]" as={`/games/${slug}`}>
+                                    <GameTitle>
+                                        {name.length > 40 ? `${name.slice(0, 40)}...` : name}
+                                    </GameTitle>
+                                </Link>
                                 <GameDescription>
                                     {new Date(release_at * 1000).getFullYear()} | {developer}
                                 </GameDescription>
@@ -58,7 +62,9 @@ const GameResultSingularWrapper = styled.article`
     padding: 45px 0;
 `;
 
-const GameImg = styled.div``;
+const GameImg = styled.div`
+    cursor: pointer;
+`;
 
 const GameInfos = styled.div`
     display: flex;
@@ -75,6 +81,7 @@ const GameTitle = styled.h2`
     margin-bottom: -10px;
     white-space: nowrap;
     color: ${(props) => props.theme.components.searchInput};
+    cursor: pointer;
 `;
 
 const GameDescription = styled.h2`
