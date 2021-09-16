@@ -13,7 +13,7 @@ import { GameInfo } from 'types/responseInterface';
 const Game: FunctionComponent = () => {
     const router = useRouter();
     const { slug } = router.query;
-    const { data, error } = useSWR<GameInfo>(`/games/${slug}`, fetcher);
+    const { data, error } = useSWR<GameInfo>(() => (slug ? `/games/${slug}` : null), fetcher);
     if (error) {
         return <Error statusCode={404} />;
     }

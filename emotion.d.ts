@@ -16,6 +16,12 @@ declare module '@emotion/react' {
                 hover: string;
                 disabled: string;
             };
+            danger: {
+                default: string;
+                active: string;
+                hover: string;
+                disabled: string;
+            };
         };
         buttonColors: {
             primary: {
@@ -25,6 +31,12 @@ declare module '@emotion/react' {
                 disabled: string;
             };
             secondary: {
+                default: string;
+                active: string;
+                hover: string;
+                disabled: string;
+            };
+            danger: {
                 default: string;
                 active: string;
                 hover: string;
@@ -44,6 +56,12 @@ declare module '@emotion/react' {
                 disabled: string;
             };
             secondary: {
+                default: string;
+                active: string;
+                hover: string;
+                disabled: string;
+            };
+            danger: {
                 default: string;
                 active: string;
                 hover: string;
