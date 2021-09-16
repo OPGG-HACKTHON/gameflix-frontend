@@ -27,9 +27,11 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
     const { page = 1 } = router.query;
     const url = useMemo(() => {
         if (store === 'all') {
-            return `/games?page=${page}&size=${PAGE_SIZE}`;
+            return `/games?page=${Number(page) - 1}&size=${PAGE_SIZE}`;
         } else if (userId && store && page) {
-            return `/users/${userId}/stores/${store}/games?page=${page}&size=${PAGE_SIZE}`;
+            return `/users/${userId}/stores/${store}/games?page=${
+                Number(page) - 1
+            }&size=${PAGE_SIZE}`;
         }
         return null;
     }, [userId, store, page]);
