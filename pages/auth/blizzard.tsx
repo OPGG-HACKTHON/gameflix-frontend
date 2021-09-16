@@ -17,7 +17,7 @@ const Auth: FunctionComponent = () => {
     const getAccessToken = useCallback(
         async (code: string) => {
             const res = await axios.post(
-                `https://kr.battle.net/oauth/token?client_id=${BlizzardClientId}&client_secret=${BlizzardClientPwd}&grant_type=client_credentials&code=${code}&redirect_uri=${window.location.origin}/auth/`
+                `https://kr.battle.net/oauth/token?client_id=${BlizzardClientId}&client_secret=${BlizzardClientPwd}&grant_type=client_credentials&code=${code}&redirect_uri=http://www.gameflix.link/auth/`
             );
             setAccessToken(() => res.data.access_token);
         },

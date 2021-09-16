@@ -22,7 +22,6 @@ const Paginations: FunctionComponent<PaginationProps> = (props) => {
         | string
         | number
     )[];
-    console.log(paginationRange);
 
     const onNext = () => {
         onPageChange(currentPage + 1);
