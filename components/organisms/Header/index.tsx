@@ -19,7 +19,6 @@ const Header: FunctionComponent = () => {
     const [isOpenSearchModal, setIsOpenSearchModal] = useState<boolean>(false);
     const { mutate } = useSWRConfig();
     const router = useRouter();
-    console.log(router.pathname);
     const { user, setUser } = useContext(UserContext);
     const getCurrentUser = useCallback(async () => {
         try {
