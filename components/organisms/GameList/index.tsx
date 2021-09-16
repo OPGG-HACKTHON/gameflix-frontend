@@ -21,14 +21,8 @@ type GameListProps = {
 
 const GameList: FunctionComponent<GameListProps> = (props) => {
     const { store } = props;
-
     const { user } = useContext(UserContext);
     const [pageIndex, setPageIndex] = useState<number>(1);
-    const [isOpenSearchModal, setIsOpenSearchModal] = useState<boolean>(false);
-    const router = useRouter();
-    const handleSteamLogin = useSteamLogin();
-    const handleBlizzardLogin = useBlizzardLogin();
-
     const { id: userId } = user || {};
     const router = useRouter();
     const { page = 1 } = router.query;
@@ -72,24 +66,6 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
         router.push('/login');
     }
 
-    if (!data || error) {
-        return (
-            <>
-                <ListContainer>
-                    <ListTitle>당신의 {STORE_NAME[store]}게임 라이브러리</ListTitle>
-                    <SkeletonTheme color="rgba(196,196,196,0.5)">
-                        <ImageSkeleton />
-                        <ImageSkeleton />
-                        <ImageSkeleton />
-                        <ImageSkeleton />
-                        <ImageSkeleton />
-                        <ImageSkeleton />
-                    </SkeletonTheme>
-                </ListContainer>
-            </>
-        );
-    }
-
     if (error) {
         return <Error statusCode={404} />;
     }
@@ -126,7 +102,7 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
             </ListContainer>
             <Paginations
                 currentPage={pageIndex}
-                totalCount={data.totalElements}
+                totalCount={data?.totalElements ?? 0}
                 pageSize={PAGE_SIZE}
                 onPageChange={setPageIndex}
                 siblingCount={2}
