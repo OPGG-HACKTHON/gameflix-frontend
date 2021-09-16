@@ -101,14 +101,14 @@ export const useBlizzardLogin = (
 
     useEffect(() => {
         const listener = async (event: MessageEvent) => {
-            const { accessToken, user } = event.data;
+            const { accessToken, userId } = event.data;
             const token = window.localStorage.getItem('token');
-            if (!accessToken || !user) {
+            if (!accessToken || !userId) {
                 return;
             }
 
             const res = await axios.post(
-                `${END_POINT}/users/${user}/stores`,
+                `${END_POINT}/users/${userId}/stores`,
                 {
                     slug: 'blizzard',
                     authentication: accessToken,
@@ -121,7 +121,7 @@ export const useBlizzardLogin = (
             );
             console.log(res.data);
             onSetMyBlizzard(res.data.games);
-            mutate(`/users/${user}/stores/blizzard/games`);
+            mutate(`/users/${userId}/stores/blizzard/games`);
         };
 
         window.addEventListener('message', listener);

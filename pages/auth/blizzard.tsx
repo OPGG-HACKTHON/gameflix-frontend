@@ -11,7 +11,7 @@ const REDIRECT_URI = 'http://localhost:3000/auth/';
 
 const Auth: FunctionComponent = () => {
     const [accessToken, setAccessToken] = useState<string>('');
-    const [user, setUser] = useState<UserInfo>();
+    const [userId, setUserId] = useState<string>();
 
     const router = useRouter();
     const { code } = router.query;
@@ -32,7 +32,7 @@ const Auth: FunctionComponent = () => {
             if (!res) {
                 return;
             }
-            setUser(() => res.id);
+            setUserId(() => res.id);
         } catch (e) {
             console.log(e);
         }
@@ -46,7 +46,7 @@ const Auth: FunctionComponent = () => {
         window.opener.postMessage(
             {
                 accessToken,
-                user,
+                userId,
             },
             'http://localhost:3000/'
         );
