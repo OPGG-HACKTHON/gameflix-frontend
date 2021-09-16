@@ -3,3 +3,4 @@ export { ReactComponent as Dark } from './dark.svg';
 export { ReactComponent as Close } from './close.svg';
 export { ReactComponent as Magnifier } from './magnifier.svg';
 export { ReactComponent as Check } from './check.svg';
+export { ReactComponent as InitialLogo } from './initialLogo.svg';

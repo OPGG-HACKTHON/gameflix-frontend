@@ -1,7 +1,36 @@
+export interface Pagination {
+    number: 0;
+    size: number;
+    numberOfElements: number;
+    isFirst: boolean;
+    isLast: boolean;
+    hasNext: boolean;
+    hasPrevious: boolean;
+    totalPages: number;
+    totalElements: number;
+}
+
 export interface SimpleGameInfo {
     slug: string;
     name: string;
     cover: string;
+    release_at: number;
+    store: string;
+    developer: string;
+    collected: boolean;
+}
+
+export interface GameSearchInfos {
+    games: SimpleGameInfo[];
+    number: number;
+    size: number;
+    numberOfElements: number;
+    isFirst: boolean;
+    isLast: boolean;
+    hasNext: boolean;
+    hasPrevious: boolean;
+    totalPage: number;
+    totalElements: number;
 }
 
 export interface GameInfo {
@@ -28,4 +57,8 @@ export interface UserInfo {
 
 export interface UserGames {
     games: GameInfo[];
+}
+
+export interface GameResponse extends Pagination {
+    games: SimpleGameInfo[];
 }
