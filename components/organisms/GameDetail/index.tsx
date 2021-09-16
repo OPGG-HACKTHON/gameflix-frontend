@@ -1,12 +1,15 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext, useMemo } from 'react';
 import styled from '@emotion/styled';
 import { GameInfo } from 'types/responseInterface';
 import { format } from 'date-fns';
 import Button from 'components/atoms/Button';
+import UserContext from 'context/user';
 
 const GameDetail: FunctionComponent<GameInfo> = (props) => {
-    const { cover, name, description, release_at, developer, genres, platforms, background } =
+    const { slug, cover, name, description, release_at, developer, genres, platforms, background } =
         props;
+    const { user } = useContext(UserContext);
+    const hasGame = useMemo(() => user?.games.some((game) => game.slug === slug), [user, slug]);
     return (
         <GameDetailContainer>
             <ScreenShotWrapper>

@@ -5,6 +5,6 @@ export const GAME_GET_SIZE = 10;
 
 export const STORE_NAME = {
     steam: 'STEAM',
-    battlenet: 'battle.net',
+    blizzard: 'BLIZZARD',
     etc: '기타',
 };

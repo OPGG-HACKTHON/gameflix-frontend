@@ -11,6 +11,7 @@ const Auth: FunctionComponent = () => {
         window.opener.postMessage(
             {
                 userId,
+                store: 'steam',
             },
             'http://localhost:3000'
         );
