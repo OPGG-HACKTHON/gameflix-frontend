@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useCallback, useContext, useMemo } from 'react';
+import React, { FunctionComponent, useCallback, useContext, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { GameInfo } from 'types/responseInterface';
 import { format } from 'date-fns';
@@ -53,6 +53,9 @@ const GameDetail: FunctionComponent<GameInfo> = (props) => {
                     <img src={cover} alt="game cover" />
                     {myGame ? (
                         <>
+                            <Button category={'primary'} disabled fullWidth>
+                                내 라이브러리에 추가됨
+                            </Button>
                             <Button category={'danger'} fullWidth onClick={removeGame}>
                                 내 라이브러리에서 삭제
                             </Button>
