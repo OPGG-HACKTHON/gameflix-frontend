@@ -22,15 +22,14 @@ type GameListProps = {
 const GameList: FunctionComponent<GameListProps> = (props) => {
     const { store } = props;
     const { user } = useContext(UserContext);
-    const [pageIndex, setPageIndex] = useState<number>(1);
     const { id: userId } = user || {};
     const router = useRouter();
     const { page = 1 } = router.query;
     const url = useMemo(() => {
         if (store === 'all') {
-            return `/games?page=${pageIndex - 1}&size=${PAGE_SIZE}`;
-        } else if (userId && store && pageIndex) {
-            return `/users/${userId}/stores/${store}/games?page=${pageIndex - 1}&size=${PAGE_SIZE}`;
+            return `/games?page=${page}&size=${PAGE_SIZE}`;
+        } else if (userId && store && page) {
+            return `/users/${userId}/stores/${store}/games?page=${page}&size=${PAGE_SIZE}`;
         }
         return null;
     }, [userId, store, page]);
@@ -83,9 +82,15 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
                 <SkeletonTheme color="rgba(196,196,196,0.5)">
                     <GameContainer>
                         {!data ? (
-                            <li>
-                                <ImageSkeleton />
-                            </li>
+                            <>
+                                {Array(24)
+                                    .fill(0)
+                                    .map((item, index) => (
+                                        <li key={index}>
+                                            <ImageSkeleton />
+                                        </li>
+                                    ))}
+                            </>
                         ) : data.games.length === 0 ? (
                             <EmptyList>
                                 <span>라이브러리가 비어 있습니다.</span>
@@ -101,10 +106,10 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
                 </SkeletonTheme>
             </ListContainer>
             <Paginations
-                currentPage={pageIndex}
+                currentPage={Number(page)}
                 totalCount={data?.totalElements ?? 0}
                 pageSize={PAGE_SIZE}
-                onPageChange={setPageIndex}
+                onPageChange={(page) => router.push(`/${store}?page=${page}`)}
                 siblingCount={2}
             />
             <Modal isOpen={isOpenSearchModal} onClose={handleClose}>
@@ -164,7 +169,7 @@ const EmptyList = styled.li`
 `;
 
 const ImageSkeleton = styled(Skeleton)`
-    max-width: 276px;
+    min-width: 264px;
     min-height: 368px;
-    margin: 0 8px;
+    margin: 0 0 87px 0;
 `;
