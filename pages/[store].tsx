@@ -4,12 +4,13 @@ import { STORE_NAME } from '../constant';
 import GameList from 'components/organisms/GameList';
 import HomeTemplate from 'components/templates/Home';
 import Header from 'components/organisms/Header';
+import Footer from 'components/organisms/Footer';
 
 const Store: FunctionComponent = () => {
     const router = useRouter();
     const store = String(router.query?.store) as keyof typeof STORE_NAME;
     return (
-        <HomeTemplate header={<Header />}>
+        <HomeTemplate header={<Header />} footer={<Footer />}>
             <GameList store={store} />
         </HomeTemplate>
     );

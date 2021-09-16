@@ -42,3 +42,13 @@ export const InitialLogo = Template.bind({});
 InitialLogo.args = {
     name: 'InitialLogo',
 };
+
+export const LeftArrow = Template.bind({});
+LeftArrow.args = {
+    name: 'LeftArrow',
+};
+
+export const RightArrow = Template.bind({});
+RightArrow.args = {
+    name: 'RightArrow',
+};

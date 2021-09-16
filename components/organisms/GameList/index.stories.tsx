@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import GameList from '../GameList';
+import GameList from './';
 
 export default {
     title: 'organisms/GameList',

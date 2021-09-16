@@ -3,10 +3,11 @@ import { PAGE_SIZE, STORE_NAME } from '../../../constant';
 import styled from '@emotion/styled';
 import Button from 'components/atoms/Button';
 import GameImage from 'components/atoms/GameImage';
+import Paginations from 'components/molecules/pagination';
 import useSWR, { useSWRConfig } from 'swr';
 import UserContext from 'context/user';
 import fetcher from 'utils/fetcher';
-import { useSteamLogin } from '../../../hooks';
+import { useSteamLogin, useBlizzardLogin } from 'hooks/';
 import { useRouter } from 'next/router';
 import { GameResponse } from 'types/responseInterface';
 import Modal from 'components/molecules/Modal';
@@ -20,45 +21,76 @@ type GameListProps = {
 
 const GameList: FunctionComponent<GameListProps> = (props) => {
     const { store } = props;
+
     const { user } = useContext(UserContext);
-    const { id: userId } = user || {};
+    const [pageIndex, setPageIndex] = useState<number>(1);
+    const [isOpenSearchModal, setIsOpenSearchModal] = useState<boolean>(false);
     const router = useRouter();
-    const { page = 1 } = router.query;
+    const handleSteamLogin = useSteamLogin();
+    const handleBlizzardLogin = useBlizzardLogin();
+
+    const { id: userId } = user || {};
     const { mutate } = useSWRConfig();
+
     const url = useMemo(() => {
         if (store === 'all') {
-            return `/games?page=${page}&size=${PAGE_SIZE}`;
-        } else if (userId && store && page) {
-            return `/users/${userId}/stores/${store}/games?page=${page}&size=${PAGE_SIZE}`;
+            return `/games?page=${pageIndex - 1}&size=${PAGE_SIZE}`;
+        } else if (userId && store && pageIndex) {
+            return `/users/${userId}/stores/${store}/games?page=${pageIndex - 1}&size=${PAGE_SIZE}`;
         }
         return null;
-    }, [userId, store, page]);
+    }, [userId, store, pageIndex]);
     const { data, error } = useSWR<GameResponse>(url, fetcher);
-    const handleSteamLogin = useSteamLogin();
-    const [isOpenSearchModal, setIsOpenSearchModal] = useState<boolean>(false);
+
     const handleLoadClick = useMemo(() => {
         switch (store) {
             case 'steam':
                 return handleSteamLogin;
+            case 'blizzard':
+                return handleBlizzardLogin;
             case 'etc':
                 return () => setIsOpenSearchModal(true);
         }
     }, [store, handleSteamLogin, setIsOpenSearchModal]);
+
     const handleClose = useCallback(async () => {
         setIsOpenSearchModal(false);
         if (store === 'etc') {
             await mutate(
-                `/users/${user?.id}/stores/etc/games?page=${page}&size=${PAGE_SIZE}`,
-                fetcher(`/users/${user?.id}/stores/etc/games?page=${page}&size=${PAGE_SIZE}`)
+                `/users/${user?.id}/stores/etc/games?page=${pageIndex - 1}&size=${PAGE_SIZE}`,
+                fetcher(
+                    `/users/${user?.id}/stores/etc/games?page=${pageIndex - 1}&size=${PAGE_SIZE}`
+                )
             );
         }
     }, [user]);
+
     if (error) {
         router.push('/login');
     }
+
+    if (!data || error) {
+        return (
+            <>
+                <ListContainer>
+                    <ListTitle>당신의 {STORE_NAME[store]}게임 라이브러리</ListTitle>
+                    <SkeletonTheme color="rgba(196,196,196,0.5)">
+                        <ImageSkeleton />
+                        <ImageSkeleton />
+                        <ImageSkeleton />
+                        <ImageSkeleton />
+                        <ImageSkeleton />
+                        <ImageSkeleton />
+                    </SkeletonTheme>
+                </ListContainer>
+            </>
+        );
+    }
+
     if (error) {
         return <Error statusCode={404} />;
     }
+
     return (
         <>
             <ListContainer>
@@ -89,6 +121,13 @@ const GameList: FunctionComponent<GameListProps> = (props) => {
                     </GameContainer>
                 </SkeletonTheme>
             </ListContainer>
+            <Paginations
+                currentPage={pageIndex}
+                totalCount={data.totalElements}
+                pageSize={PAGE_SIZE}
+                onPageChange={setPageIndex}
+                siblingCount={2}
+            />
             <Modal isOpen={isOpenSearchModal} onClose={handleClose}>
                 <Search />
             </Modal>
@@ -146,6 +185,7 @@ const EmptyList = styled.li`
 `;
 
 const ImageSkeleton = styled(Skeleton)`
-    min-width: 264px;
-    min-height: 352px;
+    max-width: 276px;
+    min-height: 368px;
+    margin: 0 8px;
 `;
