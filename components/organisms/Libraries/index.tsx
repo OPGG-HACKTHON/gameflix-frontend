@@ -40,6 +40,7 @@ const Libraries: FunctionComponent = () => {
         setIsOpenSearchModal(false);
         etcMutate(fetcher(`/users/${user?.id}/stores/etc/games?size=6`));
     }, [user, etcMutate]);
+    const { data: allData } = useSWR<GameResponse>(`/games?size=6`, fetcher);
 
     return (
         <>
@@ -47,22 +48,28 @@ const Libraries: FunctionComponent = () => {
                 store={'steam'}
                 list={steamData?.games}
                 onLoad={handleSteamLoad}
-                numberOfElements={steamData?.numberOfElements}
+                numberOfElements={steamData?.totalElements}
                 loading={!steamData}
             />
             <Library
                 store={'blizzard'}
                 list={battleNetData?.games}
                 onLoad={handleBlizzardLogin}
-                numberOfElements={battleNetData?.numberOfElements}
+                numberOfElements={battleNetData?.totalElements}
                 loading={!battleNetData}
             />
             <Library
                 store={'etc'}
                 list={etcData?.games}
                 onLoad={() => setIsOpenSearchModal(true)}
-                numberOfElements={etcData?.numberOfElements}
+                numberOfElements={etcData?.totalElements}
                 loading={!etcData}
+            />
+            <Library
+                store={'all'}
+                list={allData?.games}
+                numberOfElements={allData?.totalElements}
+                loading={!allData}
             />
             <Modal isOpen={isOpenSearchModal} onClose={handleClose}>
                 <Search />

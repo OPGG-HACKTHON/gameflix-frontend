@@ -20,6 +20,12 @@ const Home: FunctionComponent<HomeProps> = (props) => {
 
 export default Home;
 
-const StyledWrapper = styled.div``;
+const StyledWrapper = styled.div`
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+`;
 
-const StyledContent = styled.main``;
+const StyledContent = styled.main`
+    flex: 1;
+`;
