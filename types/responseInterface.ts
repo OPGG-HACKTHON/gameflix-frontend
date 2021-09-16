@@ -17,6 +17,7 @@ export interface SimpleGameInfo {
     release_at: number;
     store: string;
     developer: string;
+    collected: boolean;
 }
 
 export interface GameSearchInfos {

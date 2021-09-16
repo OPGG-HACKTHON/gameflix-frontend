@@ -33,6 +33,10 @@ const GameName = styled.p`
     font-size: 16px;
     line-height: 23px;
     color: ${({ theme }) => theme.colors.default};
+    width: 274px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 `;
 
 const GameLink = styled.a`

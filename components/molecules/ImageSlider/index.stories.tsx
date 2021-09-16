@@ -11,6 +11,7 @@ const list = [
         store: 'steam',
         developer: 'not found',
         release_at: 1256605200,
+        collected: false,
     },
     {
         slug: 'factorio',
@@ -19,6 +20,7 @@ const list = [
         store: 'steam',
         developer: 'not found',
         release_at: 1256605200,
+        collected: false,
     },
     {
         slug: 'RimWorld',
@@ -27,18 +29,25 @@ const list = [
         store: 'steam',
         developer: 'not found',
         release_at: 1256605200,
+        collected: false,
     },
     {
         slug: 'PUBG: BATTLEGROUNDS',
         name: 'PUBG: BATTLEGROUNDS',
         cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co3j3h.jpg',
         store: 'steam',
+        developer: 'not found',
+        release_at: 1256605200,
+        collected: false,
     },
     {
         slug: 'Oxygen Not Included',
         name: 'Oxygen Not Included',
         cover: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1rq7.jpg',
         store: 'steam',
+        developer: 'not found',
+        release_at: 1256605200,
+        collected: false,
     },
 ];
 
@@ -65,6 +74,7 @@ OneImage.args = {
             store: 'steam',
             developer: 'not found',
             release_at: 1256605200,
+            collected: false,
         },
     ],
 };
