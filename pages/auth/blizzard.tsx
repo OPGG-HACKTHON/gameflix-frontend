@@ -29,6 +29,9 @@ const Auth: FunctionComponent = () => {
             return;
         }
 
+        // Debug H
+        console.log('AccessToken is, ', accessToken);
+
         window.opener.postMessage(
             {
                 accessToken,
@@ -36,7 +39,7 @@ const Auth: FunctionComponent = () => {
             },
             window.location.origin
         );
-        window.close();
+        // window.close();
     }, [code, accessToken]);
 
     useEffect(() => {

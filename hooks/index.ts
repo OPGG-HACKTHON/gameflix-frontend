@@ -43,11 +43,17 @@ export const useSteamLogin = (callback?: () => void) => {
 export const useBlizzardLogin = (callback?: () => void) => {
     const { user } = useContext(UserContext);
     const handleLogin = () => {
-        window.open(
-            `https://kr.battle.net/login/en/?ref=https://kr.battle.net/oauth/authorize?client_id%3Dbdd7aad97d4e4e768f45a2af2830dfd5%26response_type%3Dcode%26redirect_uri%3D${window.location.origin}/auth/blizzard/%26scope%3Dwow.profile%2520sc2.profile%2520d3.profile&app=oauth`,
-            '_blank',
-            'width=800, height=600'
-        );
+        // Debug H
+        console.log('Open new Window,');
+        try {
+            window.open(
+                `https://kr.battle.net/login/en/?ref=https://kr.battle.net/oauth/authorize?client_id%3Dbdd7aad97d4e4e768f45a2af2830dfd5%26response_type%3Dcode%26redirect_uri%3D${window.location.origin}/auth/blizzard/%26scope%3Dwow.profile%2520sc2.profile%2520d3.profile&app=oauth`,
+                '_blank',
+                'width=800, height=600'
+            );
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     useEffect(() => {
