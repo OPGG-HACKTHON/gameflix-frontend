@@ -5,8 +5,8 @@ import axios from 'axios';
 import { postUser } from 'api/user';
 import { UserInfo } from 'types/responseInterface';
 
-const BlizzardClientId = '916b6064383441388fa56d2b3af3779a';
-const BlizzardClientPwd = 'RrKJsOMXTn7AVxhFyscX8ABQiF9Ja9nw';
+const BlizzardClientId = '9826e228ca7a45dea91f7f04652bbea3';
+const BlizzardClientPwd = '4l1Yol28Dbwdxx0tpPIELGxJKSI92XN1';
 const CLIENT = `https://www.gameflix.link/`;
 
 const Auth: FunctionComponent = () => {
