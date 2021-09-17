@@ -40,11 +40,14 @@ export const useSteamLogin = (callback?: () => void) => {
     return handleLogin;
 };
 
+const BlizzardClientId = '9826e228ca7a45dea91f7f04652bbea3';
+const BlizzardClientPwd = '4l1Yol28Dbwdxx0tpPIELGxJKSI92XN1';
+
 export const useBlizzardLogin = (callback?: () => void) => {
     const { user } = useContext(UserContext);
     const handleLogin = () => {
         window.open(
-            `https://kr.battle.net/login/en/?ref=https://kr.battle.net/oauth/authorize?client_id%3D9826e228ca7a45dea91f7f04652bbea3%26response_type%3Dcode%26redirect_uri%3Dhttps://www.gameflix.link/auth/blizzard/%26scope%3Dwow.profile%2520sc2.profile%2520d3.profile&app=oauth`,
+            `https://kr.battle.net/login/en/?ref=https://kr.battle.net/oauth/authorize?client_id%${BlizzardClientId}%26response_type%3Dcode%26redirect_uri%3Dhttps://www.gameflix.link/auth/blizzard/%26scope%3Dwow.profile%2520sc2.profile%2520d3.profile&app=oauth`,
             '_blank',
             'width=800, height=600'
         );
