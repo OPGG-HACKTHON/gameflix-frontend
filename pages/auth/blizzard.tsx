@@ -15,6 +15,8 @@ const Auth: FunctionComponent = () => {
 
     const getAccessToken = useCallback(
         async (code: string) => {
+            // Debug H
+            console.log('===AccessToken post requesting...===');
             const res = await axios.post(
                 `https://kr.battle.net/oauth/token?client_id=${BlizzardClientId}&client_secret=${BlizzardClientPwd}&grant_type=client_credentials&code=${code}&redirect_uri=${CLIENT}`
             );
