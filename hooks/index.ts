@@ -44,7 +44,7 @@ export const useBlizzardLogin = (callback?: () => void) => {
     const { user } = useContext(UserContext);
     const handleLogin = () => {
         window.open(
-            `https://kr.battle.net/login/en/?ref=https://kr.battle.net/oauth/authorize?client_id%3Dbdd7aad97d4e4e768f45a2af2830dfd5%26response_type%3Dcode%26redirect_uri%3D$https://www.gameflix.link/auth/blizzard/%26scope%3Dwow.profile%2520sc2.profile%2520d3.profile&app=oauth`,
+            `https://kr.battle.net/login/en/?ref=https://kr.battle.net/oauth/authorize?client_id%3D9826e228ca7a45dea91f7f04652bbea3%26response_type%3Dcode%26redirect_uri%3D${window.location.origin}/auth/blizzard/%26scope%3Dwow.profile%2520sc2.profile%2520d3.profile&app=oauth`,
             '_blank',
             'width=800, height=600'
         );
