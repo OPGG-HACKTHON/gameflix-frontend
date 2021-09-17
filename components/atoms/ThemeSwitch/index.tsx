@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useState } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import Switch from 'react-switch';
 
 import Icon from 'components/atoms/Icon/Icon';
@@ -8,6 +8,9 @@ import ThemeContext from 'context/theme';
 const ThemeSwitch: FunctionComponent = () => {
     const { isDark, toggleTheme } = useContext(ThemeContext);
     const [checked, setChecked] = useState(isDark);
+    useEffect(() => {
+        setChecked(isDark);
+    }, [isDark]);
 
     const handleChange = () => {
         setChecked(!checked);

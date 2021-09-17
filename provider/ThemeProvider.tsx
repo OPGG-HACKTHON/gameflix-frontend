@@ -7,9 +7,13 @@ const ThemeProvider: FunctionComponent = (props) => {
     const { children } = props;
     const [isDark, setIsDark] = useState<boolean>(false);
     useEffect(() => {
-        const isPrevDarkMode = window.localStorage.getItem('theme') === 'dark';
+        const prevTheme = window.localStorage.getItem('theme');
         const isLocalDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        setIsDark(isPrevDarkMode || isLocalDarkMode);
+        if (prevTheme) {
+            setIsDark(prevTheme === 'dark');
+        } else {
+            setIsDark(isLocalDarkMode);
+        }
     }, []);
     useEffect(() => {
         window.localStorage.setItem('theme', isDark ? 'dark' : 'light');
