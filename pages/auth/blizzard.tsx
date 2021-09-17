@@ -27,7 +27,6 @@ const Auth: FunctionComponent = () => {
         if (!accessToken || !window.opener) {
             return;
         }
-
         window.opener.postMessage(
             {
                 accessToken,
@@ -35,6 +34,7 @@ const Auth: FunctionComponent = () => {
             },
             window.location.origin
         );
+        window.close();
     }, [code, accessToken]);
 
     useEffect(() => {
