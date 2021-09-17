@@ -41,7 +41,6 @@ export const useSteamLogin = (callback?: () => void) => {
 };
 
 const BlizzardClientId = '9826e228ca7a45dea91f7f04652bbea3';
-const BlizzardClientPwd = '4l1Yol28Dbwdxx0tpPIELGxJKSI92XN1';
 
 export const useBlizzardLogin = (callback?: () => void) => {
     const { user } = useContext(UserContext);

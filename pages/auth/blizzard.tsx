@@ -2,8 +2,6 @@ import React, { FunctionComponent, useEffect, useState, useCallback } from 'reac
 import { useRouter } from 'next/router';
 
 import axios from 'axios';
-import { postUser } from 'api/user';
-import { UserInfo } from 'types/responseInterface';
 
 const BlizzardClientId = '9826e228ca7a45dea91f7f04652bbea3';
 const BlizzardClientPwd = '4l1Yol28Dbwdxx0tpPIELGxJKSI92XN1';
@@ -31,10 +29,6 @@ const Auth: FunctionComponent = () => {
         if (!accessToken || !window.opener) {
             return;
         }
-
-        // Debug H
-        console.log('AccessToken is, ', accessToken);
-
         window.opener.postMessage(
             {
                 accessToken,
@@ -42,7 +36,7 @@ const Auth: FunctionComponent = () => {
             },
             window.location.origin
         );
-        // window.close();
+        window.close();
     }, [code, accessToken]);
 
     useEffect(() => {
