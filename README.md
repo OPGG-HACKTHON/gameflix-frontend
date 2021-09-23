@@ -52,7 +52,7 @@ To Use Gameflix, click 👉 [Gameflix](https://www.gameflix.link/)
 
 ![image](https://user-images.githubusercontent.com/52649378/134445894-d57f6f54-0b67-4ba1-9f5d-cf87fb04519f.png)
 
-#### What Else?
+### What Else?
 
 -   Login with Google using OpenID Connect.
 -   Search and add games.
@@ -61,7 +61,9 @@ To Use Gameflix, click 👉 [Gameflix](https://www.gameflix.link/)
 ## Built With
 
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) <img alt="swr" src ="https://img.shields.io/badge/swr-CC092F.svg?&style=for-the-badge&logo=Broadcom&logoColor=white"/>
+
 <img alt="storybook" src ="https://img.shields.io/badge/storybook-FF4785.svg?&style=for-the-badge&logo=Storybook&logoColor=white"/> <img alt="emotion" src ="https://img.shields.io/badge/emotion-DB7093.svg?&style=for-the-badge&logo=styledcomponents&logoColor=white"/> <img alt="eslint" src ="https://img.shields.io/badge/figma-F24E1E.svg?&style=for-the-badge&logo=figma&logoColor=white"/>
+
 <img alt="prettier" src ="https://img.shields.io/badge/prettier-F7B93E.svg?&style=for-the-badge&logo=prettier&logoColor=white"/> <img alt="eslint" src ="https://img.shields.io/badge/eslint-4B32C3.svg?&style=for-the-badge&logo=eslint&logoColor=white"/>
 
 ## Documents
